@@ -1,0 +1,54 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to SSH
+        uses: appleboy/ssh-action@v0.1.4
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PATH }}
+            git pull origin master
+            
+    
+  build:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: appleboy/ssh-action@v0.1.4
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PATH }}
+            yarn install
+            yarn generate
+    
+  run:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: appleboy/ssh-action@v0.1.4
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PATH }}
+            netlify deploy -p
