@@ -1,0 +1,21 @@
+version: "3"
+services:
+  mariadb:
+    image: mariadb
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_USER: root
+        MYSQL_PASSWORD: password
+        MYSQL_DATABASE: artapi
+  adonisjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      volumes:
+        - .:/home/node/app
+        - /home/node/app/node_modules
+      ports:
+        - 80:3333
+      depends_on:
+        - mariadb
