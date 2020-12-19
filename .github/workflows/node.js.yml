@@ -34,4 +34,5 @@ jobs:
           git pull
           yarn install
           yarn build
+          cp .env /build/
           pm2 start
