@@ -6,7 +6,7 @@ export default class DockerCommand extends BaseModel {
   public id: number
 
   @column()
-  public command: string
+  public commands: bigint
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

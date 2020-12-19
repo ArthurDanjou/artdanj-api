@@ -6,7 +6,7 @@ export default class DockerBuild extends BaseModel {
   public id: number
 
   @column()
-  public build: bigint
+  public builds: bigint
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

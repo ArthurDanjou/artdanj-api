@@ -9,7 +9,7 @@ export default class Location extends BaseModel {
   public since: DateTime
 
   @column()
-  public location: string
+  public place: string
 
   @column()
   public left: string

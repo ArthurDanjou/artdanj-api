@@ -5,6 +5,11 @@ import HealthCheck from "@ioc:Adonis/Core/HealthCheck";
 
 const BASE_URL = "https://api.arthurdanjou.fr"
 
+Route.get('/health', async ({ response }) => {
+  const report = await HealthCheck.getReport()
+  return report.healthy ? response.ok(report) : response.badRequest(report)
+})
+
 Route.get('/', async ({response}: HttpContextContract) => {
   response.status(200).send({
     domain: "api.arthurdanjou.fr",
@@ -14,6 +19,7 @@ Route.get('/', async ({response}: HttpContextContract) => {
       stats_data: `${BASE_URL}/stats`,
       state_data: `${BASE_URL}/state`,
       locations_data: `${BASE_URL}/location`,
+      locations_history: `${BASE_URL}/location/history`,
       health: `${BASE_URL}/health`
     }
   })
@@ -23,7 +29,6 @@ Route.get('/', async ({response}: HttpContextContract) => {
 
 TODO
 
-Stats : Daily, weekly, monthly (Docker Build & commands, Dev hours)
 Location: get Last + Add location + View history
 Deezer Songs:
 
@@ -32,10 +37,8 @@ Tasks: kernel : setTimeout or cron
   Deezer songs: 1min
  */
 
-Route.get('/health', async ({ response }) => {
-  const report = await HealthCheck.getReport()
-  return report.healthy ? response.ok(report) : response.badRequest(report)
-})
+Route.get('/location', 'LocationsController.get')
+Route.get('/location/history', 'LocationsController.history')
 Route.get('/stats', 'StatsController.get')
 Route.get('/state', 'StatesController.get')
 Route.resource('users', 'UsersController').only(['index', 'show'])
@@ -54,8 +57,11 @@ Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
   Route.resource('posts', 'PostsController').only(['store', 'update', 'destroy'])
   Route.resource('subscribers', 'SubscribersController').only(['store', 'update', 'destroy'])
-  Route.resource('files', 'FileController').only(['store', 'update', 'destroy'])
+  Route.resource('files', 'FileController').only(['store', 'destroy'])
   Route.post('/state', 'StatesController.set')
+  Route.post('/stats/build', 'StatesController.incrementBuild')
+  Route.post('/stats/command', 'StatesController.incrementCommand')
+  Route.post('/location', 'StatesController.set')
 
 }).middleware('auth')
 

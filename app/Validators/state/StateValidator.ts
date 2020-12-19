@@ -13,5 +13,7 @@ export default class StateValidator {
   })
 
 
-  public messages = {}
+  public messages = {
+    required: 'Le champ {{field}} doit être valide !',
+  }
 }
