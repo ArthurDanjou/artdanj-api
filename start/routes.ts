@@ -29,7 +29,6 @@ Route.get('/', async ({response}: HttpContextContract) => {
 
 TODO
 
-Location: get Last + Add location + View history
 Deezer Songs:
 
 Tasks: kernel : setTimeout or cron
