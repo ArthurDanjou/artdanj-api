@@ -12,7 +12,7 @@ Route.get('/health', async ({ response }) => {
 
 Route.get('/', async ({response}: HttpContextContract) => {
   response.status(200).send({
-    domain: "api.arthurdanjou.fr",
+    domain: BASE_URL,
     version: "1.0",
     routes: {
       deezer_data: `${BASE_URL}/deezer`,
@@ -33,7 +33,6 @@ Location: get Last + Add location + View history
 Deezer Songs:
 
 Tasks: kernel : setTimeout or cron
-  Dev hours: 5min
   Deezer songs: 1min
  */
 

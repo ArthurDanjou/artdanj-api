@@ -6,11 +6,15 @@ import DockerCommand from "App/Models/DockerCommand";
 export default class StatsController {
 
   public async get ({response}: HttpContextContract) {
+    const weekly = await getWeeklyStats();
+    const monthly = await getMonthlyStats();
+    const total = await getTotalStats();
+    const other = await getOtherStats();
     return response.status(200).send({
-      weekly: getWeeklyStats(),
-      monthly: getMonthlyStats(),
-      total: getTotalStats(),
-      other : getOtherStats()
+      weekly: weekly,
+      monthly: monthly,
+      total: total,
+      other : other
     })
   }
 
