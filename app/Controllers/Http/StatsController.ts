@@ -1,16 +1,18 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import {getTotalStats, getWeeklyStats, getMonthlyStats, getOtherStats} from 'App/Helpers/StatsHelper'
-import DockerBuild from "App/Models/DockerBuild";
-import DockerCommand from "App/Models/DockerCommand";
+import {getTotalStats, getWeeklyStats, getMonthlyStats, getOtherStats, getDailyStats} from 'App/Helpers/StatsHelper'
+import DockerBuild from "App/Models/DockerBuild"
+import DockerCommand from "App/Models/DockerCommand"
 
 export default class StatsController {
 
   public async get ({response}: HttpContextContract) {
-    const weekly = await getWeeklyStats();
-    const monthly = await getMonthlyStats();
-    const total = await getTotalStats();
-    const other = await getOtherStats();
+    const daily  = await getDailyStats()
+    const weekly = await getWeeklyStats()
+    const monthly = await getMonthlyStats()
+    const total = await getTotalStats()
+    const other = await getOtherStats()
     return response.status(200).send({
+      daily: daily,
       weekly: weekly,
       monthly: monthly,
       total: total,

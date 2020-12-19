@@ -35,6 +35,9 @@ Tasks: kernel : setTimeout or cron
   Deezer songs: 1min
  */
 
+Route.get('/source', async ({response}: HttpContextContract) => {
+  return response.redirect('https://github.com/arthurdanjou/artapi')
+})
 Route.get('/location', 'LocationsController.get')
 Route.get('/location/history', 'LocationsController.history')
 Route.get('/stats', 'StatsController.get')
