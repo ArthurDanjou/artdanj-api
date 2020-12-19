@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Location from "App/Models/Location";
-import StoreValidator from "App/Validators/locations/StoreValidator";
+import LocationValidator from "App/Validators/location/LocationValidator";
 
 export default class LocationsController {
 
@@ -20,8 +20,8 @@ export default class LocationsController {
     })
   }
 
-  public async set ({ request, response }: HttpContextContract) {
-    const data = await request.validate(StoreValidator)
+  public async add ({ request, response }: HttpContextContract) {
+    const data = await request.validate(LocationValidator)
     await Location.create(data)
     return response.status(200).send({
       message: 'Location successfully added !'

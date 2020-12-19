@@ -5,66 +5,63 @@ import HealthCheck from "@ioc:Adonis/Core/HealthCheck";
 
 const BASE_URL = "https://api.arthurdanjou.fr"
 
-Route.get('/health', async ({ response }) => {
-  const report = await HealthCheck.getReport()
-  return report.healthy ? response.ok(report) : response.badRequest(report)
-})
-
 Route.get('/', async ({response}: HttpContextContract) => {
-  response.status(200).send({
+  return response.status(200).send({
     domain: BASE_URL,
     version: "1.0",
     source: `${BASE_URL}/source`,
+    healthCheck: `${BASE_URL}/health`,
     routes: {
-      deezer_data: `${BASE_URL}/deezer`,
+      arthur_data: `${BASE_URL}/me`,
       stats_data: `${BASE_URL}/stats`,
-      state_data: `${BASE_URL}/state`,
-      locations_data: `${BASE_URL}/location`,
-      locations_history: `${BASE_URL}/location/history`,
-      health: `${BASE_URL}/health`
-    }
+      state_data: `${BASE_URL}/states`,
+      locations_data: `${BASE_URL}/locations`,
+      locations_history: `${BASE_URL}/locations/history`,
+      projects: `${BASE_URL}/projects`
+    },
+
   })
 })
-
-/*
-
-TODO
-
-Deezer Songs:
-
-Tasks: kernel : setTimeout or cron
-  Deezer songs: 1min
- */
 
 Route.get('/source', async ({response}: HttpContextContract) => {
   return response.redirect('https://github.com/arthurdanjou/artapi')
 })
-Route.get('/location', 'LocationsController.get')
-Route.get('/location/history', 'LocationsController.history')
+
+Route.get('health', async ({response}: HttpContextContract) => {
+  const report = await HealthCheck.getReport()
+  return report.healthy ? response.ok(report) : response.badRequest(report)
+})
+
+Route.get('/me', 'MeController.me')
+Route.get('/locations', 'LocationsController.get')
+Route.get('/locations/history', 'LocationsController.history')
 Route.get('/stats', 'StatsController.get')
-Route.get('/state', 'StatesController.get')
+Route.get('/states', 'StatesController.get')
+Route.get('/projects', 'ProjectsController.get')
 Route.resource('users', 'UsersController').only(['index', 'show'])
 Route.get('/posts/:slug', 'PostsController.getLikes')
 Route.get('/posts/is/:slug', 'PostsController.isLiked')
 Route.post('/posts/:slug/like', 'PostsController.like')
 Route.post('/posts/:slug/unlike', 'PostsController.unlike')
 Route.resource('subscribers', 'SubscribersController').only(['index', 'show'])
-Route.resource('files', 'FileController').only(['index'])
 
-Route.get('/files/:filename', async ({ response, params }) => {
-  response.download(Application.makePath('storage', params.filename))
-})
+Route.group(() => {
+  Route.get('/', 'FileController.index')
+  Route.get('/:filename', async ({ response, params }) => {
+    response.download(Application.makePath('storage', params.filename))
+  })
+}).prefix('/files')
 
 Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
   Route.resource('posts', 'PostsController').only(['store', 'update', 'destroy'])
   Route.resource('subscribers', 'SubscribersController').only(['store', 'update', 'destroy'])
   Route.resource('files', 'FileController').only(['store', 'destroy'])
-  Route.post('/state', 'StatesController.set')
+  Route.post('/states', 'StatesController.set')
   Route.post('/stats/build', 'StatesController.incrementBuild')
   Route.post('/stats/command', 'StatesController.incrementCommand')
-  Route.post('/location', 'StatesController.set')
-
+  Route.post('/locations', 'StatesController.add')
+  Route.post('/projects', 'ProjectsController.add')
 }).middleware('auth')
 
 Route.group(() => {
