@@ -6,7 +6,7 @@ async function getDailyStats() {
   const commands = await DockerCommand.query().where('created_at', '>', new Date().getTime())
   const {data} = await axios.get('https://wakatime.com/api/v1/users/arthurdanjou/stats/last_7_days')
   const builds = await DockerBuild.query().where('created_at', '>', new Date().getTime())
-  console.log('daily : ' + data)
+  console.log('daily : ' + data.data)
 
   return {
     development_hours: data.data[0].grand_total.total_seconds / 60 / 60,
