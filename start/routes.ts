@@ -33,11 +33,8 @@ Tasks: kernel : setTimeout or cron
  */
 
 Route.get('/health', async ({ response }) => {
-  const isLive = await HealthCheck.isLive()
-
-  return isLive
-    ? response.status(200).send({})
-    : response.status(400).send({})
+  const report = await HealthCheck.getReport()
+  return report.healthy ? response.ok(report) : response.badRequest(report)
 })
 Route.get('/state', 'StatesController.get')
 Route.resource('users', 'UsersController').only(['index', 'show'])
