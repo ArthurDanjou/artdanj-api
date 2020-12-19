@@ -17,38 +17,24 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd ${{ secrets.PATH }}
-            git pull origin master
+            git pull origin master -r artapi artapi-new
+            cd artapi-new
+            git fetch --all
+            git reset --hard origin/master
+            yarn install --only=master
+            node ace build --production
+            cp .env build/.env
 
+            cd ..
+            mv artapi artapi-old
+            mv artapi-new artapi
 
-  build:
-    needs: [deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ${{ secrets.PATH }}
-            yarn install
-            yarn build
+            # Restart server
 
-  run:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ${{ secrets.PATH }}
-            pm2 restart artapi
+            cd artapi
+            pm2 kill
+            pm2 start build/server.js --name artapi
+            rm -rf ../artapi-old
