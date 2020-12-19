@@ -11,7 +11,7 @@ async function getWeeklyStats() {
     development_hours: data.data.total_seconds / 60 / 60,
     docker_commands_run: commands.length,
     docker_build_count: builds.length,
-    best_project: data.data.projects[0]
+    best_project: data.data.projects
   }
 }
 
@@ -24,7 +24,7 @@ async function getMonthlyStats() {
     development_hours: data.data.total_seconds / 60 / 60,
     docker_commands_run: commands.length,
     docker_build_count: builds.length,
-    best_project: data.data.projects[0]
+    best_project: data.data.projects
   }
 }
 
