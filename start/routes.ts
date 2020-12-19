@@ -60,7 +60,7 @@ Route.group(() => {
   Route.post('/states', 'StatesController.set')
   Route.post('/stats/build', 'StatesController.incrementBuild')
   Route.post('/stats/command', 'StatesController.incrementCommand')
-  Route.post('/locations', 'StatesController.add')
+  Route.post('/locations', 'LocationsControllerf.add')
   Route.post('/projects', 'ProjectsController.add')
 }).middleware('auth')
 
