@@ -14,6 +14,7 @@ Route.get('/', async ({response}: HttpContextContract) => {
   response.status(200).send({
     domain: BASE_URL,
     version: "1.0",
+    source: `${BASE_URL}/source`,
     routes: {
       deezer_data: `${BASE_URL}/deezer`,
       stats_data: `${BASE_URL}/stats`,
