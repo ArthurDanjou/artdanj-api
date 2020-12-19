@@ -10,10 +10,10 @@ Route.get('/', async ({response}: HttpContextContract) => {
     domain: "api.arthurdanjou.fr",
     version: "1.0",
     routes: {
-      deezer_data: "",
-      stats_data: "",
+      deezer_data: `${BASE_URL}/deezer`,
+      stats_data: `${BASE_URL}/stats`,
       state_data: `${BASE_URL}/state`,
-      locations_data: "",
+      locations_data: `${BASE_URL}/location`,
       health: `${BASE_URL}/health`
     }
   })
@@ -36,6 +36,7 @@ Route.get('/health', async ({ response }) => {
   const report = await HealthCheck.getReport()
   return report.healthy ? response.ok(report) : response.badRequest(report)
 })
+Route.get('/stats', 'StatsController.get')
 Route.get('/state', 'StatesController.get')
 Route.resource('users', 'UsersController').only(['index', 'show'])
 Route.get('/posts/:slug', 'PostsController.getLikes')
