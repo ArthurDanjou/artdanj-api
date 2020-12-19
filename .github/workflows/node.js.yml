@@ -30,6 +30,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
+          cd ${{ secrets.PATH }}
           git pull
           yarn build
           pm2 start
