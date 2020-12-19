@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  deploy build and run:
+  deploy_build_run:
     runs-on: ubuntu-latest
     strategy:
       matrix:
