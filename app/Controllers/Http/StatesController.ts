@@ -47,6 +47,7 @@ export default class StatesController {
 
   public async setListeningStatus ({request, response}: HttpContextContract) {
     const listening = await request.input('listening')
+    console.log(listening)
     await Redis.set('artapi/states/listening', this.getState(listening))
     await UpdateGitHubReadme()
     return response.status(200).send({
