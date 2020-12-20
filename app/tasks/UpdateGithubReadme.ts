@@ -37,26 +37,38 @@ export async function UpdateGitHubReadme(): Promise<void> {
   const content = Buffer.from(read_me.content, 'base64').toString()
 
   const stats_table_check = '| Statistics' + content.split('| Statistics')[1]
-  console.log(stats_table_check)
   if (!stats_table_check) change = true
   const old_stats_table = stats_table_check.split('\n\n| Informations')[0]
   if (!old_stats_table) change = true
 
   const infos_table_check = '| Informations' + content.split('| Informations')[1]
-  console.log(infos_table_check)
   if (!infos_table_check) change = true
   const old_infos_table = infos_table_check.split('\n\n######')[0]
   if (!old_infos_table) change = true
 
-  console.log(infos_table)
-  console.log(stats_table)
+
   if (old_infos_table == infos_table && old_stats_table == stats_table) change = false
 
   if (!change) return
 
   console.log(content)
   let new_content = content.replace(old_stats_table, stats_table).replace(old_infos_table, infos_table);
+
+  console.log(" CONTENT")
   console.log(new_content)
+  console.log(" ")
+  console.log(" INFOS CHECK ")
+  console.log(infos_table_check)
+  console.log(" ")
+  console.log(" STATS CHECK ")
+  console.log(stats_table_check)
+  console.log(" ")
+  console.log(" INFOS")
+  console.log(infos_table)
+  console.log(" ")
+  console.log(" STATS ")
+  console.log(stats_table)
+  console.log(" ")
 
   await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
     headers: {
