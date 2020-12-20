@@ -41,7 +41,7 @@ export async function UpdateGitHubReadme(): Promise<void> {
   const old_stats_table = stats_table_check.split('\n\n| Informations')[0]
   if (!old_stats_table) change = true
 
-  const infos_table_check = '| Informations' + content.split('| Informations')[1]
+  const infos_table_check = '| Informations' + content.split('| Informations')[0]
   if (!infos_table_check) change = true
   const old_infos_table = infos_table_check.split('\n\n######')[0]
   if (!old_infos_table) change = true
@@ -51,10 +51,9 @@ export async function UpdateGitHubReadme(): Promise<void> {
 
   if (!change) return
 
-  console.log(content)
   let new_content = content.replace(old_stats_table, stats_table).replace(old_infos_table, infos_table);
 
-  console.log(" CONTENT")
+  console.log(" NEW CONTENT ")
   console.log(new_content)
   console.log(" ")
   console.log(" INFOS CHECK ")
