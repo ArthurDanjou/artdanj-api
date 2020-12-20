@@ -38,12 +38,12 @@ export async function UpdateGitHubReadme(): Promise<void> {
 
   const stats_table_check = '| Statistics' + content.split('| Statistics')[1]
   if (!stats_table_check) change = true
-  const old_stats_table = stats_table_check.split('\n\n| Informations')[0]
+  const old_stats_table = stats_table_check.split('| Informations')[0]
   if (!old_stats_table) change = true
 
   const infos_table_check = '| Informations' + content.split('| Informations')[1]
   if (!infos_table_check) change = true
-  const old_infos_table = infos_table_check.split('\n\n######')[0]
+  const old_infos_table = infos_table_check.split('######Curious')[0]
   if (!old_infos_table) change = true
 
 
