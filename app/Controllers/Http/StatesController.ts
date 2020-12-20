@@ -1,5 +1,4 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import StateValidator from "App/Validators/state/StateValidator";
 import Redis from "@ioc:Adonis/Addons/Redis";
 import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
 
@@ -19,27 +18,39 @@ export default class StatesController {
     })
   }
 
-  public async set ({request, response}: HttpContextContract) {
-    const data = await request.validate(StateValidator)
-    const { is_developing, is_learning, is_listening_music, is_sleeping } = data
-
-    if (is_listening_music) {
-      await Redis.set('artapi/state/listening', this.getState(is_listening_music))
-    }
-    if (is_developing) {
-      await Redis.set('artapi/state/developing', this.getState(is_developing))
-    }
-    if (is_learning) {
-      await Redis.set('artapi/state/learning', this.getState(is_learning))
-    }
-    if (is_sleeping) {
-      await Redis.set('artapi/state/sleeping', this.getState(is_sleeping))
-    }
-
+  public async setSleepingStatus ({request, response}: HttpContextContract) {
+    const sleeping = await request.input('sleeping')
+    await Redis.set('artapi/states/sleeping', this.getState(sleeping))
     await UpdateGitHubReadme()
-
     return response.status(200).send({
-      message: 'States successfully modified !'
+      message: 'State successfully updated !'
+    })
+  }
+
+  public async setDevelopingStatus ({request, response}: HttpContextContract) {
+    const developing = await request.input('developing')
+    await Redis.set('artapi/states/developing', this.getState(developing))
+    await UpdateGitHubReadme()
+    return response.status(200).send({
+      message: 'State successfully updated !'
+    })
+  }
+
+  public async setLearningStatus ({request, response}: HttpContextContract) {
+    const learning = await request.input('learning')
+    await Redis.set('artapi/states/learning', this.getState(learning))
+    await UpdateGitHubReadme()
+    return response.status(200).send({
+      message: 'State successfully updated !'
+    })
+  }
+
+  public async setListeningStatus ({request, response}: HttpContextContract) {
+    const listening = await request.input('listening')
+    await Redis.set('artapi/states/listening', this.getState(listening))
+    await UpdateGitHubReadme()
+    return response.status(200).send({
+      message: 'State successfully updated !'
     })
   }
 
