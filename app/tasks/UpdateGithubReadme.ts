@@ -14,6 +14,8 @@ export async function UpdateGitHubReadme(): Promise<void> {
   const developing = Boolean(await Redis.get('artapi/states/developing')) || false
   const listening_music = Boolean(await Redis.get('artapi/states/listening')) || false
 
+  console.log(sleeping, learning, developing, listening_music)
+
   const stats_table = `| Statistics                                  |    Daily    |      Weekly |      Monthly |        Total |
 | :------------------------------------------ | ----------: | ----------: | -----------: | -----------: |
 | :computer: Commands                         |       **${daily_stats.docker_commands_run}** |       **${weekly_stats.docker_commands_run}** |        **${monthly.docker_commands_run}** |        **${total_stats.docker_commands_run}** |
