@@ -43,7 +43,7 @@ export async function UpdateGitHubReadme(): Promise<void> {
 
   const infos_table_check = '| Informations' + content.split('| Informations')[1]
   if (!infos_table_check) change = true
-  const old_infos_table = infos_table_check.split('######Curious')[0]
+  const old_infos_table = infos_table_check.split('###### Curious')[0]
   if (!old_infos_table) change = true
 
 
@@ -57,10 +57,10 @@ export async function UpdateGitHubReadme(): Promise<void> {
   console.log(new_content)
   console.log(" ")
   console.log(" INFOS CHECK ")
-  console.log(infos_table_check)
+  console.log(old_infos_table)
   console.log(" ")
   console.log(" STATS CHECK ")
-  console.log(stats_table_check)
+  console.log(old_stats_table)
 
   await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
     headers: {
