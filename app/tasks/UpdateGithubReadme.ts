@@ -2,7 +2,6 @@ import {getDailyStats, getMonthlyStats, getTotalStats, getWeeklyStats} from "App
 import Redis from "@ioc:Adonis/Addons/Redis";
 import axios from 'axios'
 import Env from "@ioc:Adonis/Core/Env";
-import Logger from "@ioc:Adonis/Core/Logger";
 
 export async function UpdateGitHubReadme(): Promise<void> {
   const daily_stats = await getDailyStats()
@@ -55,20 +54,18 @@ export async function UpdateGitHubReadme(): Promise<void> {
   let new_content = content.replace(old_stats_table, stats_table);
   new_content = new_content.replace(old_infos_table, infos_table)
 
-  await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md?ref=master', {
+  await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
     headers: {
       authorization: `Bearer ${Env.get('GITHUB_TOKEN')}`
     },
     json: {
       message: 'Updating recent statistics & informations',
-      content: Buffer.from(new_content, 'utf8').toString('base64'),
+      content: Buffer.from(new_content, 'utf-8').toString('base64'),
       sha: read_me.sha,
       author: {
         name: 'api.arthurdanjou.fr - API Automation',
         email: 'me@arthurdanjou.fr'
       }
     }
-  }).catch(error => {
-    Logger.fatal(error)
   })
 }
