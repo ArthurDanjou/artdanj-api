@@ -51,8 +51,9 @@ export async function UpdateGitHubReadme(): Promise<void> {
   // Ignore the change if the contents is the same
   if (!change) return
 
-  let new_content = content.replace(old_stats_table, stats_table);
-  new_content = new_content.replace(old_infos_table, infos_table)
+  console.log(content)
+  let new_content = content.replace(old_stats_table, stats_table).replace(old_infos_table, infos_table);
+  console.log(new_content)
 
   await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
     headers: {
