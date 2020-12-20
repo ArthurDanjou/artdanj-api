@@ -65,9 +65,9 @@ export async function UpdateGitHubReadme(): Promise<void> {
     }, {
       headers: {
         authorization: `Bearer ${Env.get('GITHUB_TOKEN')}`
-      },
+      }
     }
-  ).catch(error => console.log(error))
+  )
 }
 
 function getStatus(state: boolean): string {
