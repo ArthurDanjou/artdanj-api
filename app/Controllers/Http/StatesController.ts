@@ -20,7 +20,7 @@ export default class StatesController {
 
   public async setSleepingStatus ({request, response}: HttpContextContract) {
     const sleeping = await request.input('sleeping')
-    await Redis.set('artapi/states/sleeping', this.getState(sleeping))
+    await Redis.set('artapi/states/sleeping', sleeping)
     await UpdateGitHubReadme()
     return response.status(200).send({
       message: 'State successfully updated !'
@@ -29,7 +29,7 @@ export default class StatesController {
 
   public async setDevelopingStatus ({request, response}: HttpContextContract) {
     const developing = await request.input('developing')
-    await Redis.set('artapi/states/developing', this.getState(developing))
+    await Redis.set('artapi/states/developing', developing)
     await UpdateGitHubReadme()
     return response.status(200).send({
       message: 'State successfully updated !'
@@ -38,7 +38,7 @@ export default class StatesController {
 
   public async setLearningStatus ({request, response}: HttpContextContract) {
     const learning = await request.input('learning')
-    await Redis.set('artapi/states/learning', this.getState(learning))
+    await Redis.set('artapi/states/learning', learning)
     await UpdateGitHubReadme()
     return response.status(200).send({
       message: 'State successfully updated !'
@@ -52,10 +52,6 @@ export default class StatesController {
     return response.status(200).send({
       message: 'State successfully updated !'
     })
-  }
-
-  getState(state: boolean):number {
-    return state ? 1 : 0
   }
 
 }
