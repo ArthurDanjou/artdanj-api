@@ -1,6 +1,7 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import StateValidator from "App/Validators/state/StateValidator";
 import Redis from "@ioc:Adonis/Addons/Redis";
+import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
 
 export default class StatesController {
 
@@ -35,7 +36,7 @@ export default class StatesController {
       await Redis.set('artapi/state/sleeping', this.getState(is_sleeping))
     }
 
-    //Todo updateGitHub
+    await UpdateGitHubReadme()
 
     return response.status(200).send({
       message: 'States successfully modified !'

@@ -2,6 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import {getTotalStats, getWeeklyStats, getMonthlyStats, getDailyStats} from 'App/Helpers/StatsHelper'
 import DockerBuild from "App/Models/DockerBuild"
 import DockerCommand from "App/Models/DockerCommand"
+import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
 
 export default class StatsController {
 
@@ -30,6 +31,8 @@ export default class StatsController {
         builds: BigInt(1)
       })
     }
+
+    await UpdateGitHubReadme()
   }
 
   public async incrementCommand () {
@@ -44,6 +47,8 @@ export default class StatsController {
         commands: BigInt(1)
       })
     }
+
+    await UpdateGitHubReadme()
   }
 
 }
