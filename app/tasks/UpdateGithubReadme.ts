@@ -51,7 +51,7 @@ export async function UpdateGitHubReadme(): Promise<void> {
   if (!change) return
 
   let new_content = content.replace(old_stats_table, stats_table + '\n\n');
-  new_content = new_content.replace(old_infos_table, infos_table + '\n')
+  new_content = new_content.replace(old_infos_table, infos_table + '\n\n')
 
   await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md',
     {
