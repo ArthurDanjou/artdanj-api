@@ -14,7 +14,7 @@ Route.get('/', async ({response}: HttpContextContract) => {
     routes: {
       arthur_data: `${BASE_URL}/me`,
       stats_data: `${BASE_URL}/stats`,
-      state_data: `${BASE_URL}/states`,
+      states_data: `${BASE_URL}/states`,
       locations_data: `${BASE_URL}/locations`,
       locations_history: `${BASE_URL}/locations/history`,
       projects: `${BASE_URL}/projects`
