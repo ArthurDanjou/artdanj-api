@@ -14,12 +14,12 @@ export async function UpdateGitHubReadme(): Promise<void> {
   const developing = Boolean(await Redis.get('artapi/state/developing')) || false
   const listening_music = Boolean(await Redis.get('artapi/state/listening')) || false
 
-  const infos_table = `| Statistics                                  |    Daily    |      Weekly |      Monthly |        Total |
+  const stats_table = `| Statistics                                  |    Daily    |      Weekly |      Monthly |        Total |
 | :------------------------------------------ | ----------: | ----------: | -----------: | -----------: |
 | :computer: Commands                         |       **${daily_stats.docker_commands_run}** |       **${weekly_stats.docker_commands_run}** |        **${monthly.docker_commands_run}** |        **${total_stats.docker_commands_run}** |
 | :hammer: Docker Builds                      |       **${daily_stats.docker_build_count}** |       **${weekly_stats.docker_build_count}** |        **${monthly.docker_build_count}** |        **${total_stats.docker_build_count}** |`
 
-  const stats_table = `| Informations                 |   State |
+  const infos_table = `| Informations                 |   State |
 | ---------------------------: | ------: |
 | :musical_note: Music Playing |  **${getStatus(listening_music)}** |
 |               :bed: Sleeping |  **${getStatus(sleeping)}** |
