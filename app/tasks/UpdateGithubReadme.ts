@@ -9,10 +9,10 @@ export async function UpdateGitHubReadme(): Promise<void> {
   const monthly = await getMonthlyStats()
   const total_stats = await getTotalStats()
 
-  const sleeping = Boolean(await Redis.get('artapi/state/sleeping')) || false
-  const learning = Boolean(await Redis.get('artapi/state/learning')) || false
-  const developing = Boolean(await Redis.get('artapi/state/developing')) || false
-  const listening_music = Boolean(await Redis.get('artapi/state/listening')) || false
+  const sleeping = Boolean(await Redis.get('artapi/states/sleeping')) || false
+  const learning = Boolean(await Redis.get('artapi/states/learning')) || false
+  const developing = Boolean(await Redis.get('artapi/states/developing')) || false
+  const listening_music = Boolean(await Redis.get('artapi/states/listening')) || false
 
   const stats_table = `| Statistics                                  |    Daily    |      Weekly |      Monthly |        Total |
 | :------------------------------------------ | ----------: | ----------: | -----------: | -----------: |
