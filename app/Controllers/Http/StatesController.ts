@@ -11,10 +11,10 @@ export default class StatesController {
     const is_listening_music = await Redis.get('artapi/states/listening') || "false"
 
     return response.status(200).send({
-      is_sleeping: this.getStatus(is_sleeping),
-      is_learning: this.getStatus(is_learning),
-      is_developing: this.getStatus(is_developing),
-      is_listening_music: this.getStatus(is_listening_music)
+      is_sleeping: getStatus(is_sleeping),
+      is_learning: getStatus(is_learning),
+      is_developing: getStatus(is_developing),
+      is_listening_music: getStatus(is_listening_music)
     })
   }
 
@@ -54,8 +54,8 @@ export default class StatesController {
     })
   }
 
-  private getStatus(state: string) {
-    return state === "true"
-  }
+}
 
+function getStatus(state: string) {
+  return state === "true"
 }
