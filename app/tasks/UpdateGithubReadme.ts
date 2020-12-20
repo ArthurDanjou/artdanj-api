@@ -53,11 +53,12 @@ export async function UpdateGitHubReadme(): Promise<void> {
   let new_content = content.replace(old_stats_table, stats_table + '\n\n');
   new_content = new_content.replace(old_infos_table, infos_table + '\n')
 
-  await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
+  await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/', {
     headers: {
       authorization: `Bearer ${Env.get('GITHUB_TOKEN')}`
     },
     json: {
+      path: 'README.md',
       message: 'Updating recent statistics & informations',
       content: Buffer.from(new_content, 'utf8').toString('base64'),
       sha: read_me.sha,
