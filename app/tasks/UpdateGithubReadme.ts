@@ -53,12 +53,8 @@ export async function UpdateGitHubReadme(): Promise<void> {
   let new_content = content.replace(old_stats_table, stats_table + '\n\n');
   new_content = new_content.replace(old_infos_table, infos_table + '\n')
 
-  await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
-    headers: {
-      authorization: `Bearer ${Env.get('GITHUB_TOKEN')}`
-    },
-    json: {
-      path: 'README.md',
+  await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md',
+    {
       message: 'Updating recent statistics & informations',
       content: Buffer.from(new_content, 'utf8').toString('base64'),
       sha: read_me.sha,
@@ -66,8 +62,12 @@ export async function UpdateGitHubReadme(): Promise<void> {
         name: 'api.arthurdanjou.fr - API Automation',
         email: 'me@arthurdanjou.fr'
       }
+    }, {
+      headers: {
+        authorization: `Bearer ${Env.get('GITHUB_TOKEN')}`
+      },
     }
-  }).catch(error => console.log(error))
+  ).catch(error => console.log(error))
 }
 
 function getStatus(state: boolean): string {
