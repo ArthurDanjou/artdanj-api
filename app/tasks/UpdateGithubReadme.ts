@@ -21,10 +21,10 @@ export async function UpdateGitHubReadme(): Promise<void> {
 
   const stats_table = `| Informations                 |   State |
 | ---------------------------: | ------: |
-| :musical_note: Music Playing |  **${listening_music}** |
-|               :bed: Sleeping |  **${sleeping}** |
-|        :computer: Developing |  **${developing}** |
-|             :books: Learning |  **${learning}** |`
+| :musical_note: Music Playing |  **${getStatus(listening_music)}** |
+|               :bed: Sleeping |  **${getStatus(sleeping)}** |
+|        :computer: Developing |  **${getStatus(developing)}** |
+|             :books: Learning |  **${getStatus(learning)}** |`
 
   let change = true;
 
@@ -46,16 +46,27 @@ export async function UpdateGitHubReadme(): Promise<void> {
   const old_infos_table = infos_table_check.split('###### Curious')[0]
   if (!old_infos_table) change = true
 
-
   if (old_infos_table == infos_table && old_stats_table == stats_table) change = false
 
   if (!change) return
 
-  let new_content = content.replace(old_stats_table, stats_table);
+  let new_content = content.replace(old_stats_table, stats_table + '\n\n');
   new_content = new_content.replace(old_infos_table, infos_table)
 
   console.log(" NEW CONTENT ")
   console.log(new_content)
+  console.log(" ")
+
+  console.log(" INFOS ")
+  console.log(infos_table)
+  console.log(" ")
+  console.log(old_infos_table)
+  console.log(" ")
+
+  console.log(" STATS ")
+  console.log(stats_table)
+  console.log(" ")
+  console.log(old_stats_table)
   console.log(" ")
 
   await axios.put('https://api.github.com/repos/ArthurDanjou/ArthurDanjou/contents/README.md', {
@@ -72,4 +83,8 @@ export async function UpdateGitHubReadme(): Promise<void> {
       }
     }
   })
+}
+
+function getStatus(state: boolean): string {
+  return state ? "Yes" : "No"
 }
