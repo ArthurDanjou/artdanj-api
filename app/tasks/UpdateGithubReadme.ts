@@ -59,14 +59,14 @@ export async function UpdateGitHubReadme(): Promise<void> {
     },
     json: {
       message: 'Updating recent statistics & informations',
-      content: Buffer.from(new_content, 'utf-8').toString('base64'),
+      content: Buffer.from(new_content, 'utf8').toString('base64'),
       sha: read_me.sha,
       author: {
         name: 'api.arthurdanjou.fr - API Automation',
         email: 'me@arthurdanjou.fr'
       }
     }
-  })
+  }).catch(error => console.log(error))
 }
 
 function getStatus(state: boolean): string {
