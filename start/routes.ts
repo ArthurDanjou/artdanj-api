@@ -43,7 +43,7 @@ Route.get('/posts/:slug', 'PostsController.getLikes')
 Route.get('/posts/is/:slug', 'PostsController.isLiked')
 Route.post('/posts/:slug/like', 'PostsController.like')
 Route.post('/posts/:slug/unlike', 'PostsController.unlike')
-Route.resource('subscribers', 'SubscribersController').only(['index', 'show'])
+Route.resource('subscribers', 'SubscribersController').only(['index', 'show', 'store'])
 
 Route.group(() => {
   Route.get('/', 'FileController.index')
@@ -55,7 +55,7 @@ Route.group(() => {
 Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
   Route.resource('posts', 'PostsController').only(['store', 'update', 'destroy'])
-  Route.resource('subscribers', 'SubscribersController').only(['store', 'update', 'destroy'])
+  Route.resource('subscribers', 'SubscribersController').only(['update', 'destroy'])
   Route.resource('files', 'FileController').only(['store', 'destroy'])
   Route.post('/states/sleeping', 'StatesController.setSleepingStatus')
   Route.post('/states/learning', 'StatesController.setLearningStatus')
