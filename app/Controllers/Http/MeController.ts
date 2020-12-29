@@ -18,14 +18,14 @@ export default class MeController {
         "HTML",
         "CSS",
         "GoLang",
-        "Python",
         "Java"
       ],
       askMeAbout: [
         "Web dev",
         "Tech",
         "Consulting",
-        "Cloud native",
+        "Cloud computing",
+        "DevOps",
         "Software dev"
       ],
       technologies: {
