@@ -5,7 +5,8 @@ WORKDIR /usr/src/artapi
 
 COPY . /usr/src/artapi
 
-RUN yarn cache clean
+RUN apk update && \
+    apk add git
 
 RUN yarn install
 
