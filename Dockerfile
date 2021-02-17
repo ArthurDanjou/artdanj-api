@@ -5,7 +5,7 @@ WORKDIR /usr/src/artapi
 
 COPY . /usr/src/artapi
 
-RUN yarn install --production
+RUN yarn install
 
 RUN yarn build
 
