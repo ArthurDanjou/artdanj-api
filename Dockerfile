@@ -12,6 +12,8 @@ RUN yarn install
 
 RUN yarn build
 
+RUN cp .env build
+
 EXPOSE 5555
 
 COPY . .
