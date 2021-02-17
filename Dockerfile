@@ -5,6 +5,8 @@ WORKDIR /usr/src/artapi
 
 COPY . /usr/src/artapi
 
+RUN yarn cache clean
+
 RUN yarn install
 
 RUN yarn build
