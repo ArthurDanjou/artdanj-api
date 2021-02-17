@@ -5,7 +5,9 @@ WORKDIR /usr/src/artapi
 
 COPY . /usr/src/artapi
 
-RUN yarn install --pure-lockfile
+RUN whereis git
+
+RUN yarn install
 
 RUN yarn build
 
