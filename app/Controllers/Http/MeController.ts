@@ -20,7 +20,7 @@ export default class MeController {
         "GoLang",
         "Java"
       ],
-      askMeAbout: [
+      ask_me_about: [
         "Web dev",
         "Tech",
         "Consulting",
@@ -29,10 +29,10 @@ export default class MeController {
         "Software dev"
       ],
       technologies: {
-        webApp: ["VueJs", "NuxtJs", "Sass", "Tailwind"],
-        desktopApp: ["ElectronJs"],
-        mobileApp: ["React Native"],
-        backEnd: {
+        web_app: ["VueJs", "NuxtJs", "Sass", "Tailwind"],
+        desktop_app: ["ElectronJs"],
+        mobile_app: ["React Native"],
+        back_end: {
           typescript: ["AdonisJs"],
           java: ["Spring"]
         },
