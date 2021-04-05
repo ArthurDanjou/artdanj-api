@@ -30,6 +30,7 @@ export default Env.rules({
   REDIS_PASSWORD: Env.schema.string.optional(),
 
   //Mysql
+  DB_CONNECTION: Env.schema.string(),
   MYSQL_HOST: Env.schema.string({ format: 'host' }),
   MYSQL_PORT: Env.schema.number(),
   MYSQL_USER: Env.schema.string(),
@@ -37,16 +38,5 @@ export default Env.rules({
   MYSQL_DB_NAME: Env.schema.string(),
 
   //Session
-  SESSION_DRIVER: Env.schema.string(),
-
-  //SMTP
-  SMTP_HOST: Env.schema.string({ format: 'host' }),
-  SMTP_PORT: Env.schema.number(),
-  SMTP_USERNAME: Env.schema.string(),
-  SMTP_PASSWORD: Env.schema.string(),
-
-  //Mailgun
-  MAILGUN_API_KEY: Env.schema.string(),
-
-  WAKATIME_API_KEY: Env.schema.string(),
+  SESSION_DRIVER: Env.schema.string()
 })
