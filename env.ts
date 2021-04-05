@@ -48,4 +48,5 @@ export default Env.rules({
   //Mailgun
   MAILGUN_API_KEY: Env.schema.string(),
 
+  WAKATIME_API_KEY: Env.schema.string(),
 })

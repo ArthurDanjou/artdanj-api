@@ -13,13 +13,6 @@ export default class LocationsController {
     })
   }
 
-  public async history ({ response }: HttpContextContract) {
-    const locations = await Location.query().orderBy('since', 'desc')
-    return response.status(200).send({
-      locations
-    })
-  }
-
   public async add ({ request, response }: HttpContextContract) {
     const data = await request.validate(LocationValidator)
     await Location.create(data)

@@ -1,6 +1,6 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 
-export default class MeController {
+export default class ProfileController {
 
   public me ({ response }: HttpContextContract) {
     return response.status(200).send({
