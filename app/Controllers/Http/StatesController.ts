@@ -5,10 +5,10 @@ import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
 export default class StatesController {
 
   public async get ({response}: HttpContextContract) {
-    const is_sleeping = await Redis.exists('artapi/states/sleeping')
-    const is_listening_music = await Redis.exists('artapi/states/listening')
-    const is_developing = await Redis.exists('artapi/states/developing')
-    const is_learning = await Redis.exists('artapi/states/learning')
+    const is_sleeping = await Redis.get('artapi/states/sleeping')
+    const is_listening_music = await Redis.get('artapi/states/listening')
+    const is_developing = await Redis.get('artapi/states/developing')
+    const is_learning = await Redis.get('artapi/states/learning')
 
     return response.status(200).send({
       is_learning: this.getStatus(is_learning),
@@ -51,8 +51,8 @@ export default class StatesController {
     }
   }
 
-  public getStatus(state: number): string {
-    return state === 1 ? "Yes" : "No"
+  public getStatus(state: string | null): string {
+    return state === 'true' || state !== null ? "Yes" : "No"
   }
 
 }
