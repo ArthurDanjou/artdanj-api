@@ -22,7 +22,6 @@
     "@adonisjs/core",
     "@adonisjs/redis",
     "@adonisjs/session",
-    "@adonisjs/mail",
     "@adonisjs/auth",
     "@adonisjs/lucid"
   ],
