@@ -12,14 +12,12 @@ RUN yarn install
 
 RUN yarn build
 
+RUN cp .env build
+
 WORKDIR /usr/src/artapi/build
 
 RUN yarn install --production
 
-RUN cp .env build
-
 EXPOSE 5555
-
-COPY . .
 
 CMD ["yarn", "start"]
