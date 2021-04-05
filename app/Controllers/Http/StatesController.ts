@@ -21,6 +21,7 @@ export default class StatesController {
   public async set ({request, response}: HttpContextContract) {
     const state = await request.param('state')
     const value = await request.input('value')
+    console.log("RECEIVED")
 
     if (state && value) {
       await Redis.set(`artapi/states/${state}`, value)
