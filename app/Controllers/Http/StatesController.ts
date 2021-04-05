@@ -1,6 +1,7 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Redis from "@ioc:Adonis/Addons/Redis";
 import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
+import Logger from "@ioc:Adonis/Core/Logger";
 
 export default class StatesController {
 
@@ -21,7 +22,7 @@ export default class StatesController {
   public async set ({request, response}: HttpContextContract) {
     const state = await request.param('state')
     const value = await request.input('value')
-    console.log("RECEIVED")
+    Logger.debug("MESSAGE RECEIVE")
 
     if (state && value) {
       await Redis.set(`artapi/states/${state}`, value)
