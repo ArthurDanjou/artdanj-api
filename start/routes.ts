@@ -27,7 +27,9 @@ Route.get('/source', async ({response}: HttpContextContract) => {
 
 Route.get('health', async ({response}: HttpContextContract) => {
   const report = await HealthCheck.getReport()
-  return report.healthy ? response.ok(report) : response.badRequest(report)
+  const isLive = await HealthCheck.isLive()
+  const isReady = await HealthCheck.isReady()
+  return report.healthy ? response.ok({ isLive, isReady, report: report.report }) : response.badRequest({ isLive, isReady, report: report.report })
 })
 
 // ArtAPI
@@ -50,12 +52,15 @@ Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
   Route.resource('subscribers', 'SubscribersController').only(['update', 'destroy'])
   Route.resource('files', 'FileController').only(['store', 'destroy'])
-  Route.post('/states', 'StatesController.set')
-  Route.post('/stats/build', 'StatesController.incrementBuild')
-  Route.post('/stats/command', 'StatesController.incrementCommand')
   Route.post('/locations', 'LocationsController.add')
   Route.post('/projects', 'ProjectsController.add')
-}).middleware('auth')
+}).middleware('auth:web')
+
+Route.group(() => {
+  Route.post('/states/:state', 'StatesController.set')
+  Route.post('/stats/build', 'StatesController.incrementBuild')
+  Route.post('/stats/command', 'StatesController.incrementCommand')
+}).middleware('auth:api')
 
 Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth')

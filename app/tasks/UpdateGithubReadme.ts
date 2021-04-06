@@ -3,10 +3,10 @@ import axios from 'axios'
 import Env from "@ioc:Adonis/Core/Env";
 
 export async function UpdateGitHubReadme(): Promise<void> {
-  const sleeping = await Redis.get('artapi/states/sleeping')
-  const learning = await Redis.get('artapi/states/learning')
-  const developing = await Redis.get('artapi/states/developing')
-  const listening_music = await Redis.get('artapi/states/listening')
+  const sleeping = await Redis.get('states:sleeping')
+  const learning = await Redis.get('states:learning')
+  const developing = await Redis.get('states:developing')
+  const listening_music = await Redis.get('states:listening')
 
   const infos_table = `| Informations                 |   State |
 | ---------------------------: | ------: |
@@ -50,5 +50,6 @@ export async function UpdateGitHubReadme(): Promise<void> {
 }
 
 function getStatus(state): string {
+  if (state === null) return "No"
   return state === "true" ? "Yes" : "No"
 }

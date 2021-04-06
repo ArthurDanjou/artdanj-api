@@ -6,10 +6,10 @@ import Logger from "@ioc:Adonis/Core/Logger";
 export default class StatesController {
 
   public async get ({response}: HttpContextContract) {
-    const is_sleeping = await Redis.get('artapi/states/sleeping')
-    const is_listening_music = await Redis.get('artapi/states/listening')
-    const is_developing = await Redis.get('artapi/states/developing')
-    const is_learning = await Redis.get('artapi/states/learning')
+    const is_sleeping = await Redis.get('states:sleeping')
+    const is_listening_music = await Redis.get('states:listening')
+    const is_developing = await Redis.get('states:developing')
+    const is_learning = await Redis.get('states:learning')
 
     return response.status(200).send({
       is_learning: this.getStatus(is_learning),
@@ -19,31 +19,32 @@ export default class StatesController {
     })
   }
 
-  public async set ({request, response}: HttpContextContract) {
-    const state = await request.param('state')
+  public async set ({request, response, params}: HttpContextContract) {
+    const state = params.state
     const value = await request.input('value')
-    Logger.debug("MESSAGE RECEIVE")
 
     if (state && value) {
-      await Redis.set(`artapi/states/${state}`, value)
+      await Redis.set(`states:${state}`, value)
 
-      switch (state) {
-        case 'learning':
-          await Redis.set(`artapi/states/developing`, 'false')
-          await Redis.set(`artapi/states/sleeping`, 'false')
-          break
-        case 'developing':
-          await Redis.set(`artapi/states/learning`, 'false')
-          await Redis.set(`artapi/states/sleeping`, 'false')
-          break
-        case 'listening':
-          await Redis.set(`artapi/states/sleeping`, 'false')
-          break
-        case 'sleeping':
-          await Redis.set(`artapi/states/developing`, 'false')
-          await Redis.set(`artapi/states/listening`, 'false')
-          await Redis.set(`artapi/states/learning`, 'false')
-          break
+      if (value === 'true') {
+        switch (state) {
+          case 'learning':
+            await Redis.set(`states:developing`, 'false')
+            await Redis.set(`states:sleeping`, 'false')
+            break
+          case 'developing':
+            await Redis.set(`states:learning`, 'false')
+            await Redis.set(`states:sleeping`, 'false')
+            break
+          case 'listening':
+            await Redis.set(`states:sleeping`, 'false')
+            break
+          case 'sleeping':
+            await Redis.set(`states:developing`, 'false')
+            await Redis.set(`states:listening`, 'false')
+            await Redis.set(`states:learning`, 'false')
+            break
+        }
       }
 
       await UpdateGitHubReadme()
@@ -51,10 +52,12 @@ export default class StatesController {
         message: 'State successfully updated !'
       })
     }
+    Logger.info("Finish")
   }
 
   public getStatus(state: string | null): string {
-    return state === 'true' || state !== null ? "Yes" : "No"
+    if (state === null) return "No"
+    return state === 'true' ? "Yes" : "No"
   }
 
 }
