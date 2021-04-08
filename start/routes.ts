@@ -77,7 +77,7 @@ Route.group(() => {
   Route.get('/:slug', 'PostsController.getLikes')
   Route.post('/:slug/like', 'PostsController.like')
   Route.post('/:slug/unlike', 'PostsController.unlike')
-  Route.post('/is/:slug', async ({response}) => {
+  Route.get('/is/:slug', async ({response}) => {
     return response.send(false)
   })
 }).prefix('posts')
