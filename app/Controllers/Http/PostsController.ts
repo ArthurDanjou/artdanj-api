@@ -36,17 +36,15 @@ export default class PostsController {
   }
 
   public async unlike ({params, response}: HttpContextContract) {
-    let post = await Post.findBy('slug', params.slug)
+    let post = await Post.findByOrFail('slug', params.slug)
 
-    if (post) {
-      await post.merge({
-        likes: post.likes--
-      }).save()
-      return response.status(200).send({
-        status: 200,
-        post
-      })
-    }
+    await post.merge({
+      likes: post.likes--
+    }).save()
+    return response.status(200).send({
+      status: 200,
+      post
+    })
   }
 
 }
