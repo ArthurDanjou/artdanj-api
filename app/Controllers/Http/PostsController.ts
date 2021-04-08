@@ -32,6 +32,7 @@ export default class PostsController {
       likes: getLikes
     }).save()
     return response.status(200).send({
+      status: 200,
       post
     })
   }
