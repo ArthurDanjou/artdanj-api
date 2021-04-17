@@ -70,7 +70,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth')
-  Route.get('/token', 'AuthController.createInfiniteToken')
+  Route.post('/token', 'AuthController.createInfiniteToken')
 
   Route.post('/web/login', 'AuthController.loginWeb')
   Route.post('/web/logout', 'AuthController.logoutWeb')
