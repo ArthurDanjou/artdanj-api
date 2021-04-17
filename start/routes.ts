@@ -49,13 +49,13 @@ Route.group(() => {
 
 Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
-  Route.post('form', 'FormsController.send')
   Route.resource('files', 'FileController').only(['store', 'destroy'])
   Route.post('/locations', 'LocationsController.add')
   Route.post('/projects', 'ProjectsController.add')
 }).middleware('auth:web')
 
 Route.group(() => {
+  Route.post('form', 'FormsController.send')
   Route.post('/states/:state', 'StatesController.set')
   Route.post('/stats/build', 'StatesController.incrementBuild')
   Route.post('/stats/command', 'StatesController.incrementCommand')
