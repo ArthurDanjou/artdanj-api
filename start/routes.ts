@@ -55,10 +55,17 @@ Route.group(() => {
 }).middleware('auth:web')
 
 Route.group(() => {
+  // ArtAPI
   Route.post('form', 'FormsController.send')
   Route.post('/states/:state', 'StatesController.set')
   Route.post('/stats/build', 'StatesController.incrementBuild')
   Route.post('/stats/command', 'StatesController.incrementCommand')
+  // ArtSite
+  Route.group(() => {
+    Route.get('/:slug', 'PostsController.getLikes')
+    Route.post('/:slug/like', 'PostsController.like')
+    Route.post('/:slug/unlike', 'PostsController.unlike')
+  }).prefix('posts')
 }).middleware('auth:api')
 
 Route.group(() => {
@@ -70,13 +77,3 @@ Route.group(() => {
   Route.post('/api/login', 'AuthController.loginApi')
   Route.post('/api/logout', 'AuthController.logoutApi')
 }).prefix('auth')
-
-// ArtSite
-Route.group(() => {
-  Route.get('/:slug', 'PostsController.getLikes')
-  Route.post('/:slug/like', 'PostsController.like')
-  Route.post('/:slug/unlike', 'PostsController.unlike')
-  Route.get('/is/:slug', async ({response}) => {
-    return response.send(false)
-  })
-}).prefix('posts')
