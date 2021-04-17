@@ -40,7 +40,6 @@ Route.get('/states', 'StatesController.get')
 Route.get('/projects', 'ProjectsController.get')
 
 Route.resource('users', 'UsersController').only(['index', 'show'])
-Route.resource('subscribers', 'SubscribersController').only(['index', 'show', 'store'])
 Route.group(() => {
   Route.get('/', 'FileController.index')
   Route.get('/:filename', async ({ response, params }) => {
@@ -50,7 +49,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
-  Route.resource('subscribers', 'SubscribersController').only(['update', 'destroy'])
+  Route.post('form', 'FormsController.send')
   Route.resource('files', 'FileController').only(['store', 'destroy'])
   Route.post('/locations', 'LocationsController.add')
   Route.post('/projects', 'ProjectsController.add')

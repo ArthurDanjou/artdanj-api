@@ -30,7 +30,7 @@ export default class AuthController {
     const password = request.input('password')
 
     const token = await auth.use('api').attempt(email, password, {
-      expiresIn: '10 days'
+      expiresIn: '2 days'
     })
     return token.toJSON()
   }
