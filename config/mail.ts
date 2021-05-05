@@ -18,7 +18,7 @@ const mailConfig: MailConfig = {
   | a mailer
   |
   */
-  mailer: 'smtp',
+  mailer: 'mailgun',
 
   /*
   |--------------------------------------------------------------------------
@@ -36,21 +36,16 @@ const mailConfig: MailConfig = {
   mailers: {
     /*
     |--------------------------------------------------------------------------
-    | Smtp
+    | Mailgun
     |--------------------------------------------------------------------------
     |
-    | Uses SMTP protocol for sending email
+		| Uses Mailgun service for sending emails.
     |
     */
-    smtp: {
-      driver: 'smtp',
-      host: Env.get('SMTP_HOST'),
-      port: Env.get('SMTP_PORT'),
-			auth: {
-				user: Env.get('SMTP_USERNAME'),
-				pass: Env.get('SMTP_PASSWORD'),
-				type: 'login',
-			}
+    mailgun: {
+      driver: 'mailgun',
+      baseUrl: `https://api.mailgun.net/v3/${Env.get('MAILGUN_URL')}`,
+      key: Env.get('MAILGUN_API_KEY'),
     },
 
   },

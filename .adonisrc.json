@@ -25,9 +25,16 @@
     "@adonisjs/session",
     "@adonisjs/auth",
     "@adonisjs/lucid",
-    "@adonisjs/mail"
+    "@adonisjs/mail",
+    "@adonisjs/view"
   ],
   "aceProviders": [
     "@adonisjs/repl"
+  ],
+  "metaFiles": [
+    {
+      "pattern": "resources/views/**/*.edge",
+      "reloadServer": false
+    }
   ]
 }

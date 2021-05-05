@@ -15,8 +15,9 @@
 import Env from '@ioc:Adonis/Core/Env'
 
 export default Env.rules({
+
   //App
-	HOST: Env.schema.string({ format: 'host' }),
+  HOST: Env.schema.string({ format: 'host' }),
 	PORT: Env.schema.number(),
 	APP_KEY: Env.schema.string(),
 	APP_NAME: Env.schema.string(),
@@ -38,5 +39,18 @@ export default Env.rules({
   MYSQL_DB_NAME: Env.schema.string(),
 
   //Session
-  SESSION_DRIVER: Env.schema.string()
+  SESSION_DRIVER: Env.schema.string(),
+
+  //Views
+  CACHE_VIEWS: Env.schema.boolean(),
+
+  //Utils
+  GITHUB_TOKEN: Env.schema.string(),
+  GITHUB_SOURCE: Env.schema.string({ format: 'url' }),
+  BASE_URL: Env.schema.string({ format: 'url' }),
+  API_VERSION: Env.schema.string(),
+
+  //Mails
+  MAILGUN_API_KEY: Env.schema.string(),
+  MAILGUN_URL: Env.schema.string()
 })
