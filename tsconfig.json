@@ -27,7 +27,6 @@
     },
     "types": [
       "@adonisjs/core",
-      "@adonisjs/env",
       "@adonisjs/repl",
       "@adonisjs/redis",
       "@adonisjs/session",

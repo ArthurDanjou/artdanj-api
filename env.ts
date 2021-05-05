@@ -52,5 +52,5 @@ export default Env.rules({
 
   //Mails
   MAILGUN_API_KEY: Env.schema.string(),
-  MAILGUN_URL: Env.schema.string()
+  MAILGUN_URL: Env.schema.string(),
 })

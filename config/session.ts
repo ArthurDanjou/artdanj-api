@@ -10,6 +10,7 @@ import { SessionConfig } from '@ioc:Adonis/Addons/Session'
 
 const sessionConfig: SessionConfig = {
 
+  enabled: true,
   /*
   |--------------------------------------------------------------------------
   | Driver
