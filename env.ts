@@ -53,4 +53,14 @@ export default Env.rules({
   //Mails
   MAILGUN_API_KEY: Env.schema.string(),
   MAILGUN_URL: Env.schema.string(),
+
+  //Socials Authentication
+  GOOGLE_CLIENT_ID: Env.schema.string(),
+  GOOGLE_CLIENT_SECRET: Env.schema.string(),
+
+  TWITTER_CLIENT_ID: Env.schema.string(),
+  TWITTER_CLIENT_SECRET: Env.schema.string(),
+
+  GITHUB_CLIENT_ID: Env.schema.string(),
+  GITHUB_CLIENT_SECRET: Env.schema.string(),
 })
