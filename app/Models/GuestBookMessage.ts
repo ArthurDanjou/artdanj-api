@@ -3,7 +3,7 @@ import {BaseModel, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
 import User from "./User";
 import {BelongsTo} from "@ioc:Adonis/Lucid/Relations";
 
-export default class GoldenMessage extends BaseModel {
+export default class GuestBookMessage extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
