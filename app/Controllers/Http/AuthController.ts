@@ -60,4 +60,55 @@ export default class AuthController {
     return { user }
   }
 
+  public async twitter ({ally, auth}: HttpContextContract) {
+    const twitter = ally.use('twitter')
+    const twitterUser = await twitter.user()
+
+    const user = await User.firstOrCreate({
+      email: twitterUser.email,
+    }, {
+      email: twitterUser.email,
+      username: twitterUser.name,
+      isConfirmed: twitterUser.emailVerificationState === 'verified'
+    })
+
+    await auth.use('web').login(user)
+
+    return { user }
+  }
+
+  public async github ({ally, auth}: HttpContextContract) {
+    const github = ally.use('github')
+    const githubUser = await github.user()
+
+    const user = await User.firstOrCreate({
+      email: githubUser.email,
+    }, {
+      email: githubUser.email,
+      username: githubUser.name,
+      isConfirmed: githubUser.emailVerificationState === 'verified'
+    })
+
+    await auth.use('web').login(user)
+
+    return { user }
+  }
+
+  public async google ({ally, auth}: HttpContextContract) {
+    const google = ally.use('google')
+    const googleUser = await google.user()
+
+    const user = await User.firstOrCreate({
+      email: googleUser.email,
+    }, {
+      email: googleUser.email,
+      username: googleUser.name,
+      isConfirmed: googleUser.emailVerificationState === 'verified'
+    })
+
+    await auth.use('web').login(user)
+
+    return { user }
+  }
+
 }

@@ -75,4 +75,8 @@ Route.group(() => {
 
   Route.post('/api/login', 'AuthController.loginApi')
   Route.post('/api/logout', 'AuthController.logoutApi')
+
+  Route.get('/twitter', 'AuthController.twitter')
+  Route.get('/github', 'AuthController.github')
+  Route.get('/google', 'AuthController.google')
 }).prefix('auth')
