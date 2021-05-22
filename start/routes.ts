@@ -53,10 +53,13 @@ Route.group(() => {
   Route.resource('files', 'FileController').only(['store', 'destroy'])
   Route.post('/locations', 'LocationsController.add')
   Route.post('/projects', 'ProjectsController.add')
+
+  Route.resource('guestbook', 'GuestBookController').only(['index', 'show'])
 }).middleware('auth:web')
 
 Route.group(() => {
   // ArtAPI
+  Route.post('form', 'FormsController.send')
   Route.post('form', 'FormsController.send')
   // ArtSite
   Route.group(() => {
