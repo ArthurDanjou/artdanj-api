@@ -60,7 +60,6 @@ Route.group(() => {
 Route.group(() => {
   // ArtAPI
   Route.post('form', 'FormsController.send')
-  Route.post('form', 'FormsController.send')
   // ArtSite
   Route.group(() => {
     Route.get('/:slug', 'PostsController.getLikes')
