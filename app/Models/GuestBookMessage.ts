@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
-import {BaseModel, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
 import User from "./User";
-import {BelongsTo} from "@ioc:Adonis/Lucid/Relations";
 
 export default class GuestBookMessage extends BaseModel {
   @column({ isPrimary: true })
