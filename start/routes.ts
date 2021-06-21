@@ -59,6 +59,8 @@ Route.group(() => {
 Route.group(() => {
   Route.post('form', 'FormsController.send')
 
+  Route.post('states/:state', 'StatesController.set')
+
   Route.group(() => {
     Route.get('/:slug', 'PostsController.getLikes')
     Route.post('/:slug/like', 'PostsController.like')
