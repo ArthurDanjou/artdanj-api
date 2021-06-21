@@ -54,8 +54,6 @@ Route.group(() => {
   Route.resource('files', 'FileController').only(['store', 'destroy'])
   Route.post('/locations', 'LocationsController.store')
   Route.post('/projects', 'ProjectsController.store')
-
-  Route.resource('guestbook', 'GuestBookController').only(['index', 'show'])
 }).middleware('auth:web')
 
 Route.group(() => {

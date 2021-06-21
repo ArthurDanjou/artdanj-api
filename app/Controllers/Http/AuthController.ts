@@ -1,129 +1,156 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import User from "App/Models/User";
-import AuthValidator from "App/Validators/AuthValidator";
+import User from "../../Models/User";
+import AuthValidator from "../../Validators/AuthValidator";
 import {AllyUserContract} from "@ioc:Adonis/Addons/Ally";
 
 export default class AuthController {
 
-  public async loginWeb ({request, auth}: HttpContextContract) {
+  public async loginWeb ({ request, auth, response }: HttpContextContract) {
     const data = await request.validate(AuthValidator)
     const {email, password, remember_me } = data
-
-    try {
-      await auth.attempt(email, password, remember_me)
-      const user = await User.query()
-        .where('id', auth.user!.id)
-        .firstOrFail()
-      if (!remember_me) {
-        await user.merge({
-          rememberMeToken: ''
-        }).save()
-      }
-      return { user }
-    } catch (error) {
-      if (error.code === 'E_INVALID_AUTH_UID') return { error: "L'utilisateur n'a pas été trouvé" }
-      if (error.code === 'E_INVALID_AUTH_PASSWORD') return { error: "L'identifiant ou le mot de passe est incorrect" }
+    await auth.attempt(email, password, remember_me)
+    const user = await User.query()
+      .where('id', auth.user!.id)
+      .firstOrFail()
+    if (!remember_me) {
+      await user.merge({
+        rememberMeToken: ''
+      }).save()
     }
+    return response.status(200).send({
+      user: user
+    })
   }
 
-  public async loginApi ({request, auth}: HttpContextContract) {
+  public async loginApi ({ request, auth, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
 
     const token = await auth.use('api').attempt(email, password, {
       expiresIn: '2 days'
     })
-    return token.toJSON()
+    return response.status(200).send(token.toJSON())
   }
 
-  public async createInfiniteToken ({request, auth}: HttpContextContract) {
+  public async createInfiniteToken ({ request, auth, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
     const token = await auth.use('api').attempt(email, password)
-    return token.toJSON()
+    return response.status(200).send(token.toJSON())
   }
 
-  public async logoutWeb ({auth}: HttpContextContract) {
+  public async logoutWeb ({ auth, response }: HttpContextContract) {
     await auth.logout()
-    return { message: 'Vous avez été déconnecté' }
+    return response.status(200).send({
+      message: 'You have been disconnected'
+    })
   }
 
-  public async logoutApi ({auth}: HttpContextContract) {
+  public async logoutApi ({ auth, response }: HttpContextContract) {
     await auth.use('api').logout()
-    return { message: 'Vous avez été déconnecté' }
+    return response.status(200).send({
+      message: 'You have been disconnected'
+    })
   }
 
-  public async user ({auth}: HttpContextContract) {
+  public async user ({ auth, response }: HttpContextContract) {
     await auth.authenticate()
-    return await User.query()
+    const user = await User.query()
       .where('id', auth.user!.id)
       .firstOrFail()
+    return response.status(200).send({
+      user: user
+    })
   }
 
-  public async twitter ({ally, auth}: HttpContextContract) {
+  public async twitter ({ ally, auth, response }: HttpContextContract) {
     const twitter = ally.use('twitter')
 
     if (twitter.accessDenied()) {
-      return 'Access Denied'
+      return response.status(403).send({
+        message: 'Access Denied'
+      })
     }
 
     if (twitter.stateMisMatch()) {
-      return 'Request expired. Retry again'
+      return response.status(405).send({
+        message: 'Request expired. Retry again'
+      })
     }
 
     if (twitter.hasError()) {
-      return twitter.getError()
+      return response.status(500).send({
+        message: twitter.getError()
+      })
     }
 
     const twitterUser = await twitter.user()
     const user = await this.createUser(twitterUser)
     await auth.use('web').login(user)
-    return user
+    return response.status(200).send({
+      user: user
+    })
   }
 
-  public async github ({ally, auth}: HttpContextContract) {
+  public async github ({ ally, auth, response }: HttpContextContract) {
     const github = ally.use('github')
 
     if (github.accessDenied()) {
-      return 'Access Denied'
+      return response.status(403).send({
+        message: 'Access Denied'
+      })
     }
 
     if (github.stateMisMatch()) {
-      return 'Request expired. Retry again'
+      return response.status(405).send({
+        message: 'Request expired. Retry again'
+      })
     }
 
     if (github.hasError()) {
-      return github.getError()
+      return response.status(500).send({
+        message: github.getError()
+      })
     }
 
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
     await auth.use('web').login(user)
-    return user
+    return response.status(200).send({
+      user: user
+    })
   }
 
-  public async google ({ally, auth}: HttpContextContract) {
+  public async google ({ ally, auth, response, }: HttpContextContract) {
     const google = ally.use('google')
 
     if (google.accessDenied()) {
-      return 'Access Denied'
+      return response.status(403).send({
+        message: 'Access Denied'
+      })
     }
 
     if (google.stateMisMatch()) {
-      return 'Request expired. Retry again'
+      return response.status(405).send({
+        message: 'Request expired. Retry again'
+      })
     }
 
     if (google.hasError()) {
-      return google.getError()
+      return response.status(500).send({
+        message: google.getError()
+      })
     }
 
     const googleUser = await google.user()
     const user = await this.createUser(googleUser)
     await auth.use('web').login(user)
-    return user
+    return response.status(200).send({
+      user: user
+    })
   }
 
-  public async createUser(allyUser: AllyUserContract<any>): Promise<User> {
+  public async createUser (allyUser: AllyUserContract<any>): Promise<User> {
     return await User.firstOrCreate({
       email: allyUser.email!,
     }, {
