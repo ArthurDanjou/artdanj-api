@@ -11,7 +11,7 @@ export default class ProjectsController {
     })
   }
 
-  public async add ({ request, response}: HttpContextContract) {
+  public async store ({ request, response}: HttpContextContract) {
     const data = await request.validate(ProjectValidator)
     await Project.create(data)
     return response.status(200).send({

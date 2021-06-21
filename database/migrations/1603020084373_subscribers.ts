@@ -6,7 +6,6 @@ export default class Subscribers extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('name')
       table.string('email').notNullable()
       table.timestamps(true)
     })
