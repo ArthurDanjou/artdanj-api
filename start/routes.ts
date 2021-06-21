@@ -72,7 +72,7 @@ Route.group(() => {
 
   Route.get('guestbook', 'GuestBookController.get')
   Route.post('guestbook', 'GuestBookController.store')
-})//.middleware('auth:api')
+}).middleware('auth:api')
 
 Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth')
