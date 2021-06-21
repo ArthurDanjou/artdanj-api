@@ -1,6 +1,7 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import User from "App/Models/User";
 import AuthValidator from "App/Validators/AuthValidator";
+import {AllyUserContract} from "@ioc:Adonis/Addons/Ally";
 
 export default class AuthController {
 
@@ -54,61 +55,82 @@ export default class AuthController {
 
   public async user ({auth}: HttpContextContract) {
     await auth.authenticate()
-    const user = await User.query()
+    return await User.query()
       .where('id', auth.user!.id)
       .firstOrFail()
-    return { user }
   }
 
   public async twitter ({ally, auth}: HttpContextContract) {
     const twitter = ally.use('twitter')
+
+    if (twitter.accessDenied()) {
+      return 'Access Denied'
+    }
+
+    if (twitter.stateMisMatch()) {
+      return 'Request expired. Retry again'
+    }
+
+    if (twitter.hasError()) {
+      return twitter.getError()
+    }
+
     const twitterUser = await twitter.user()
-
-    const user = await User.firstOrCreate({
-      email: twitterUser.email,
-    }, {
-      email: twitterUser.email,
-      username: twitterUser.name,
-      isConfirmed: twitterUser.emailVerificationState === 'verified'
-    })
-
+    const user = await this.createUser(twitterUser)
     await auth.use('web').login(user)
-
-    return { user }
+    return user
   }
 
   public async github ({ally, auth}: HttpContextContract) {
     const github = ally.use('github')
+
+    if (github.accessDenied()) {
+      return 'Access Denied'
+    }
+
+    if (github.stateMisMatch()) {
+      return 'Request expired. Retry again'
+    }
+
+    if (github.hasError()) {
+      return github.getError()
+    }
+
     const githubUser = await github.user()
-
-    const user = await User.firstOrCreate({
-      email: githubUser.email,
-    }, {
-      email: githubUser.email,
-      username: githubUser.name,
-      isConfirmed: githubUser.emailVerificationState === 'verified'
-    })
-
+    const user = await this.createUser(githubUser)
     await auth.use('web').login(user)
-
-    return { user }
+    return user
   }
 
   public async google ({ally, auth}: HttpContextContract) {
     const google = ally.use('google')
+
+    if (google.accessDenied()) {
+      return 'Access Denied'
+    }
+
+    if (google.stateMisMatch()) {
+      return 'Request expired. Retry again'
+    }
+
+    if (google.hasError()) {
+      return google.getError()
+    }
+
     const googleUser = await google.user()
-
-    const user = await User.firstOrCreate({
-      email: googleUser.email,
-    }, {
-      email: googleUser.email,
-      username: googleUser.name,
-      isConfirmed: googleUser.emailVerificationState === 'verified'
-    })
-
+    const user = await this.createUser(googleUser)
     await auth.use('web').login(user)
+    return user
+  }
 
-    return { user }
+  public async createUser(allyUser: AllyUserContract<any>): Promise<User> {
+    return await User.firstOrCreate({
+      email: allyUser.email!,
+    }, {
+      email: allyUser.email!,
+      username: allyUser.name,
+      isConfirmed: allyUser.emailVerificationState === 'verified'
+    })
   }
 
 }

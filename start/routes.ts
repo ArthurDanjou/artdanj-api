@@ -78,7 +78,17 @@ Route.group(() => {
   Route.post('/api/login', 'AuthController.loginApi')
   Route.post('/api/logout', 'AuthController.logoutApi')
 
-  Route.get('/twitter', 'AuthController.twitter')
-  Route.get('/github', 'AuthController.github')
-  Route.get('/google', 'AuthController.google')
+  Route.get('/twitter/callback', 'AuthController.twitter')
+  Route.get('/github/callback', 'AuthController.github')
+  Route.get('/google/callback', 'AuthController.google')
+
+  Route.get('/twitter/redirect', async  ({ ally}) => {
+    return ally.use('twitter').redirect()
+  })
+  Route.get('/github/redirect', async  ({ ally}) => {
+    return ally.use('github').redirect()
+  })
+  Route.get('/google/redirect', async  ({ ally}) => {
+    return ally.use('google').redirect()
+  })
 }).prefix('auth')
