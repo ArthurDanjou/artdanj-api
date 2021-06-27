@@ -14,7 +14,8 @@ export default class FormConfirmation extends BaseMailer {
 
   public prepare(message: MessageContract) {
     message
-      .from('contact@arthurdanjou.fr')
+      .from('no-reply@arthurdanjou.fr')
+      .replyTo('contact@arthurdanjou.fr')
       .to(this.email)
       .subject('Confirmation Form')
       .html(this.html)
