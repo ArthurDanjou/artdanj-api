@@ -26,7 +26,7 @@ Route.get('/source', async ({response}: HttpContextContract) => {
   return response.redirect(Env.get('GITHUB_SOURCE'))
 })
 
-Route.get('health', async ({response}: HttpContextContract) => {
+Route.get('/health', async ({response}: HttpContextContract) => {
   const report = await HealthCheck.getReport()
   const isLive = await HealthCheck.isLive()
   const isReady = await HealthCheck.isReady()
@@ -36,30 +36,19 @@ Route.get('health', async ({response}: HttpContextContract) => {
 // ArtAPI
 Route.get('/profile', 'ProfileController.me')
 Route.get('/locations', 'LocationsController.get')
-//Route.get('/stats', 'StatsController.get')
+Route.get('/stats', 'StatsController.get')
 Route.get('/states', 'StatesController.get')
 Route.get('/projects', 'ProjectsController.get')
 
-Route.resource('users', 'UsersController').only(['index', 'show'])
-
-Route.group(() => {
-  Route.get('/', 'FileController.index')
-  Route.get('/:filename', async ({ response, params }) => {
-    response.download(Application.makePath('storage', params.filename))
-  })
-}).prefix('/files')
-
-Route.group(() => {
-  Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
-  Route.resource('files', 'FileController').only(['store', 'destroy'])
-  Route.post('/locations', 'LocationsController.store')
-  Route.post('/projects', 'ProjectsController.store')
-}).middleware('auth:web')
-
 Route.group(() => {
   Route.post('form', 'FormsController.send')
-
   Route.post('states/:state', 'StatesController.set')
+
+  Route.resource('users', 'UsersController')
+  Route.resource('files', 'FileController').only(['store', 'destroy'])
+
+  Route.post('/locations', 'LocationsController.store')
+  Route.post('/projects', 'ProjectsController.store')
 
   Route.group(() => {
     Route.get('/:slug', 'PostsController.getLikes')
@@ -72,7 +61,15 @@ Route.group(() => {
 
   Route.get('guestbook', 'GuestBookController.get')
   Route.post('guestbook', 'GuestBookController.store')
-}).middleware('auth:api')
+
+  Route.group(() => {
+    Route.get('/', 'FileController.index')
+    Route.get('/:filename', async ({ response, params }) => {
+      response.download(Application.makePath('storage', params.filename))
+    })
+  }).prefix('/files')
+
+}).middleware('auth')
 
 Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth')
@@ -88,13 +85,13 @@ Route.group(() => {
   Route.get('/github/callback', 'AuthController.github')
   Route.get('/google/callback', 'AuthController.google')
 
-  Route.get('/twitter/redirect', async  ({ ally}) => {
+  Route.get('/twitter', async  ({ ally }) => {
     return ally.use('twitter').redirect()
   })
-  Route.get('/github/redirect', async  ({ ally}) => {
+  Route.get('/github', async  ({ ally }) => {
     return ally.use('github').redirect()
   })
-  Route.get('/google/redirect', async  ({ ally}) => {
+  Route.get('/google', async  ({ ally }) => {
     return ally.use('google').redirect()
   })
 }).prefix('auth')

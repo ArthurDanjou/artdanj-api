@@ -27,7 +27,7 @@ const allyConfig: AllyConfig = {
 		driver: 'github',
 		clientId: Env.get('GITHUB_CLIENT_ID'),
 		clientSecret: Env.get('GITHUB_CLIENT_SECRET'),
-		callbackUrl: `${Env.get('HOST')}:${Env.get('PORT')}/auth/github`,
+		callbackUrl: `${Env.get('BASE_URL')}:${Env.get('PORT')}/auth/github/callback`,
 	},
 	/*
 	|--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ const allyConfig: AllyConfig = {
 		driver: 'twitter',
 		clientId: Env.get('TWITTER_CLIENT_ID'),
 		clientSecret: Env.get('TWITTER_CLIENT_SECRET'),
-		callbackUrl: `${Env.get('HOST')}:${Env.get('PORT')}/auth/twitter`,
+		callbackUrl: `${Env.get('BASE_URL')}:${Env.get('PORT')}/auth/twitter/callback`,
 	},
 	/*
 	|--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ const allyConfig: AllyConfig = {
 		driver: 'google',
 		clientId: Env.get('GOOGLE_CLIENT_ID'),
 		clientSecret: Env.get('GOOGLE_CLIENT_SECRET'),
-		callbackUrl: `${Env.get('HOST')}:${Env.get('PORT')}/auth/google`,
+		callbackUrl: `${Env.get('BASE_URL')}:${Env.get('PORT')}/auth/google/callback`,
 	},
 }
 
