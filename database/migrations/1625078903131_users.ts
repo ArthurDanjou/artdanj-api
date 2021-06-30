@@ -13,7 +13,7 @@ export default class Users extends BaseSchema {
       table.boolean('is_confirmed').defaultTo(false).notNullable()
       table.string('remember_me_token').defaultTo(null).nullable()
       table.string('confirmation_token').defaultTo(null).nullable()
-      table.timestamps()
+      table.timestamps(true, true)
     })
   }
 

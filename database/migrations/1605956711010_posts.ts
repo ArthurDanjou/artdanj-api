@@ -8,7 +8,7 @@ export default class Posts extends BaseSchema {
       table.increments('id').primary()
       table.string('slug').notNullable()
       table.integer('likes').notNullable()
-      table.timestamps()
+      table.timestamps(true, true)
     })
   }
 
