@@ -13,7 +13,7 @@ export default class LocationsController {
     })
   }
 
-  public async add ({ request, response }: HttpContextContract) {
+  public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(LocationValidator)
     await Location.create(data)
     return response.status(200).send({

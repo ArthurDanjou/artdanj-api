@@ -51,8 +51,10 @@ export default Env.rules({
   API_VERSION: Env.schema.string(),
 
   //Mails
-  MAILGUN_API_KEY: Env.schema.string(),
-  MAILGUN_URL: Env.schema.string(),
+  SMTP_HOST: Env.schema.string({ format: 'host' }),
+  SMTP_PORT: Env.schema.number(),
+  SMTP_USERNAME: Env.schema.string(),
+  SMTP_PASSWORD: Env.schema.string(),
 
   //Socials Authentication
   GOOGLE_CLIENT_ID: Env.schema.string(),

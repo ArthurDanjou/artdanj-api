@@ -41,6 +41,7 @@ Route.get('/states', 'StatesController.get')
 Route.get('/projects', 'ProjectsController.get')
 
 Route.resource('users', 'UsersController').only(['index', 'show'])
+
 Route.group(() => {
   Route.get('/', 'FileController.index')
   Route.get('/:filename', async ({ response, params }) => {
@@ -51,22 +52,26 @@ Route.group(() => {
 Route.group(() => {
   Route.resource('users', 'UsersController').only(['store', 'update', 'destroy'])
   Route.resource('files', 'FileController').only(['store', 'destroy'])
-  Route.post('/locations', 'LocationsController.add')
-  Route.post('/projects', 'ProjectsController.add')
-
-  Route.resource('guestbook', 'GuestBookController').only(['index', 'show'])
+  Route.post('/locations', 'LocationsController.store')
+  Route.post('/projects', 'ProjectsController.store')
 }).middleware('auth:web')
 
 Route.group(() => {
-  // ArtAPI
   Route.post('form', 'FormsController.send')
+
   Route.post('states/:state', 'StatesController.set')
-  // ArtSite
+
   Route.group(() => {
     Route.get('/:slug', 'PostsController.getLikes')
     Route.post('/:slug/like', 'PostsController.like')
     Route.post('/:slug/unlike', 'PostsController.unlike')
   }).prefix('posts')
+
+  Route.get('subscribers', 'SubscribersController.get')
+  Route.post('subscribers', 'SubscribersController.store')
+
+  Route.get('guestbook', 'GuestBookController.get')
+  Route.post('guestbook', 'GuestBookController.store')
 }).middleware('auth:api')
 
 Route.group(() => {

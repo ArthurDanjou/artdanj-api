@@ -1,16 +1,18 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import GuestBookMessage from "../../Models/GuestBookMessage";
-import StoreValidator from "../../Validators/guestbook/StoreValidator";
+import GuestValidator from "../../Validators/guestbook/GuestValidator";
 
 export default class GuestBookController {
 
-  public async index () {
+  public async get () {
     return GuestBookMessage.query().orderBy('created_at', 'desc')
   }
 
-  public async store ({request}: HttpContextContract) {
-    const data = await request.validate(StoreValidator)
-    return await GuestBookMessage.create(data)
+  public async store ({request, auth}: HttpContextContract) {
+    if (auth.isLoggedIn) {
+      const data = await request.validate(GuestValidator)
+      return await GuestBookMessage.create(data)
+    }
   }
 
 }

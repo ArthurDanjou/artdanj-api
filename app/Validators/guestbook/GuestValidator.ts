@@ -1,16 +1,19 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import {rules, schema} from '@ioc:Adonis/Core/Validator'
 
-export default class StoreValidator {
+export default class GuestValidator {
   constructor (private ctx: HttpContextContract) {
   }
 
   public schema = schema.create({
-    email: schema.string({ trim: true }, [
-      rules.email(),
-      rules.unique({table: 'subscribers', column: 'email'})
+    user_id: schema.number( [
+      rules.required(),
+      rules.unique({table: 'golden_messages', column: 'user_id'}),
+      rules.exists({ table: 'users', column: 'id'})
     ]),
-    name: schema.string()
+    message: schema.string({}, [
+      rules.required()
+    ])
   })
 
   public cacheKey = this.ctx.routeKey

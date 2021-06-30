@@ -1,7 +1,6 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Redis from "@ioc:Adonis/Addons/Redis";
 import {UpdateGitHubReadme} from "app/Tasks/UpdateGithubReadme";
-import Logger from "@ioc:Adonis/Core/Logger";
 
 export default class StatesController {
 
@@ -52,7 +51,6 @@ export default class StatesController {
         message: 'State successfully updated !'
       })
     }
-    Logger.info("Finish")
   }
 
   public getStatus(state: string | null): string {
