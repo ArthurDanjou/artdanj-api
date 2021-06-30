@@ -3272,7 +3272,7 @@ mjml-wrapper@4.10.1:
     mjml-core "4.10.1"
     mjml-section "4.10.1"
 
-mjml@^4.10.0:
+mjml@^4.10.1:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/mjml/-/mjml-4.10.1.tgz#8f5d06815bee01ef033553c73589451704a63e8a"
   integrity sha512-cD6F20yIMOUT9xaAVWLfk0DnhQSq6VkpD+LCf/RUWrxsxxkwPJtJfKfrP5TMeuWcmDFS9hfOBS3Jz+NmGh03jQ==

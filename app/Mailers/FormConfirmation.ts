@@ -1,6 +1,4 @@
-import mjml from 'mjml'
 import { BaseMailer, MessageContract } from '@ioc:Adonis/Addons/Mail'
-import View from "@ioc:Adonis/Core/View";
 
 export default class FormConfirmation extends BaseMailer {
 
@@ -8,16 +6,19 @@ export default class FormConfirmation extends BaseMailer {
     super()
   }
 
-  public html = mjml(View.render('emails/confirmation_form', {
+  /*public html = mjml(View.render('emails/confirmation_form', {
     name: this.name
-  })).html
+  })).html*/
 
   public prepare(message: MessageContract) {
     message
       .from('no-reply@arthurdanjou.fr')
       .replyTo('contact@arthurdanjou.fr')
       .to(this.email)
-      .subject('Confirmation Form')
-      .html(this.html)
+      .subject('Thank you for contacting !')
+      .htmlView('emails/confirmation_form', {
+        name: this.name,
+        url: 'https://arthurdanjou.fr'
+      })
   }
 }
