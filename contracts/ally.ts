@@ -11,13 +11,13 @@ declare module '@ioc:Adonis/Addons/Ally' {
 			config: GithubDriverConfig
 			implementation: GithubDriverContract
 		}
+    google: {
+      config: GoogleDriverConfig
+      implementation: GoogleDriverContract
+    }
 		twitter: {
 			config: TwitterDriverConfig
 			implementation: TwitterDriverContract
-		}
-		google: {
-			config: GoogleDriverConfig
-			implementation: GoogleDriverContract
 		}
 	}
 }

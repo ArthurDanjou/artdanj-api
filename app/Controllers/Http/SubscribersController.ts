@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import SubscriberValidator from "../../Validators/subscriber/SubscriberValidator";
-import Subscriber from "../../Models/Subscriber";
+import Subscriber from "App/Models/Subscriber";
+import SubscriberValidator from "App/Validators/subscriber/SubscriberValidator";
 
 export default class SubscribersController {
 

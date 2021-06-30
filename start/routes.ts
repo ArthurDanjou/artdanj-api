@@ -75,11 +75,8 @@ Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth')
   Route.post('/token', 'AuthController.createInfiniteToken')
 
-  Route.post('/web/login', 'AuthController.loginWeb')
-  Route.post('/web/logout', 'AuthController.logoutWeb')
-
-  Route.post('/api/login', 'AuthController.loginApi')
-  Route.post('/api/logout', 'AuthController.logoutApi')
+  Route.post('/login', 'AuthController.login')
+  Route.post('/logout', 'AuthController.logout')
 
   Route.get('/twitter/callback', 'AuthController.twitter')
   Route.get('/github/callback', 'AuthController.github')

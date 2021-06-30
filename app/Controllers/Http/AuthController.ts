@@ -1,32 +1,14 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import User from "../../Models/User";
-import AuthValidator from "../../Validators/AuthValidator";
+import User from "App/Models/User";
 import {AllyUserContract} from "@ioc:Adonis/Addons/Ally";
 
 export default class AuthController {
 
-  public async loginWeb ({ request, auth, response }: HttpContextContract) {
-    const data = await request.validate(AuthValidator)
-    const {email, password, remember_me } = data
-    await auth.attempt(email, password, remember_me)
-    const user = await User.query()
-      .where('id', auth.user!.id)
-      .firstOrFail()
-    if (!remember_me) {
-      await user.merge({
-        rememberMeToken: ''
-      }).save()
-    }
-    return response.status(200).send({
-      user: user
-    })
-  }
-
-  public async loginApi ({ request, auth, response }: HttpContextContract) {
+  public async login ({ request, auth, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
 
-    const token = await auth.use('api').attempt(email, password, {
+    const token = await auth.attempt(email, password, {
       expiresIn: '2 days'
     })
     return response.status(200).send(token.toJSON())
@@ -35,19 +17,12 @@ export default class AuthController {
   public async createInfiniteToken ({ request, auth, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
-    const token = await auth.use('api').attempt(email, password)
+    const token = await auth.attempt(email, password)
     return response.status(200).send(token.toJSON())
   }
 
-  public async logoutWeb ({ auth, response }: HttpContextContract) {
+  public async logout ({ auth, response }: HttpContextContract) {
     await auth.logout()
-    return response.status(200).send({
-      message: 'You have been disconnected'
-    })
-  }
-
-  public async logoutApi ({ auth, response }: HttpContextContract) {
-    await auth.use('api').logout()
     return response.status(200).send({
       message: 'You have been disconnected'
     })
@@ -86,7 +61,7 @@ export default class AuthController {
 
     const twitterUser = await twitter.user()
     const user = await this.createUser(twitterUser)
-    await auth.use('web').login(user)
+    await auth.login(user)
     return response.status(200).send({
       user: user
     })
@@ -115,7 +90,7 @@ export default class AuthController {
 
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
-    await auth.use('web').login(user)
+    await auth.login(user)
     return response.status(200).send({
       user: user
     })
@@ -144,7 +119,7 @@ export default class AuthController {
 
     const googleUser = await google.user()
     const user = await this.createUser(googleUser)
-    await auth.use('web').login(user)
+    await auth.login(user)
     return response.status(200).send({
       user: user
     })

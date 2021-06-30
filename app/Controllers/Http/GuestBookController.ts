@@ -1,6 +1,6 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import GuestBookMessage from "../../Models/GuestBookMessage";
-import GuestValidator from "../../Validators/guestbook/GuestValidator";
+import GuestBookMessage from "App/Models/GuestBookMessage";
+import GuestValidator from "App/Validators/guestbook/GuestValidator";
 
 export default class GuestBookController {
 
