@@ -7,7 +7,7 @@ export default class Subscribers extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('email').notNullable()
-      table.timestamps(true)
+      table.timestamps()
     })
   }
 

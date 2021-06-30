@@ -10,7 +10,7 @@ export default class Forms extends BaseSchema {
       table.string('email')
       table.string('subject')
       table.string('content')
-      table.timestamps(true)
+      table.timestamps()
     })
   }
 

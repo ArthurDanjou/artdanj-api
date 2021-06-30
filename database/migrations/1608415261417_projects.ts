@@ -10,7 +10,7 @@ export default class Projects extends BaseSchema {
       table.string('description')
       table.string('url')
       table.integer('progress')
-      table.timestamps(true)
+      table.timestamps()
     })
   }
 

@@ -8,7 +8,7 @@ export default class Pictures extends BaseSchema {
       table.increments('id').primary()
       table.string('label').notNullable()
       table.string('file_name').notNullable()
-      table.timestamps(true)
+      table.timestamps()
     })
   }
 

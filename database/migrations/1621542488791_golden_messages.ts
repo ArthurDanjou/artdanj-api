@@ -8,7 +8,7 @@ export default class GoldenMessages extends BaseSchema {
       table.increments('id')
       table.integer('user_id').notNullable()
       table.string('message')
-      table.timestamps(true)
+      table.timestamps()
     })
   }
 

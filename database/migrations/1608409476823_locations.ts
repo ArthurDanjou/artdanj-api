@@ -9,7 +9,7 @@ export default class Locations extends BaseSchema {
       table.string('place')
       table.string('left')
       table.date('since')
-      table.timestamps(true)
+      table.timestamps()
     })
   }
 
