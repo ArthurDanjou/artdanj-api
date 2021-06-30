@@ -1,6 +1,6 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Redis from "@ioc:Adonis/Addons/Redis";
-import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
+import {UpdateGitHubReadme} from "app/Tasks/UpdateGithubReadme";
 import Logger from "@ioc:Adonis/Core/Logger";
 
 export default class StatesController {
