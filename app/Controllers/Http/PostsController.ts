@@ -3,7 +3,7 @@ import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 
 export default class PostsController {
 
-  public async getLikes ({params}: HttpContextContract) {
+  public async getLikes({params, response}: HttpContextContract) {
     let post = await Post.findBy('slug', params.slug)
 
     if (!post) {
@@ -13,7 +13,9 @@ export default class PostsController {
       })
     }
 
-    return post.likes
+    return response.status(200).send({
+      likes: post.likes
+    })
   }
 
   public async like ({params, response}: HttpContextContract) {
@@ -32,7 +34,6 @@ export default class PostsController {
       likes: getLikes
     }).save()
     return response.status(200).send({
-      status: 200,
       post
     })
   }
@@ -46,7 +47,6 @@ export default class PostsController {
       likes: getLikes
     }).save()
     return response.status(200).send({
-      status: 200,
       post
     })
   }

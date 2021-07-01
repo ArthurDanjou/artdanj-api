@@ -7,24 +7,29 @@ export default class AuthController {
   public async login ({ request, auth, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
+    const infinity = request.input('infinity', false)
 
     const token = await auth.attempt(email, password, {
-      expiresIn: '2 days'
+      expiresIn: infinity ? '' : '2 days'
     })
-    return response.status(200).send(token.toJSON())
+    return response.status(200).send({
+      token: token.toJSON()
+    })
   }
 
   public async createInfiniteToken ({ request, auth, response }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
     const token = await auth.attempt(email, password)
-    return response.status(200).send(token.toJSON())
+    return response.status(200).send({
+      token: token.toJSON()
+    })
   }
 
   public async logout ({ auth, response }: HttpContextContract) {
     await auth.logout()
     return response.status(200).send({
-      message: 'You have been disconnected'
+      message: 'You have been disconnected!'
     })
   }
 
@@ -43,13 +48,13 @@ export default class AuthController {
 
     if (twitter.accessDenied()) {
       return response.status(403).send({
-        message: 'Access Denied'
+        message: 'Access Denied!'
       })
     }
 
     if (twitter.stateMisMatch()) {
       return response.status(405).send({
-        message: 'Request expired. Retry again'
+        message: 'Request expired. Retry again!'
       })
     }
 
@@ -72,13 +77,13 @@ export default class AuthController {
 
     if (github.accessDenied()) {
       return response.status(403).send({
-        message: 'Access Denied'
+        message: 'Access Denied!'
       })
     }
 
     if (github.stateMisMatch()) {
       return response.status(405).send({
-        message: 'Request expired. Retry again'
+        message: 'Request expired. Retry again!'
       })
     }
 
@@ -101,13 +106,13 @@ export default class AuthController {
 
     if (google.accessDenied()) {
       return response.status(403).send({
-        message: 'Access Denied'
+        message: 'Access Denied!'
       })
     }
 
     if (google.stateMisMatch()) {
       return response.status(405).send({
-        message: 'Request expired. Retry again'
+        message: 'Request expired. Retry again!'
       })
     }
 

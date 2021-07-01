@@ -1,21 +1,23 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import Application from "@ioc:Adonis/Core/Application";
 import File from "App/Models/File";
 
 export default class FileController {
 
-  public async index () {
-    return File.query()
+  public async index({response}: HttpContextContract) {
+    return response.status(200).send({
+      files: File.query()
+    })
   }
 
-  public async store ({request}: HttpContextContract) {
+  public async store({request, response}: HttpContextContract) {
     const file = await request.file('file', {
       extnames: ['jpg', 'png', 'jpeg']
     })
     const label = request.input('label')
 
     if (!file) {
-      return 'Please upload file'
+      return 'Please upload file!'
     }
     if (file.hasErrors) {
       return file.errors
@@ -25,16 +27,20 @@ export default class FileController {
       name: `${label}.${file.extname}`
     })
 
-    return await File.create({
-      fileName: `${label}.${file.extname}`,
-      label: label
+    return response.status(200).send({
+      file: await File.create({
+        fileName: `${label}.${file.extname}`,
+        label: label
+      })
     })
   }
 
-  public async destroy({ params }: HttpContextContract) {
+  public async destroy({params, response}: HttpContextContract) {
     const file = await File.findOrFail(params.id)
     await file.delete()
-    return { message: "Le fichier a bien été supprimée" }
+    return response.status(200).send({
+      message: 'File successfully deleted!'
+    })
   }
 
 }

@@ -4,7 +4,7 @@ import {UpdateGitHubReadme} from "App/Tasks/UpdateGithubReadme";
 
 export default class StatesController {
 
-  public async get ({response}: HttpContextContract) {
+  public async get({response}: HttpContextContract) {
     const is_sleeping = await Redis.get('states:sleeping')
     const is_listening_music = await Redis.get('states:listening')
     const is_developing = await Redis.get('states:developing')
@@ -18,7 +18,7 @@ export default class StatesController {
     })
   }
 
-  public async set ({request, response, params}: HttpContextContract) {
+  public async set({request, response, params}: HttpContextContract) {
     const state = params.state
     const value = await request.input('value')
 

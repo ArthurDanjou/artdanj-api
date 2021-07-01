@@ -1,13 +1,12 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import Project from "App/Models/Project";
 import ProjectValidator from "App/Validators/project/ProjectValidator";
 
 export default class ProjectsController {
 
   public async get ({ response }: HttpContextContract) {
-    const projects = await Project.query().orderBy('id', 'asc')
     return response.status(200).send({
-      projects
+      projects: await Project.query().orderBy('id', 'asc')
     })
   }
 

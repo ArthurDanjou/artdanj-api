@@ -10,7 +10,8 @@ export default class ProfileController {
         "Dev",
         "DevOps",
         "New technologies",
-        "Gaming"
+        "Gaming",
+        "Cloud"
       ],
       code: [
         "Javascript",
@@ -29,18 +30,18 @@ export default class ProfileController {
         "Software dev"
       ],
       technologies: {
-        web_app: ["VueJs", "NuxtJs", "Sass", "Tailwind"],
+        web_app: ["VueJs", "NuxtJs", "Sass", "Tailwind", "WindiCss"],
         desktop_app: ["ElectronJs"],
-        mobile_app: ["React Native"],
+        mobile_app: ["React Native", "Vue Native"],
         back_end: {
           typescript: ["AdonisJs"],
           java: ["Spring"]
         },
         databases: ["MongoDB", "MariaDB", "Redis"],
-        messaging: ["RabbitMq"],
+        messaging: ["RabbitMQ"],
         other: ["Docker", "Git"],
         architecture: ["microservices", "event-driven", "design system pattern"],
-        operating_systems: ['Windows', 'Linux']
+        operating_systems: ['MacOS', "Linux"]
       },
     })
   }

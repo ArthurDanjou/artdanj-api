@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import {rules, schema} from '@ioc:Adonis/Core/Validator'
 
 export default class GuestValidator {
@@ -6,10 +6,10 @@ export default class GuestValidator {
   }
 
   public schema = schema.create({
-    user_id: schema.number( [
+    user_id: schema.number([
       rules.required(),
       rules.unique({table: 'golden_messages', column: 'user_id'}),
-      rules.exists({ table: 'users', column: 'id'})
+      rules.exists({table: 'users', column: 'id'})
     ]),
     message: schema.string({}, [
       rules.required()
