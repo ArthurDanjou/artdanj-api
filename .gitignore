@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # Jetbrains
-.idea/
+.idea
 
 # AdonisJS
 database/seeders
