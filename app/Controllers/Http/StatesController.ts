@@ -17,7 +17,7 @@ export default class StatesController {
 
   public async get({response}: HttpContextContract) {
     const states = STATES.map(async state => {
-      return this.getStatus(await Redis.get(`states:is_${state}`))
+      return this.getStatus(await Redis.get(`states:is_${state.state}`))
     })
 
     return response.status(200).send({
