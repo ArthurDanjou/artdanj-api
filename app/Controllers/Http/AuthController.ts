@@ -66,7 +66,7 @@ export default class AuthController {
 
     const twitterUser = await twitter.user()
     const user = await this.createUser(twitterUser)
-    await auth.login(user)
+    await auth.use('web').login(user)
     return response.status(200).send({
       user: user
     })
@@ -95,7 +95,7 @@ export default class AuthController {
 
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
-    await auth.login(user)
+    await auth.use('web').login(user)
     return response.status(200).send({
       user: user
     })
@@ -124,7 +124,7 @@ export default class AuthController {
 
     const googleUser = await google.user()
     const user = await this.createUser(googleUser)
-    await auth.login(user)
+    await auth.use('web').login(user)
     return response.status(200).send({
       user: user
     })

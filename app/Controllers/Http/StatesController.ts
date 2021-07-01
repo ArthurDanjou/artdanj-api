@@ -2,19 +2,24 @@ import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Redis from "@ioc:Adonis/Addons/Redis";
 import {UpdateGitHubReadme} from "App/Tasks/UpdateGithubReadme";
 
+const STATES = [
+  {sleeping: 'is_sleeping'},
+  {listening: 'is_listening_music'},
+  {developing: 'is_developing'},
+  {learning: 'is_learning'}
+]
+
 export default class StatesController {
 
   public async get({response}: HttpContextContract) {
-    const is_sleeping = await Redis.get('states:sleeping')
-    const is_listening_music = await Redis.get('states:listening')
-    const is_developing = await Redis.get('states:developing')
-    const is_learning = await Redis.get('states:learning')
+    const states = STATES.map(async state => {
+      return this.getStatus(await Redis.get(`states:${state}`))
+    })
 
     return response.status(200).send({
-      is_learning: this.getStatus(is_learning),
-      is_sleeping: this.getStatus(is_sleeping),
-      is_developing: this.getStatus(is_developing),
-      is_listening_music: this.getStatus(is_listening_music)
+      states: {
+        ...states
+      }
     })
   }
 
@@ -48,7 +53,7 @@ export default class StatesController {
 
       await UpdateGitHubReadme()
       return response.status(200).send({
-        message: 'State successfully updated !'
+        message: 'State successfully updated!'
       })
     }
   }
