@@ -22,7 +22,7 @@ export default class StatesController {
 
     return response.status(200).send({
       states: {
-        ...states
+        states
       }
     })
   }

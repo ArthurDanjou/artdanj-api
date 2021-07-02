@@ -66,7 +66,7 @@ export default class AuthController {
 
     const twitterUser = await twitter.user()
     const user = await this.createUser(twitterUser)
-    await auth.use('web').login(user)
+    await auth.use('web').login(user, true)
     return response.status(200).send({
       user: user
     })
