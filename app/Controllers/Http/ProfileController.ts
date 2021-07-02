@@ -1,4 +1,5 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
+import {getDiscordActivity} from "App/Tasks/GetDiscordActivity";
 
 export default class ProfileController {
 
@@ -30,7 +31,7 @@ export default class ProfileController {
         "Software dev"
       ],
       technologies: {
-        web_app: ["VueJs", "NuxtJs", "Sass", "Tailwind", "WindiCss"],
+        web_app: ["VueJs", "NuxtJs", "Sass", "TailwindCss", "WindiCss"],
         desktop_app: ["ElectronJs"],
         mobile_app: ["React Native", "Vue Native"],
         back_end: {
@@ -43,6 +44,14 @@ export default class ProfileController {
         architecture: ["microservices", "event-driven", "design system pattern"],
         operating_systems: ['MacOS', "Linux"]
       },
+    })
+  }
+
+  //todo get discord Activity
+  public async discord({response}: HttpContextContract) {
+    const activity = await getDiscordActivity()
+    return response.status(200).send({
+      status: activity
     })
   }
 }

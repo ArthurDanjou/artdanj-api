@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { SessionConfig } from '@ioc:Adonis/Addons/Session'
+import {SessionConfig} from '@ioc:Adonis/Addons/Session'
 
 const sessionConfig: SessionConfig = {
 
@@ -36,7 +36,7 @@ const sessionConfig: SessionConfig = {
   | The name of the cookie that will hold the session id.
   |
   */
-  cookieName: 'adonis-session',
+  cookieName: 'artapi-session',
 
   /*
   |--------------------------------------------------------------------------

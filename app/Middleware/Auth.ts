@@ -1,6 +1,5 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import {AuthenticationException} from '@adonisjs/auth/build/standalone'
-import Logger from "@ioc:Adonis/Core/Logger";
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -34,9 +33,7 @@ export default class AuthMiddleware {
 
     for (let guard of guards) {
       guardLastAttempted = guard
-      Logger.info('Trying to connect with ' + guard)
       if (await auth.use(guard).check()) {
-        Logger.info(auth.use(guard).isLoggedIn)
         /**
          * Instruct auth to use the given guard as the default guard for
          * the rest of the request, since the user authenticated

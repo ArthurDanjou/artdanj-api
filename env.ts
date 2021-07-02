@@ -18,10 +18,17 @@ export default Env.rules({
 
   //App
   HOST: Env.schema.string(),
-	PORT: Env.schema.number(),
-	APP_KEY: Env.schema.string(),
-	APP_NAME: Env.schema.string(),
-	NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+  PORT: Env.schema.number(),
+  APP_KEY: Env.schema.string(),
+  APP_NAME: Env.schema.string(),
+  NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+  BASE_URL: Env.schema.string(),
+  API_VERSION: Env.schema.string(),
+
+  //Utils
+  DISCORD_ID: Env.schema.string(),
+  GITHUB_TOKEN: Env.schema.string(),
+  GITHUB_SOURCE: Env.schema.string({format: 'url'}),
 
   //Redis
   REDIS_CONNECTION: Env.schema.enum(['local'] as const),
@@ -44,12 +51,6 @@ export default Env.rules({
   //Views
   CACHE_VIEWS: Env.schema.boolean(),
 
-  //Utils
-  GITHUB_TOKEN: Env.schema.string(),
-  GITHUB_SOURCE: Env.schema.string({ format: 'url' }),
-  BASE_URL: Env.schema.string(),
-  API_VERSION: Env.schema.string(),
-
   //Mails
   SMTP_HOST: Env.schema.string({ format: 'host' }),
   SMTP_PORT: Env.schema.number(),
@@ -59,10 +60,8 @@ export default Env.rules({
   //Socials Authentication
   GOOGLE_CLIENT_ID: Env.schema.string(),
   GOOGLE_CLIENT_SECRET: Env.schema.string(),
-
   TWITTER_CLIENT_ID: Env.schema.string(),
   TWITTER_CLIENT_SECRET: Env.schema.string(),
-
   GITHUB_CLIENT_ID: Env.schema.string(),
   GITHUB_CLIENT_SECRET: Env.schema.string(),
 })

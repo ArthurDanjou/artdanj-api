@@ -41,11 +41,12 @@ Route.get('/states', 'StatesController.get')
 Route.get('/projects', 'ProjectsController.get')
 
 Route.group(() => {
-  Route.post('form', 'FormsController.send')
-  Route.post('states/:state', 'StatesController.set')
+  Route.get('/discord', 'ProfileController.discord')
+  Route.post('/form', 'FormsController.send')
+  Route.post('/states/:state', 'StatesController.set')
 
-  Route.resource('users', 'UsersController')
-  Route.resource('files', 'FileController').only(['store', 'destroy'])
+  Route.resource('/users', 'UsersController')
+  Route.resource('/files', 'FileController').only(['store', 'destroy'])
 
   Route.post('/locations', 'LocationsController.store')
   Route.post('/projects', 'ProjectsController.store')
@@ -54,17 +55,17 @@ Route.group(() => {
     Route.get('/:slug', 'PostsController.getLikes')
     Route.post('/:slug/like', 'PostsController.like')
     Route.post('/:slug/unlike', 'PostsController.unlike')
-  }).prefix('posts')
+  }).prefix('/posts')
 
-  Route.get('subscribers', 'SubscribersController.get')
-  Route.post('subscribers', 'SubscribersController.store')
+  Route.get('/subscribers', 'SubscribersController.get')
+  Route.post('/subscribers', 'SubscribersController.store')
 
-  Route.get('guestbook', 'GuestBookController.get')
-  Route.post('guestbook', 'GuestBookController.store')
+  Route.get('/guestbook', 'GuestBookController.get')
+  Route.post('/guestbook', 'GuestBookController.store')
 
   Route.group(() => {
     Route.get('/', 'FileController.index')
-    Route.get('/:filename', async ({ response, params }) => {
+    Route.get('/:filename', async ({response, params}) => {
       response.download(Application.makePath('storage', params.filename))
     })
   }).prefix('/files')
@@ -82,13 +83,13 @@ Route.group(() => {
   Route.get('/github/callback', 'AuthController.github')
   Route.get('/google/callback', 'AuthController.google')
 
-  Route.get('/twitter', async  ({ ally }) => {
+  Route.get('/twitter', async ({ally}) => {
     return ally.use('twitter').redirect()
   })
-  Route.get('/github', async  ({ ally }) => {
+  Route.get('/github', async ({ally}) => {
     return ally.use('github').redirect()
   })
-  Route.get('/google', async  ({ ally }) => {
+  Route.get('/google', async ({ally}) => {
     return ally.use('google').redirect()
   })
-}).prefix('auth')
+}).prefix('/auth')
