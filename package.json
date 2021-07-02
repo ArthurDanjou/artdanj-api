@@ -27,6 +27,7 @@
     "@adonisjs/redis": "^7.0.6",
     "@adonisjs/repl": "^3.1.4",
     "@adonisjs/session": "^6.0.6",
+    "@adonisjs/shield": "^7.0.4",
     "@adonisjs/view": "^6.0.3",
     "axios": "^0.21.1",
     "luxon": "^1.27.0",

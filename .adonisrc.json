@@ -27,7 +27,8 @@
     "@adonisjs/lucid",
     "@adonisjs/mail",
     "@adonisjs/view",
-    "@adonisjs/ally"
+    "@adonisjs/ally",
+    "@adonisjs/shield"
   ],
   "aceProviders": [
     "@adonisjs/repl"
