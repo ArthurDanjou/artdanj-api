@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { HashConfig } from '@ioc:Adonis/Core/Hash'
+import {HashConfig} from '@ioc:Adonis/Core/Hash'
 
 /*
 |--------------------------------------------------------------------------
@@ -50,25 +50,7 @@ const hashConfig: HashConfig = {
       memory: 4096,
       parallelism: 1,
       saltSize: 16,
-    },
-
-    /*
-    |--------------------------------------------------------------------------
-    | Bcrypt
-    |--------------------------------------------------------------------------
-    |
-    | Bcrypt mapping uses the `bcrypt` driver to hash values.
-    |
-    | Make sure you install the underlying dependency for this driver to work.
-    | https://www.npmjs.com/package/phc-bcrypt.
-    |
-    | npm install phc-bcrypt
-    |
-    */
-    bcrypt: {
-      driver: 'bcrypt',
-      rounds: 10,
-    },
+    }
   },
 }
 
