@@ -5,6 +5,7 @@ export default class GuestbookMessages extends BaseSchema {
 
   public async up() {
     await this.schema.table(this.tableName, (table) => {
+      table.dropColumn('message')
       table.text('message')
     })
   }
