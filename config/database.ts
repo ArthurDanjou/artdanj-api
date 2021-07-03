@@ -43,7 +43,7 @@ const databaseConfig: DatabaseConfig = {
         database: Env.get('MYSQL_DB_NAME'),
       },
       healthCheck: true,
-      debug: true,
+      debug: false,
     },
 
   },
