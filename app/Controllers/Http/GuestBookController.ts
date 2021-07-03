@@ -1,12 +1,11 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import GuestBookMessage from "App/Models/GuestBookMessage";
 import GuestValidator from "App/Validators/guestbook/GuestValidator";
 
 export default class GuestBookController {
 
-  public async get({response}: HttpContextContract) {
+  public get({response}: HttpContextContract) {
     return response.status(200).send({
-      guestbook_messages: GuestBookMessage.query().orderBy('created_at', 'desc')
+      guestbook_messages: 'TEST'
     })
   }
 
