@@ -4,9 +4,10 @@ import GuestBookMessage from "App/Models/GuestBookMessage";
 
 export default class GuestBookController {
 
-  public get({response}: HttpContextContract) {
+  public async get({response}: HttpContextContract) {
+    const guestbook_messages = await GuestBookMessage.query().orderBy('created_at', 'desc')
     return response.status(200).send({
-      guestbook_messages: GuestBookMessage.query().orderBy('created_at', 'asc')
+      guestbook_messages
     })
   }
 
