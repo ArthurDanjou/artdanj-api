@@ -2,27 +2,16 @@ import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Redis from "@ioc:Adonis/Addons/Redis";
 import {UpdateGitHubReadme} from "App/Tasks/UpdateGithubReadme";
 
-interface STATE {
-  state: string
-}
-
-const STATES: Array<STATE> = [
-  {state: 'developing'},
-  {state: 'learning'},
-  {state: 'listening_music'},
-  {state: 'learning'}
-]
-
 export default class StatesController {
 
   public async get({response}: HttpContextContract) {
-    const states = STATES.map(async state => {
-      return this.getStatus(await Redis.get(`states:is_${state.state}`))
-    })
 
     return response.status(200).send({
       states: {
-        states
+        "is_sleeping": this.getStatus(await Redis.get(`states:is_sleeping`)),
+        "is_developing": this.getStatus(await Redis.get(`states:is_developing`)),
+        "is_learning": this.getStatus(await Redis.get(`states:is_learning`)),
+        "is_listening_music": this.getStatus(await Redis.get(`states:is_listening_music`)),
       }
     })
   }
