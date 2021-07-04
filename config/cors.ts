@@ -5,7 +5,7 @@
  * file.
  */
 
-import { CorsConfig } from '@ioc:Adonis/Core/Cors'
+import {CorsConfig} from '@ioc:Adonis/Core/Cors'
 
 const corsConfig: CorsConfig = {
   /*
@@ -44,15 +44,7 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: (origin) => {
-    // Allow all connection on dev mode
-    if (process.env.NODE_ENV === 'development') {
-      return true;
-    }
-
-    // Production : allow only from your domain
-    return origin.includes('arthurdanjou.fr');
-  },
+  origin: '*',
 
   /*
   |--------------------------------------------------------------------------
