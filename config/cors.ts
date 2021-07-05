@@ -44,7 +44,13 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: '*',
+  origin: (origin) => {
+    if (process.env.NODE_ENV === 'development') {
+      return true;
+    }
+
+    return origin.includes('arthurdanjou.fr')
+  },
 
   /*
   |--------------------------------------------------------------------------
