@@ -96,7 +96,7 @@ export default class AuthController {
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
     await auth.use('web').login(user, true)
-    return response.status(200).send({
+    return response.header('Access-Control-Allow-Origin', '*').status(200).send({
       user: user
     })
   }
