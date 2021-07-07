@@ -6,7 +6,7 @@ export default class SubscribersController {
 
   public async get ({ response }: HttpContextContract) {
     return response.status(200).send({
-      count: Subscriber.query().count
+      count: Subscriber.query().count('* as total')
     })
   }
 
