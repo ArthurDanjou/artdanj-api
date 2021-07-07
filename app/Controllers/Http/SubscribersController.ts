@@ -5,8 +5,9 @@ import SubscriberValidator from "App/Validators/subscriber/SubscriberValidator";
 export default class SubscribersController {
 
   public async get ({ response }: HttpContextContract) {
+    const subscribers = await Subscriber.query()
     return response.status(200).send({
-      count: Subscriber.query().count('* as total')
+      count: subscribers.length
     })
   }
 
