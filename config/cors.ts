@@ -44,7 +44,9 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: '*',
+  origin: (origin => {
+    return origin.includes('arthurdanjou.fr')
+  }),
 
   /*
   |--------------------------------------------------------------------------
