@@ -44,7 +44,9 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: 'https://arthurdanjou.fr',
+  origin: (theme) => {
+    return theme.includes('arthurdanjou.fr')
+  },
 
   /*
   |--------------------------------------------------------------------------
