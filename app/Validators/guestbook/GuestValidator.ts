@@ -8,6 +8,9 @@ export default class GuestValidator {
   public schema = schema.create({
     message: schema.string({}, [
       rules.required()
+    ]),
+    email: schema.string({}, [
+      rules.email()
     ])
   })
 

@@ -10,6 +10,7 @@ Route.group(() => {
   Route.get('/subscribers', 'SubscribersController.get')
   Route.post('/subscribers', 'SubscribersController.store')
   Route.delete('/subscribers', 'SubscribersController.delete')
-  Route.get('/guestbook', 'GuestBookController.get')
+  Route.get('/guestbook', 'GuestBookController.index')
   Route.post('/guestbook', 'GuestBookController.store')
+  Route.post('/guestbook/:email', 'GuestBookController.store')
 }).middleware('auth')
