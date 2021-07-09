@@ -17,10 +17,10 @@
     slash "^3.0.0"
     term-size "^2.2.1"
 
-"@adonisjs/ally@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@adonisjs/ally/-/ally-4.0.2.tgz#9a9c16de810fa96b726d2cfc772343740d486405"
-  integrity sha512-p8dUK//l+isTGLiiO9IPaxfAftuCYSt9t2oY4Wz2Dj2mfEtcvZY5OcdCKFYcHeN1Ax47HbLXIooq+en7rqq5PQ==
+"@adonisjs/ally@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@adonisjs/ally/-/ally-4.1.0.tgz#6811c77c7862f78279d11f6be52792b0837c1829"
+  integrity sha512-IgyUoV9U/a8iTuRBnR0US8/qV5w+d087dqDdDVbgevGVAPyzwci2KeBGBteNzbZDuF1lhfMAz76rL9rSSbWR9A==
   dependencies:
     "@poppinss/oauth-client" "^2.0.4"
     "@poppinss/utils" "^3.1.3"
