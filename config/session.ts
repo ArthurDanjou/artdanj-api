@@ -78,6 +78,8 @@ const sessionConfig: SessionConfig = {
     path: '/',
     httpOnly: true,
     sameSite: true,
+    domain: '.arthurdanjou.fr',
+    secure: true
   },
 
   /*
