@@ -96,9 +96,12 @@ export default class AuthController {
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
     await auth.use('web').login(user, true)
-    return response.status(200).send({
-      user: user
-    })
+    return response
+      .status(200)
+      .header('Access-Control-Allow-Origin', '*')
+      .send({
+        user: user
+      })
   }
 
   public async google ({ ally, auth, response, }: HttpContextContract) {
