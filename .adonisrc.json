@@ -30,7 +30,6 @@
     "@adonisjs/mail",
     "@adonisjs/view",
     "@adonisjs/bouncer",
-    "@adonisjs/ally"
   ],
   "aceProviders": [
     "@adonisjs/repl"
