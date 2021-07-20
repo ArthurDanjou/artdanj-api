@@ -41,5 +41,4 @@ export default class GuestBookController {
       signed: guestbook_message !== null
     })
   }
-
 }
