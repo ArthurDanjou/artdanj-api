@@ -1,7 +1,6 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import User from "App/Models/User";
 import {AllyUserContract} from "@ioc:Adonis/Addons/Ally";
-import Logger from "@ioc:Adonis/Core/Logger";
 
 export default class AuthController {
 
@@ -125,8 +124,6 @@ export default class AuthController {
 
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
-    Logger.info(response.getHeaders().toString())
-    Logger.info(String(response))
     await auth.use('web').login(user, true)
     return response.status(200).send({
       user: user
@@ -158,7 +155,9 @@ export default class AuthController {
     const user = await this.createUser(googleUser)
     await auth.use('web').login(user, true)
     return response.status(200).send({
-      user: user
+      user: user,
+      response: response,
+      headers: response.getHeaders()
     })
   }
 
