@@ -155,9 +155,7 @@ export default class AuthController {
     const user = await this.createUser(googleUser)
     await auth.use('web').login(user, true)
     return response.status(200).send({
-      user: user,
-      response: response,
-      headers: response.getHeaders()
+      user: user
     })
   }
 
