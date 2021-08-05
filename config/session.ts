@@ -36,7 +36,7 @@ const sessionConfig: SessionConfig = {
   | The name of the cookie that will hold the session id.
   |
   */
-  cookieName: 'artapi-session',
+  cookieName: 'athena-session',
 
   /*
   |--------------------------------------------------------------------------

@@ -1,4 +1,4 @@
 import './artsite'
-import './artapi'
+import './api'
 import './auth'
 import './home'
