@@ -16,7 +16,7 @@ export default class AnnouncesController {
 
   public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(AnnounceStoreValidator)
-    const announce = new Announce()
+    const announce = await Announce.create(data)
 
     const translation = await getTranslation(data.code)
     await announce.related('message').associate(translation)
@@ -25,7 +25,7 @@ export default class AnnouncesController {
     if (cover) await announce.related('cover').save(cover)
 
     return response.status(200).send({
-      announce: announce.save()
+      announce: announce
     })
   }
 

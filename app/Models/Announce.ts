@@ -7,6 +7,12 @@ export default class Announce extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public color: string
+
+  @column()
+  public hoverColor: string
+
   @belongsTo(() => Translation)
   public message: BelongsTo<typeof Translation>
 
