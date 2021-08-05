@@ -1,22 +1,17 @@
 import {DateTime} from 'luxon'
-import {BaseModel, column, HasOne, hasOne} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column, HasOne, hasOne} from '@ioc:Adonis/Lucid/Orm'
 import File from "App/Models/File";
+import Translation from "App/Models/Translation";
 
-export default class Project extends BaseModel {
+export default class Announce extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public name: string
+  @belongsTo(() => Translation)
+  public message: BelongsTo<typeof Translation>
 
   @column()
-  public description: string
-
-  @column()
-  public progress: number
-
-  @column()
-  public url: string
+  public messageId: number
 
   @hasOne(() => File)
   public cover: HasOne<typeof File>
