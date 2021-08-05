@@ -1,39 +1,30 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import Subscriber from "App/Models/Subscriber";
-import SubscriberValidator from "App/Validators/subscriber/SubscriberValidator";
+import SubscriberStoreValidator from "App/Validators/subscriber/SubscriberStoreValidator";
 
 export default class SubscribersController {
 
-  public async get ({ response }: HttpContextContract) {
+  public async index ({ response }: HttpContextContract) {
     const subscribers = await Subscriber.query()
     return response.status(200).send({
-      count: subscribers.length
+      count: subscribers.length,
+      subscribers: subscribers
     })
   }
 
-  public async store({request, response}: HttpContextContract) {
-    const data = await request.validate(SubscriberValidator)
-    const email = await Subscriber.findBy('email', data.email)
-    if (email) {
-      return response.status(201).send({
-        message: 'Subscriber already exists'
-      })
-    }
-    await Subscriber.create(data)
+  public async store ({ request, response }: HttpContextContract) {
+    const data = await request.validate(SubscriberStoreValidator)
     return response.status(200).send({
-      message: 'Subscriber successfully registered!'
+      subscriber: await Subscriber.create(data)
     })
   }
 
-  public async delete({request, response}: HttpContextContract) {
-    const data = await request.validate(SubscriberValidator)
-    const subscriber = await Subscriber.findBy('email', data.email)
-    if (subscriber) {
-      await subscriber.delete()
-      return response.status(200).send({
-        message: 'Subscriber successfully deleted!'
-      })
-    }
+  public async destroy ({ params, response }: HttpContextContract) {
+    const subscriber = await Subscriber.findOrFail(params.id)
+    await subscriber.delete()
+    return response.status(200).send({
+      message: 'Subscriber successfully deleted!'
+    })
   }
 
 }

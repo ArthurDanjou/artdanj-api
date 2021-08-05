@@ -4,7 +4,7 @@ import LocationValidator from "App/Validators/location/LocationValidator";
 
 export default class LocationsController {
 
-  public async get ({ response }: HttpContextContract) {
+  public async index ({ response }: HttpContextContract) {
     const location = await Location.query().orderBy('since', 'desc').first()
     if (location) {
       return response.status(200).send({
@@ -23,9 +23,9 @@ export default class LocationsController {
 
   public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(LocationValidator)
-    await Location.create(data)
+    const location = await Location.create(data)
     return response.status(200).send({
-      message: 'Location successfully added !'
+      location
     })
   }
 

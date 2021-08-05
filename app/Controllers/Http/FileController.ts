@@ -4,13 +4,13 @@ import File from "App/Models/File";
 
 export default class FileController {
 
-  public async index({response}: HttpContextContract) {
+  public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
       files: File.query()
     })
   }
 
-  public async store({request, response}: HttpContextContract) {
+  public async store ({ request, response }: HttpContextContract) {
     const file = await request.file('file', {
       extnames: ['jpg', 'png', 'jpeg']
     })
@@ -35,7 +35,7 @@ export default class FileController {
     })
   }
 
-  public async destroy({params, response}: HttpContextContract) {
+  public async destroy ({ params, response }: HttpContextContract) {
     const file = await File.findOrFail(params.id)
     await file.delete()
     return response.status(200).send({

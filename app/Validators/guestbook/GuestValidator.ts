@@ -2,7 +2,9 @@ import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import {rules, schema} from '@ioc:Adonis/Core/Validator'
 
 export default class GuestValidator {
-  constructor (private ctx: HttpContextContract) {
+  public messages = {
+    required: 'The field {{field}} is required',
+    'email.email': 'The email is not correct'
   }
 
   public schema = schema.create({
@@ -14,9 +16,6 @@ export default class GuestValidator {
     ])
   })
 
-  public cacheKey = this.ctx.routeKey
-
-  public messages = {
-    required: 'Le champ {{field}} doit être valide !',
+  constructor (protected ctx: HttpContextContract) {
   }
 }

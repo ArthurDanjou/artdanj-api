@@ -12,9 +12,8 @@ Route.get('/', async ({response}: HttpContextContract) => {
     source: `${BASE_URL}/source`,
     healthCheck: `${BASE_URL}/health`,
     routes: {
-      profile: `${BASE_URL}/profile`,
+      profile: `${BASE_URL}/me`,
       //stats: `${BASE_URL}/stats`,
-      states: `${BASE_URL}/states`,
       locations: `${BASE_URL}/locations`,
       projects: `${BASE_URL}/projects`
     }
@@ -36,8 +35,4 @@ Route.get('/health', async ({response}: HttpContextContract) => {
   })
 })
 
-Route.get('/profile', 'ProfileController.me')
-Route.get('/locations', 'LocationsController.get')
 Route.get('/stats', 'StatsController.get')
-Route.get('/states', 'StatesController.get')
-Route.get('/projects', 'ProjectsController.get')

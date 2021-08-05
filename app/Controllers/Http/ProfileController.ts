@@ -48,7 +48,7 @@ export default class ProfileController {
   }
 
   //todo get discord Activity
-  public async discord({response}: HttpContextContract) {
+  public async discord ({ response }: HttpContextContract) {
     const activity = await getDiscordActivity()
     return response.status(200).send({
       status: activity

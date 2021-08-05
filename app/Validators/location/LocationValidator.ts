@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import {schema} from '@ioc:Adonis/Core/Validator'
 
 export default class LocationValidator {
@@ -14,6 +14,6 @@ export default class LocationValidator {
   public cacheKey = this.ctx.routeKey
 
   public messages = {
-    required: 'Le champ {{field}} doit être valide !',
+    required: 'The field {{field}} is required'
   }
 }

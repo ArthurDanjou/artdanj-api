@@ -5,7 +5,7 @@ import User from "App/Models/User";
 
 export default class GuestBookController {
 
-  public async index ({response}: HttpContextContract) {
+  public async index ({ response }: HttpContextContract) {
     const guestbook_messages = await GuestbookMessage
       .query()
       .preload('user')
@@ -15,7 +15,7 @@ export default class GuestBookController {
     })
   }
 
-  public async store ({request, response}: HttpContextContract) {
+  public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(GuestValidator)
     let user = await User.findBy('email', data.email)
     if (!user) {
@@ -34,7 +34,21 @@ export default class GuestBookController {
     })
   }
 
-  public async get ({params, response}: HttpContextContract) {
+  public async show ({ params, response }: HttpContextContract) {
+    return response.status(200).send({
+      guestbook_message: await GuestbookMessage.findOrFail(params.id)
+    })
+  }
+
+  public async destroy ({ params, response }: HttpContextContract) {
+    const guestbook_message = await GuestbookMessage.findOrFail(params.id)
+    await guestbook_message.delete()
+    return response.status(200).send({
+      message: 'GuestBookMessage successfully deleted!'
+    })
+  }
+
+  public async exists ({ params, response }: HttpContextContract) {
     const email = await params.email
     const guestbook_message = await GuestbookMessage.findBy('email', email)
     return response.status(200).send({
