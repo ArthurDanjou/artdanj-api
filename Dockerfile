@@ -16,6 +16,10 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
+COPY . /usr/src/athena/build
+
+VOLUME /usr/src/athena/build/.env
+
 EXPOSE 5555
 
 CMD ["yarn", "start"]
