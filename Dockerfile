@@ -16,8 +16,6 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
-COPY . .
-
 EXPOSE 5555
 
 CMD ["yarn", "start"]
