@@ -10,14 +10,10 @@ RUN yarn install
 
 RUN yarn build
 
-RUN cp .env build
-
 WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
 EXPOSE 5555
-
-COPY . /usr/src/athena/build
 
 CMD ["yarn", "start"]
