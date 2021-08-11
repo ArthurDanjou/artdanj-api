@@ -18,6 +18,6 @@ RUN touch .env
 
 EXPOSE 5555
 
-COPY . .
+COPY . /usr/src/athena/build
 
 CMD ["yarn", "start"]
