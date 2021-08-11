@@ -5,14 +5,13 @@ WORKDIR /usr/src/athena
 
 COPY . /usr/src/athena
 
-RUN apk update && \
-    apk add git
-
 RUN yarn install
 
 RUN yarn build
 
 WORKDIR /usr/src/athena/build
+
+COPY . /usr/src/athena/build
 
 RUN yarn install --production
 
