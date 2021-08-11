@@ -18,8 +18,6 @@ RUN yarn install --production
 
 COPY . .
 
-VOLUME /.env
-
 EXPOSE 5555
 
 CMD ["yarn", "start"]
