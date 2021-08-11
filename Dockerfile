@@ -10,11 +10,11 @@ RUN yarn install
 
 RUN yarn build
 
+RUN cp .env build
+
 WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
-
-RUN touch .env
 
 EXPOSE 5555
 
