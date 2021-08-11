@@ -14,6 +14,8 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
+RUN touch .env
+
 EXPOSE 5555
 
 COPY . .
