@@ -9,7 +9,7 @@ export default class GuestbookMessages extends BaseSchema {
       table
         .integer('user_id')
         .unsigned()
-        .references('user.id')
+        .references('users.id')
         .onDelete('CASCADE')
       table.text('message')
       table.timestamps(true, true)
