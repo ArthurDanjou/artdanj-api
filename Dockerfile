@@ -14,7 +14,7 @@ RUN yarn build
 
 WORKDIR /usr/src/athena/build
 
-VOLUME /usr/src/athena/build/.env
+VOLUME "/usr/src/athena/build/.env"
 
 RUN yarn install --production
 
