@@ -16,9 +16,9 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
-COPY . /usr/src/athena/build
+COPY . .
 
-VOLUME /usr/src/athena/build/.env
+VOLUME .env
 
 EXPOSE 5555
 
