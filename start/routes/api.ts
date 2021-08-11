@@ -12,12 +12,8 @@ Route.group(() => {
   Route.resource('/locations', 'LocationsController').only(['index', 'store'])
 
   Route.resource('/files', 'FileController').only(['index', 'store', 'destroy'])
-
-  Route.group(() => {
-    Route.get('/', 'FileController.index')
-    Route.get('/:filename', async ({response, params}) => {
-      response.download(Application.makePath('storage', params.filename))
-    })
-  }).prefix('/files')
+  Route.get('/files/:filename', async ({response, params}) => {
+    response.download(Application.makePath('storage', params.filename))
+  })
 
 }).middleware('auth')

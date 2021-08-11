@@ -108,3 +108,4 @@ dist
 
 # AdonisJS
 database/seeders
+build
