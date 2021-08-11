@@ -12,9 +12,9 @@ RUN yarn install
 
 RUN yarn build
 
-RUN cp .env build
-
 WORKDIR /usr/src/athena/build
+
+VOLUME /usr/src/athena/build/.env
 
 RUN yarn install --production
 
