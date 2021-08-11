@@ -8,7 +8,7 @@ export default class Translations extends BaseSchema {
       table.increments('id')
       table.string('code').notNullable()
       table.string('french').defaultTo('Traduction manquante')
-      table.string('code').defaultTo('Missing translation')
+      table.string('english').defaultTo('Missing translation')
       table.timestamps(true, true)
     })
   }
