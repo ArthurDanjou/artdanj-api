@@ -18,7 +18,7 @@ RUN yarn install --production
 
 COPY . .
 
-VOLUME .env
+VOLUME /.env
 
 EXPOSE 5555
 
