@@ -1,9 +1,10 @@
 import Route from "@ioc:Adonis/Core/Route";
 import Application from "@ioc:Adonis/Core/Application";
 
+Route.get('/discord', 'ProfileController.discord')
+Route.get('/me', 'ProfileController.me')
+
 Route.group(() => {
-  Route.get('/discord', 'ProfileController.discord')
-  Route.get('/me', 'ProfileController.me')
 
   Route.resource('/users', 'UsersController').except(['edit', 'create'])
 
