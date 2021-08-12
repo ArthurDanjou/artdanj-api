@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column, HasOne, hasOne} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
 import File from "App/Models/File";
 import Translation from "App/Models/Translation";
 
@@ -19,8 +19,8 @@ export default class Announce extends BaseModel {
   @column()
   public translationId: number
 
-  @hasOne(() => File)
-  public cover: HasOne<typeof File>
+  @belongsTo(() => File)
+  public cover: BelongsTo<typeof File>
 
   @column()
   public fileId: number
