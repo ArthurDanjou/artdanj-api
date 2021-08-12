@@ -27,7 +27,7 @@ export default class AnnouncesController {
     await announce.related('message').associate(translation)
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await announce.related('cover').save(cover)
+    if (cover) await announce.related('cover').associate(cover)
 
     return response.status(200).send({
       announce: announce
@@ -53,7 +53,7 @@ export default class AnnouncesController {
     }
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await announce.related('cover').save(cover)
+    if (cover) await announce.related('cover').associate(cover)
 
     return response.status(200).send({
       announce

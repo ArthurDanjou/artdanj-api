@@ -2,7 +2,7 @@ import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import Application from "@ioc:Adonis/Core/Application";
 import File from "App/Models/File";
 
-export default class FileController {
+export default class FilesController {
 
   public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
