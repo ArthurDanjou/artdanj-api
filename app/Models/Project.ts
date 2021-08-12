@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon'
-import {BaseModel, column, HasOne, hasOne} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
 import File from "App/Models/File";
 
 export default class Project extends BaseModel {
@@ -18,8 +18,11 @@ export default class Project extends BaseModel {
   @column()
   public url: string
 
-  @hasOne(() => File)
-  public cover: HasOne<typeof File>
+  @belongsTo(() => File)
+  public file: BelongsTo<typeof File>
+
+  @column()
+  public fileId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
