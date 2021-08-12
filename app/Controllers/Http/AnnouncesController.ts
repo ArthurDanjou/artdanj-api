@@ -11,8 +11,8 @@ export default class AnnouncesController {
     const announce = await Announce
       .query()
       .orderBy('created_at', 'desc')
-      .preload('message')
-      .preload('cover')
+      .preload('translation')
+      .preload('file')
       .first()
     return response.status(200).send({
       announce: announce
@@ -24,10 +24,10 @@ export default class AnnouncesController {
     const announce = await Announce.create(data)
 
     const translation = await getTranslation(data.code)
-    await announce.related('message').associate(translation)
+    await announce.related('translation').associate(translation)
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await announce.related('cover').associate(cover)
+    if (cover) await announce.related('file').associate(cover)
 
     return response.status(200).send({
       announce: announce
@@ -36,8 +36,8 @@ export default class AnnouncesController {
 
   public async show ({ params, response }: HttpContextContract) {
     const announce = await Announce.findOrFail(params.id)
-    announce.load('message')
-    announce.load('cover')
+    announce.load('translation')
+    announce.load('file')
     return response.status(200).send({
       announce
     })
@@ -49,11 +49,11 @@ export default class AnnouncesController {
 
     if (data.code) {
       const translation = await getTranslation(data.code)
-      await announce.related('message').associate(translation)
+      await announce.related('translation').associate(translation)
     }
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await announce.related('cover').associate(cover)
+    if (cover) await announce.related('file').associate(cover)
 
     return response.status(200).send({
       announce
