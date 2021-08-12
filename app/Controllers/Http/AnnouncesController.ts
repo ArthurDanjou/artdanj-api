@@ -35,8 +35,11 @@ export default class AnnouncesController {
   }
 
   public async show ({ params, response }: HttpContextContract) {
+    const announce = await Announce.findOrFail(params.id)
+    announce.load('message')
+    announce.load('cover')
     return response.status(200).send({
-      user: await Announce.findOrFail(params.id)
+      announce
     })
   }
 

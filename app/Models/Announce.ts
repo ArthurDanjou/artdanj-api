@@ -16,11 +16,14 @@ export default class Announce extends BaseModel {
   @belongsTo(() => Translation)
   public message: BelongsTo<typeof Translation>
 
-  @column({ columnName: 'message_id' })
-  public messageId: number
+  @column()
+  public translationId: number
 
   @hasOne(() => File)
   public cover: HasOne<typeof File>
+
+  @column()
+  public fileId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
