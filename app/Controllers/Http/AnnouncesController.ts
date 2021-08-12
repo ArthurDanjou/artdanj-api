@@ -8,7 +8,12 @@ import File from "App/Models/File";
 export default class AnnouncesController {
 
   public async index ({ response }: HttpContextContract) {
-    const announce = await Announce.query().orderBy('created_at', 'desc').first()
+    const announce = await Announce
+      .query()
+      .orderBy('created_at', 'desc')
+      .preload('message')
+      .preload('cover')
+      .first()
     return response.status(200).send({
       announce: announce
     })
