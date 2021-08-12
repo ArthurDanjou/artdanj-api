@@ -9,12 +9,12 @@ export default class Announces extends BaseSchema {
       table.string('color')
       table.string('hover_color')
       table
-        .integer('message_id')
+        .integer('translation_id')
         .unsigned()
         .references('translations.id')
         .onDelete('CASCADE')
       table
-        .integer('cover_id')
+        .integer('file_id')
         .unsigned()
         .references('files.id')
         .onDelete('CASCADE')

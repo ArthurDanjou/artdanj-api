@@ -5,13 +5,13 @@ export default class Projects extends BaseSchema {
 
   public async up () {
     this.schema.table(this.tableName, (table) => {
-      table.integer('cover_id').unsigned().references('files.id').onDelete('CASCADE')
+      table.integer('file_id').unsigned().references('files.id').onDelete('CASCADE')
     })
   }
 
   public async down () {
     this.schema.table(this.tableName, (table) => {
-      table.dropColumn('cover_id')
+      table.dropColumn('file_id')
     })
   }
 }
