@@ -13,13 +13,11 @@ export default class Announce extends BaseModel {
   @column()
   public hoverColor: string
 
-  @belongsTo(() => Translation, {
-    foreignKey: 'translationId'
-  })
-  public message: BelongsTo<typeof Translation>
+  @belongsTo(() => Translation)
+  public translation: BelongsTo<typeof Translation>
 
   @column()
-  public messageId: number
+  public translationId: number
 
   @hasOne(() => File)
   public cover: HasOne<typeof File>

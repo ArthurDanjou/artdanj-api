@@ -11,7 +11,7 @@ export default class AnnouncesController {
     const announce = await Announce
       .query()
       .orderBy('created_at', 'desc')
-      .preload('message')
+      .preload('translation')
       .preload('cover')
       .first()
     return response.status(200).send({
@@ -24,7 +24,7 @@ export default class AnnouncesController {
     const announce = await Announce.create(data)
 
     const translation = await getTranslation(data.code)
-    await announce.related('message').associate(translation)
+    await announce.related('translation').associate(translation)
 
     const cover = await File.findBy('label', data.cover)
     if (cover) await announce.related('cover').save(cover)
@@ -46,7 +46,7 @@ export default class AnnouncesController {
 
     if (data.code) {
       const translation = await getTranslation(data.code)
-      await announce.related('message').associate(translation)
+      await announce.related('translation').associate(translation)
     }
 
     const cover = await File.findBy('label', data.cover)
