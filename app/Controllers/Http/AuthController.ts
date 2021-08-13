@@ -44,7 +44,7 @@ export default class AuthController {
   }
 
   public async twitter ({ ally, auth, response }: HttpContextContract) {
-    const twitter = ally.use('twitter')
+    const twitter = ally.use('twitter').stateless()
 
     if (twitter.accessDenied()) {
       return response.status(403).send({
@@ -73,7 +73,7 @@ export default class AuthController {
   }
 
   public async discord ({ ally, auth, response }: HttpContextContract) {
-    const discord = ally.use('discord')
+    const discord = ally.use('discord').stateless()
 
     if (discord.accessDenied()) {
       return response.status(403).send({
@@ -102,7 +102,7 @@ export default class AuthController {
   }
 
   public async github ({ ally, auth, response }: HttpContextContract) {
-    const github = ally.use('github')
+    const github = ally.use('github').stateless()
 
     if (github.accessDenied()) {
       return response.status(403).send({
@@ -131,7 +131,7 @@ export default class AuthController {
   }
 
   public async google ({ ally, auth, response, }: HttpContextContract) {
-    const google = ally.use('google')
+    const google = ally.use('google').stateless()
 
     if (google.accessDenied()) {
       return response.status(403).send({
