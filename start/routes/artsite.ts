@@ -5,6 +5,8 @@ Route.group(() => {
 
   Route.resource('/announces', 'AnnouncesController').except(['edit', 'create'])
 
+  Route.resource('/skills', 'SkillsController').except(['edit', 'create'])
+
   Route.resource('/projects', 'ProjectsController').except(['edit', 'create'])
 
   Route.resource('/profile', 'ProfilesController').only(['index', 'update'])

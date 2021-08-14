@@ -43,7 +43,7 @@ export default class AnnouncesController {
     })
   }
 
-  public async update({ request, params, response }: HttpContextContract) {
+  public async update ({ request, params, response }: HttpContextContract) {
     const data = await request.validate(AnnounceUpdateValidator)
     const announce = await Announce.findOrFail(params.id)
 
@@ -54,6 +54,7 @@ export default class AnnouncesController {
 
     const cover = await File.findBy('label', data.cover)
     if (cover) await announce.related('file').associate(cover)
+    await announce.merge(data).save()
 
     return response.status(200).send({
       announce
