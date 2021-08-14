@@ -15,9 +15,6 @@ export default class Information extends BaseModel {
   @column()
   public translationId: number
 
-  @column()
-  public hiringColor: string
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -7,7 +7,6 @@ export default class Informations extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('age').notNullable()
-      table.string('hiring_color').notNullable()
       table
         .integer('translation_id')
         .unsigned()

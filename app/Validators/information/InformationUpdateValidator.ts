@@ -4,7 +4,7 @@ import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 export default class InformationUpdateValidator {
   public schema = schema.create({
     age: schema.number.optional(),
-    hiring_status: schema.string.optional(),
+    code: schema.string.optional(),
     hiring_color: schema.string.optional()
   })
   public messages = {
