@@ -7,7 +7,7 @@ export default class UsersController {
 
   public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
-      users: User.query()
+      users: await User.all()
     })
   }
 

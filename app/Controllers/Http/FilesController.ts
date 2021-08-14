@@ -6,7 +6,7 @@ export default class FilesController {
 
   public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
-      files: File.query()
+      files: await File.all()
     })
   }
 
