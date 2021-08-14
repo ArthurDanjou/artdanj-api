@@ -1,14 +1,18 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Profiles extends BaseSchema {
-  protected tableName = 'profiles'
+export default class Informations extends BaseSchema {
+  protected tableName = 'informations'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('age').notNullable()
       table.string('hiring_color').notNullable()
-      table.string('hiring_status').notNullable()
+      table
+        .integer('translation_id')
+        .unsigned()
+        .references('translations.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
   }

@@ -9,7 +9,7 @@ Route.group(() => {
 
   Route.resource('/projects', 'ProjectsController').except(['edit', 'create'])
 
-  Route.resource('/profile', 'ProfilesController').only(['index', 'update'])
+  Route.resource('/informations', 'InformationsController').only(['index', 'update'])
 
   Route.group(() => {
     Route.get('/:slug', 'PostsController.getLikes')

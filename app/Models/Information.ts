@@ -1,15 +1,19 @@
 import {DateTime} from 'luxon'
-import {BaseModel, column} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
+import Translation from "App/Models/Translation";
 
-export default class Profile extends BaseModel {
+export default class Information extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
   public age: number
 
+  @belongsTo(() => Translation)
+  public translation: BelongsTo<typeof Translation>
+
   @column()
-  public hiringStatus: string
+  public translationId: number
 
   @column()
   public hiringColor: string
