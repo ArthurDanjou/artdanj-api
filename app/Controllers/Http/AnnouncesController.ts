@@ -22,9 +22,7 @@ export default class AnnouncesController {
   public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(AnnounceStoreValidator)
     const announce = await Announce.create(data)
-
-    const translation = await getTranslation(data.code)
-    await announce.related('message').associate(translation)
+    await announce.related('message').associate(await getTranslation(data.code))
 
     const cover = await File.findBy('label', data.cover)
     if (cover) await announce.related('cover').associate(cover)
@@ -48,12 +46,12 @@ export default class AnnouncesController {
     const announce = await Announce.findOrFail(params.id)
 
     if (data.code) {
-      const translation = await getTranslation(data.code)
-      await announce.related('message').associate(translation)
+      await announce.related('message').associate(await getTranslation(data.code))
     }
 
     const cover = await File.findBy('label', data.cover)
     if (cover) await announce.related('cover').associate(cover)
+
     await announce.merge(data).save()
 
     return response.status(200).send({

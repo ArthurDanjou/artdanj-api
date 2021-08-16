@@ -21,7 +21,9 @@ export default class Announce extends BaseModel {
   @column()
   public messageId: number
 
-  @belongsTo(() => File)
+  @belongsTo(() => File, {
+    foreignKey: 'coverId'
+  })
   public cover: BelongsTo<typeof File>
 
   @column()
