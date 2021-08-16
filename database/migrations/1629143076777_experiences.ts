@@ -7,7 +7,7 @@ export default class Experiences extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table
-        .increments('title_id')
+        .integer('title_id')
         .unsigned()
         .references('translations.id')
         .onDelete('CASCADE')
