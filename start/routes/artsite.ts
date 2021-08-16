@@ -9,6 +9,8 @@ Route.group(() => {
 
   Route.resource('/formations', 'FormationsController').except(['edit', 'create'])
 
+  Route.resource('/tags', 'TagsController').except(['edit', 'create'])
+
   Route.resource('/skills', 'SkillsController').except(['edit', 'create'])
 
   Route.resource('/projects', 'ProjectsController').except(['edit', 'create'])
