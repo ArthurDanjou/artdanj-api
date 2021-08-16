@@ -9,7 +9,10 @@ export default class Users extends BaseSchema {
       table.increments('id').primary()
       table.string('username', 255).notNullable()
       table.string('email', 255).notNullable()
-      table.string('password', 180).defaultTo(this.randomPassword()).notNullable()
+      table
+        .string('password', 180)
+        .defaultTo(this.randomPassword())
+        .notNullable()
       table.boolean('is_confirmed').defaultTo(false).notNullable()
       table.string('remember_me_token').defaultTo(null).nullable()
       table.string('confirmation_token').defaultTo(null).nullable()

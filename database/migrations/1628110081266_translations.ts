@@ -5,7 +5,7 @@ export default class Translations extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
       table.string('code').notNullable()
       table.string('french').defaultTo('Traduction manquante')
       table.string('english').defaultTo('Missing translation')

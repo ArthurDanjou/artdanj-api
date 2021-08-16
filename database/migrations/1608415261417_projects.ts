@@ -6,10 +6,15 @@ export default class Projects extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('name')
-      table.string('description')
-      table.string('url')
-      table.integer('progress')
+      table.string('name').notNullable()
+      table.string('description').notNullable()
+      table.string('url').notNullable()
+      table.integer('progress').notNullable()
+      table
+        .integer('file_id')
+        .unsigned()
+        .references('files.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
   }

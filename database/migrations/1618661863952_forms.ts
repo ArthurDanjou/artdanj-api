@@ -6,10 +6,10 @@ export default class Forms extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('name')
-      table.string('email')
-      table.string('subject')
-      table.string('content')
+      table.string('name').notNullable()
+      table.string('email').notNullable()
+      table.string('subject').notNullable()
+      table.string('content').notNullable()
       table.timestamps(true, true)
     })
   }

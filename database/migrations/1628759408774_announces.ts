@@ -5,8 +5,8 @@ export default class Announces extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.string('color')
+      table.increments('id').primary()
+      table.string('color').notNullable()
       table.string('hover_color')
       table
         .integer('translation_id')
