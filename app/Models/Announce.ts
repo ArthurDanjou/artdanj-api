@@ -14,16 +14,16 @@ export default class Announce extends BaseModel {
   public hoverColor: string
 
   @belongsTo(() => Translation)
-  public translation: BelongsTo<typeof Translation>
+  public message: BelongsTo<typeof Translation>
 
   @column()
-  public translationId: number
+  public messageId: number
 
   @belongsTo(() => File)
-  public file: BelongsTo<typeof File>
+  public cover: BelongsTo<typeof File>
 
   @column()
-  public fileId: number
+  public coverId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
