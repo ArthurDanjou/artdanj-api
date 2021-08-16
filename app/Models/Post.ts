@@ -1,9 +1,13 @@
 import { DateTime } from 'luxon'
-import {BaseModel, column} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, column, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
+import Tag from "App/Models/Tag";
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @manyToMany(() => Tag)
+  public tags: ManyToMany<typeof Tag>
 
   @column()
   public slug: string

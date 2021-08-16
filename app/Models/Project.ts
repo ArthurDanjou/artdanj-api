@@ -1,6 +1,7 @@
 import {DateTime} from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany} from '@ioc:Adonis/Lucid/Orm'
 import File from "App/Models/File";
+import Tag from "App/Models/Tag";
 
 export default class Project extends BaseModel {
   @column({ isPrimary: true })
@@ -23,6 +24,9 @@ export default class Project extends BaseModel {
 
   @column()
   public fileId: number
+
+  @manyToMany(() => Tag)
+  public tags: ManyToMany<typeof Tag>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
