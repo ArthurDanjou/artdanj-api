@@ -7,7 +7,8 @@ export default class ProjectUpdateValidator {
     description: schema.string.optional(),
     progress: schema.number.optional(),
     url: schema.string.optional(),
-    cover: schema.string.optional()
+    cover: schema.string.optional(),
+    tags: schema.array.optional().members(schema.string())
   })
   public messages = {
     required: 'The field {{field}} is required'

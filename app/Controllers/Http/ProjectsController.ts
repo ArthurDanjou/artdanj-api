@@ -10,7 +10,8 @@ export default class ProjectsController {
     return response.status(200).send({
       projects: await Project.query()
         .orderBy('id', 'asc')
-        .preload('file')
+        .preload('cover')
+        .preload('tags')
     })
   }
 
@@ -19,7 +20,8 @@ export default class ProjectsController {
     const project = await Project.create(data)
     const cover = await File.findByOrFail('label', data.cover)
 
-    await project.related('file').associate(cover)
+    await project.related('cover').associate(cover)
+    await project.related('tags').sync(data.tags!)
     return response.status(200).send({
       project
     })
@@ -27,7 +29,8 @@ export default class ProjectsController {
 
   public async show ({ params, response }: HttpContextContract) {
     const project = await Project.findOrFail(params.id)
-    await project.load('file')
+    await project.load('cover')
+    await project.load('tags')
     return response.status(200).send({
       project
     })
@@ -39,7 +42,8 @@ export default class ProjectsController {
     const cover = await File.findBy('label', data.cover)
 
     await project.merge(data).save()
-    if (cover) await project.related('file').associate(cover)
+    if (cover) await project.related('cover').associate(cover)
+    await project.related('tags').sync(data.tags!)
     return response.status(200).send({
       project
     })

@@ -19,11 +19,13 @@ export default class Project extends BaseModel {
   @column()
   public url: string
 
-  @belongsTo(() => File)
-  public file: BelongsTo<typeof File>
+  @belongsTo(() => File, {
+    foreignKey: 'coverId'
+  })
+  public cover: BelongsTo<typeof File>
 
   @column()
-  public fileId: number
+  public coverId: number
 
   @manyToMany(() => Tag)
   public tags: ManyToMany<typeof Tag>

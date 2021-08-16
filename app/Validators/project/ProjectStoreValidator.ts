@@ -10,7 +10,8 @@ export default class ProjectStoreValidator {
     description: schema.string(),
     progress: schema.number(),
     url: schema.string(),
-    cover: schema.string()
+    cover: schema.string(),
+    tags: schema.array.optional().members(schema.string())
   })
 
   public messages = {
