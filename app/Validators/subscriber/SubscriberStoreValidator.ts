@@ -11,6 +11,7 @@ export default class SubscriberStoreValidator {
       })
     ])
   })
+
   public messages = {
     required: 'The field {{field}} is required'
   }

@@ -12,6 +12,7 @@ export default class UserStoreValidator {
       })
     ])
   })
+
   public messages = {
     required: 'The field {{field}} is required',
     'email.email': 'The email must be valid',

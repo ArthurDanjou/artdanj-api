@@ -22,6 +22,7 @@ export default class UserUpdateValidator {
     confirmation_token: schema.string.optional({ trim: true, escape: true }),
     remember_me: schema.string.optional({ trim: true, escape: true }),
   })
+
   public messages = {
     required: 'The field {{field}} is required',
     'email.email': 'The email must be valid',

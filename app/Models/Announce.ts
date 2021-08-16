@@ -14,7 +14,7 @@ export default class Announce extends BaseModel {
   public hoverColor: string
 
   @belongsTo(() => Translation, {
-    localKey: 'messageId'
+    foreignKey: 'messageId'
   })
   public message: BelongsTo<typeof Translation>
 
