@@ -12,8 +12,9 @@ Route.group(() => {
   Route.resource('/translations', 'TranslationsController').except(['edit', 'create'])
 
   Route.resource('/files', 'FilesController').only(['index', 'store', 'destroy'])
-  Route.get('/files/:filename', async ({response, params}) => {
-    response.download(Application.makePath('storage', params.filename))
-  })
 
 }).middleware('auth')
+
+Route.get('/files/:filename', async ({response, params}) => {
+  response.download(Application.makePath('storage', params.filename))
+})
