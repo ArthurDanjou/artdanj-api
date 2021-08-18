@@ -7,6 +7,7 @@ export default class Skills extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('name').notNullable()
+      table.string('color').notNullable()
       table
         .integer('file_id')
         .unsigned()

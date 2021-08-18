@@ -8,6 +8,7 @@ export default class SkillStoreValidator {
   public schema = schema.create({
     name: schema.string(),
     cover: schema.string(),
+    color: schema.string()
   })
   public messages = {
     required: 'The field {{field}} is required'

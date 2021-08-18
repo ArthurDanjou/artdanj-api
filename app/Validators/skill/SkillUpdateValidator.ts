@@ -8,6 +8,7 @@ export default class SkillUpdateValidator {
   public schema = schema.create({
     name: schema.string.optional(),
     cover: schema.string.optional(),
+    color: schema.string.optional()
   })
 
   public messages = {

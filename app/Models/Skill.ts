@@ -15,6 +15,9 @@ export default class Skill extends BaseModel {
   @column()
   public fileId: number
 
+  @column()
+  public color: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
