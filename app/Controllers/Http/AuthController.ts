@@ -130,12 +130,12 @@ export default class AuthController {
     if (redirected_url) {
       return response.send({
         redirect: redirected_url,
-        user,
-        session
+        user
       })
     } else {
       return response.status(200).send({
-        user: user
+        user: user,
+        redirected_url
       })
     }
   }
