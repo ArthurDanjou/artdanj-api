@@ -1,6 +1,7 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import User from "App/Models/User";
 import {AllyUserContract} from "@ioc:Adonis/Addons/Ally";
+import Logger from "@ioc:Adonis/Core/Logger";
 
 export default class AuthController {
 
@@ -105,6 +106,8 @@ export default class AuthController {
     const github = ally.use('github')
     const redirected_url = await session.get('redirect')
     await session.forget('redirect')
+
+    Logger.debug(redirected_url)
 
     if (github.accessDenied()) {
       return response.status(403).send({
