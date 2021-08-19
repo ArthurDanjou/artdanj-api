@@ -44,7 +44,7 @@ export default class AuthController {
   }
 
   public async twitter ({ ally, auth, response }: HttpContextContract) {
-    const twitter = ally.use('twitter').stateless()
+    const twitter = ally.use('twitter')
 
     if (twitter.accessDenied()) {
       return response.status(403).send({
@@ -73,7 +73,7 @@ export default class AuthController {
   }
 
   public async discord ({ ally, auth, response }: HttpContextContract) {
-    const discord = ally.use('discord').stateless()
+    const discord = ally.use('discord')
 
     if (discord.accessDenied()) {
       return response.status(403).send({
@@ -101,8 +101,9 @@ export default class AuthController {
     })
   }
 
-  public async github ({ ally, auth, response }: HttpContextContract) {
-    const github = ally.use('github').stateless()
+  public async github ({ request, ally, auth, response }: HttpContextContract) {
+    const github = ally.use('github')
+    const redirected_url = request.input('redirect')
 
     if (github.accessDenied()) {
       return response.status(403).send({
@@ -125,13 +126,17 @@ export default class AuthController {
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
     await auth.use('web').login(user, true)
-    return response.status(200).send({
-      user: user
-    })
+    if (redirected_url) {
+      return response.status(200).redirect(redirected_url)
+    } else {
+      return response.status(200).send({
+        user: user
+      })
+    }
   }
 
   public async google ({ ally, auth, response, }: HttpContextContract) {
-    const google = ally.use('google').stateless()
+    const google = ally.use('google')
 
     if (google.accessDenied()) {
       return response.status(403).send({

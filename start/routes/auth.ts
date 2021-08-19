@@ -13,16 +13,16 @@ Route.group(() => {
   Route.get('/discord/callback', 'AuthController.discord')
 
   Route.get('/twitter', async ({ally}) => {
-    return ally.use('twitter').stateless().redirect()
+    return ally.use('twitter').redirect()
   })
   Route.get('/github', async ({ally}) => {
-    return ally.use('github').stateless().redirect()
+    return ally.use('github').redirect()
   })
   Route.get('/google', async ({ally}) => {
-    return ally.use('google').stateless().redirect()
+    return ally.use('google').redirect()
   })
   Route.get('/discord', async ({ally}) => {
-    return ally.use('discord').stateless().redirect()
+    return ally.use('discord').redirect()
   })
 }).prefix('/auth')
 
