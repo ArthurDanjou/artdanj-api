@@ -128,7 +128,7 @@ export default class AuthController {
     const user = await this.createUser(githubUser)
     await auth.use('web').login(user, true)
     if (redirected_url) {
-      return response.status(200).redirect(redirected_url)
+      return response.redirect(redirected_url)
     } else {
       return response.status(200).send({
         user: user
