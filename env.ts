@@ -22,6 +22,7 @@ export default Env.rules({
   APP_NAME: Env.schema.string(),
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
   BASE_URL: Env.schema.string(),
+  ALLY_CALLBACK_URL: Env.schema.string(),
   API_VERSION: Env.schema.string(),
 
   //Utils
