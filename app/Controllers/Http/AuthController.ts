@@ -129,13 +129,15 @@ export default class AuthController {
     await auth.use('web').login(user, true)
     if (redirected_url) {
       return response.send({
-        redirect: redirected_url,
-        user
+        redirected_url,
+        user,
+        redirected: 'Yes'
       })
     } else {
       return response.status(200).send({
-        user: user,
-        redirected_url
+        user,
+        redirected_url,
+        redirected: 'No'
       })
     }
   }
