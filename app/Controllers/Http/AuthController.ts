@@ -101,9 +101,8 @@ export default class AuthController {
     })
   }
 
-  public async github ({ request, ally, auth, response }: HttpContextContract) {
+  public async github ({ ally, auth, response }: HttpContextContract) {
     const github = ally.use('github')
-    const redirected_url = request.input('redirect')
 
     if (github.accessDenied()) {
       return response.status(403).send({
@@ -126,13 +125,7 @@ export default class AuthController {
     const githubUser = await github.user()
     const user = await this.createUser(githubUser)
     await auth.use('web').login(user, true)
-    if (redirected_url) {
-      return response.status(200).redirect(redirected_url)
-    } else {
-      return response.status(200).send({
-        user: user
-      })
-    }
+    return response.status(200).redirect('http://localhost:3333/guestbook')
   }
 
   public async google ({ ally, auth, response, }: HttpContextContract) {
