@@ -17,14 +17,6 @@
     slash "^3.0.0"
     term-size "^2.2.1"
 
-"@adonisjs/ally@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@adonisjs/ally/-/ally-4.1.0.tgz#6811c77c7862f78279d11f6be52792b0837c1829"
-  integrity sha512-IgyUoV9U/a8iTuRBnR0US8/qV5w+d087dqDdDVbgevGVAPyzwci2KeBGBteNzbZDuF1lhfMAz76rL9rSSbWR9A==
-  dependencies:
-    "@poppinss/oauth-client" "^2.0.4"
-    "@poppinss/utils" "^3.1.3"
-
 "@adonisjs/application@^5.1.4", "@adonisjs/application@^5.1.6":
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/@adonisjs/application/-/application-5.1.6.tgz#da3043163b49ab35aa5dc1bfcc4ed4ba38d63f65"
@@ -450,15 +442,6 @@
     safe-buffer "5.2.1"
     uid-safe "2.1.5"
 
-"@poppinss/oauth-client@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@poppinss/oauth-client/-/oauth-client-2.0.4.tgz#26795088b472d580127074b8ec28d868d7feb352"
-  integrity sha512-bl8ITdz0FG1ydCAmXVJxrlEtUm42JZK4yj6jA7CVsVhKhzf8OwG3XY8kVETmh/APp8kH8vSM6u5l+lgPKpdlIA==
-  dependencies:
-    "@types/luxon" "^1.26.5"
-    got "^11.8.2"
-    luxon "^1.27.0"
-
 "@poppinss/prompts@^1.2.2", "@poppinss/prompts@^1.2.3":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@poppinss/prompts/-/prompts-1.2.3.tgz#c9e7461837a99919d3ccb015aa33afe899a92f0c"
@@ -558,7 +541,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/luxon@^1.26.5", "@types/luxon@^1.27.1":
+"@types/luxon@^1.27.1":
   version "1.27.1"
   resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.27.1.tgz#aceeb2d5be8fccf541237e184e37ecff5faa9096"
   integrity sha512-cPiXpOvPFDr2edMnOXlz3UBDApwUfR+cpizvxCy0n3vp9bz/qe8BWzHPIEFcy+ogUOyjKuCISgyq77ELZPmkkg==

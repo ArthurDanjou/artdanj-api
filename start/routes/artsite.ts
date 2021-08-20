@@ -24,8 +24,4 @@ Route.group(() => {
   }).prefix('/posts')
 
   Route.resource('/subscribers', 'SubscribersController').only(['index', 'store', 'destroy'])
-
-  Route.resource('/guestbook', 'GuestBookController').except(['edit', 'create', 'destroy'])
-  Route.get('/guestbook/:email', 'GuestBookController.exists')
-
 }).middleware('auth')
