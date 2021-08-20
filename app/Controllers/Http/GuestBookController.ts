@@ -17,14 +17,10 @@ export default class GuestBookController {
 
   public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(GuestValidator)
-    let user = await User.findBy('email', data.email)
-    if (!user) {
-      user = await User.create({
-        email: data.email,
-      })
-    }
-    const guestbook_message = user.related('guestbook_message').firstOrCreate({
-      userId: user.id
+    let user = await User.findByOrFail('email', data.email)
+    const guestbook_message = user.related('guestbook_message').updateOrCreate({
+      userId: user.id,
+      message: data.message
     }, {
       userId: user.id,
       message: data.message
