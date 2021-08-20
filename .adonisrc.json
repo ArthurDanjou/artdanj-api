@@ -31,7 +31,6 @@
     "@adonisjs/view",
     "@adonisjs/bouncer",
     "@adonisjs/ally",
-    "@adonisjs/shield"
   ],
   "aceProviders": [
     "@adonisjs/repl"
