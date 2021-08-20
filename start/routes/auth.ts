@@ -16,7 +16,7 @@ Route.group(() => {
     return ally.use('twitter').redirect()
   })
   Route.get('/github', async ({ ally }) => {
-    return ally.use('github').redirect()
+    return ally.use('github').stateless().redirect()
   })
   Route.get('/google', async ({ ally }) => {
     return ally.use('google').redirect()

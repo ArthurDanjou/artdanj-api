@@ -102,7 +102,7 @@ export default class AuthController {
   }
 
   public async github ({ ally, auth, response }: HttpContextContract) {
-    const github = ally.use('github')
+    const github = ally.use('github').stateless()
 
     if (github.accessDenied()) {
       return response.status(403).send({
