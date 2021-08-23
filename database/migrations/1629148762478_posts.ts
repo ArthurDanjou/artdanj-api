@@ -21,7 +21,7 @@ export default class Posts extends BaseSchema {
         .references('translations.id')
         .onDelete('CASCADE')
       table
-        .integer('title_id')
+        .integer('cover_id')
         .unsigned()
         .references('files.id')
         .onDelete('CASCADE')
