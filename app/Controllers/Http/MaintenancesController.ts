@@ -16,14 +16,6 @@ export default class MaintenancesController {
     })
   }
 
-  public async show ({ params, response }: HttpContextContract) {
-    const maintenance = await Maintenance.findOrFail(params.id)
-    maintenance.load('reason')
-    return response.status(200).send({
-      maintenance
-    })
-  }
-
   public async update ({ request, params, response }: HttpContextContract) {
     const data = await request.validate(MaintenanceUpdateValidator)
     const maintenance = await Maintenance.findOrFail(params.id)
