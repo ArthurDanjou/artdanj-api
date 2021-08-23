@@ -19,8 +19,9 @@ Route.group(() => {
 
   Route.resource('/informations', 'InformationsController').only(['index', 'update'])
 
+  Route.resource('/posts', 'PostsController').only(['index', 'destroy'])
   Route.group(() => {
-    Route.resource('/', 'PostsController').only(['index', 'show', 'destroy'])
+    Route.get('/:slug', 'PostsController.show')
     Route.post('/:slug/like', 'PostsController.like')
     Route.post('/:slug/unlike', 'PostsController.unlike')
   }).prefix('/posts')
