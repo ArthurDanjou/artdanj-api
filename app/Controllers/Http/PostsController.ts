@@ -98,7 +98,7 @@ export default class PostsController {
     const getLikes = post.likes
     await post.merge({
       likes: getLikes + 1
-    }).save
+    }).save()
     return response.status(200).send({
       post
     })
@@ -109,7 +109,7 @@ export default class PostsController {
     const getLikes = post.likes
     await post.merge({
       likes: getLikes - 1
-    }).save
+    }).save()
     return response.status(200).send({
       post
     })
