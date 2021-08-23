@@ -6,7 +6,7 @@ export default class AnnounceUpdateValidator {
   }
 
   public schema = schema.create({
-    code: schema.string(),
+    code: schema.string.optional(),
     cover: schema.string.optional(),
     color: schema.string.optional(),
     hoverColor: schema.string.optional()

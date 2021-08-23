@@ -3,7 +3,9 @@ import Route from "@ioc:Adonis/Core/Route";
 Route.group(() => {
   Route.resource('/form', 'FormsController').except(['edit', 'create', 'update'])
 
-  Route.resource('/announces', 'AnnouncesController').except(['edit', 'create'])
+  Route.resource('/announces', 'AnnouncesController').only(['index', 'show', 'update'])
+
+  Route.resource('/maintenance', 'MaintenanceController').only(['index', 'show', 'update'])
 
   Route.resource('/experiences', 'ExperiencesController').except(['edit', 'create'])
 
