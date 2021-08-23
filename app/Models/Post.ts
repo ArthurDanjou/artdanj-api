@@ -44,6 +44,9 @@ export default class Post extends BaseModel {
   @column()
   public readingTime: number
 
+  @column()
+  public date: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

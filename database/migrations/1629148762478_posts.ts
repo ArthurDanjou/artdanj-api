@@ -8,6 +8,23 @@ export default class Posts extends BaseSchema {
       table.increments('id').primary()
       table.string('slug').notNullable()
       table.integer('likes').notNullable()
+      table.integer('reading_time').notNullable()
+      table.string('date').notNullable()
+      table
+        .integer('title_id')
+        .unsigned()
+        .references('translations.id')
+        .onDelete('CASCADE')
+      table
+        .integer('description_id')
+        .unsigned()
+        .references('translations.id')
+        .onDelete('CASCADE')
+      table
+        .integer('title_id')
+        .unsigned()
+        .references('files.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
   }

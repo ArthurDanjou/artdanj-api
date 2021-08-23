@@ -10,7 +10,8 @@ export default class PostUpdateValidator {
     title: schema.string.optional(),
     description: schema.string.optional(),
     cover: schema.string.optional(),
-    readingTime: schema.number.optional()
+    readingTime: schema.number.optional(),
+    date: schema.string.optional(),
   })
   public messages = {
     required: 'The field {{field}} is required'
