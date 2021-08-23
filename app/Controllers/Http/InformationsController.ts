@@ -5,7 +5,7 @@ import getTranslation from "App/Tasks/getTranslation";
 
 export default class InformationsController {
 
-  public async index ( { response }: HttpContextContract ) {
+  public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
       informations: await Information
         .query()
@@ -14,7 +14,7 @@ export default class InformationsController {
     })
   }
 
-  public async update ( { response, request }: HttpContextContract ) {
+  public async update ({ response, request }: HttpContextContract) {
     const information = await Information.firstOrFail()
     const data = await request.validate(InformationUpdateValidator)
 
