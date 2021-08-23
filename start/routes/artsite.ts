@@ -20,11 +20,9 @@ Route.group(() => {
   Route.resource('/informations', 'InformationsController').only(['index', 'update'])
 
   Route.group(() => {
-    Route.get('/:slug/likes', 'PostsController.getLikes')
+    Route.resource('/', 'PostsController').only(['index', 'show', 'destroy'])
     Route.post('/:slug/like', 'PostsController.like')
     Route.post('/:slug/unlike', 'PostsController.unlike')
-    Route.get('/', 'PostsController.index')
-    Route.get('/:slug', 'PostsController.show')
   }).prefix('/posts')
 
   Route.resource('/subscribers', 'SubscribersController').only(['index', 'store', 'destroy'])

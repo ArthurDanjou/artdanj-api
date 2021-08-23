@@ -1,5 +1,6 @@
 import Post from "App/Models/Post";
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
+import PostUpdateValidator from "App/Validators/post/PostUpdateValidator";
 
 export default class PostsController {
 
@@ -13,7 +14,12 @@ export default class PostsController {
   }
 
   public async show ({ params, response }: HttpContextContract) {
-    const post = await Post.findByOrFail('slug', params.slug)
+    const post = await Post.firstOrCreate({
+      slug: params.slug
+    }, {
+      slug: params.slug,
+      likes: 0
+    })
     await post.load('tags', (tags) => {
       tags.preload('label')
     })
@@ -22,16 +28,22 @@ export default class PostsController {
     })
   }
 
-  public async getLikes ({ params, response }: HttpContextContract) {
-    const post = await Post.firstOrCreate({
-      slug: params.slug
-    }, {
-      slug: params.slug,
-      likes: 0
-    })
+  public async update ({ request, params, response }: HttpContextContract) {
+    const post = await Post.findOrFail(params.id)
+    const data = await request.validate(PostUpdateValidator)
 
+    await post.merge(data).save()
+    await post.related('tags').sync(data.tags!)
     return response.status(200).send({
-      likes: post.likes
+      post
+    })
+  }
+
+  public async destroy ({ response, params }: HttpContextContract) {
+    const post = await Post.findOrFail(params.id)
+    await post.delete()
+    return response.status(200).send({
+      message: 'Post successfully deleted!'
     })
   }
 
