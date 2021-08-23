@@ -1,5 +1,5 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import {getDiscordActivity} from "App/Tasks/GetDiscordActivity";
+import {getDiscordActivity} from "App/Utils/GetDiscordActivity";
 
 export default class ProfileController {
 

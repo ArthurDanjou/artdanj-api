@@ -1,5 +1,5 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import getTranslation from "App/Tasks/getTranslation";
+import getTranslation from "App/Utils/getTranslation";
 import FormationStoreValidator from "App/Validators/formation/FormationStoreValidator";
 import FormationUpdateValidator from "App/Validators/formation/FormationUpdateValidator";
 import Formation from "App/Models/Formation";

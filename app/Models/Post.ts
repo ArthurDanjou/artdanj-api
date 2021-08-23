@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
-import {BaseModel, column, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, BelongsTo, belongsTo, column, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
 import Tag from "App/Models/Tag";
+import Translation from "App/Models/Translation";
+import File from "App/Models/File";
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -14,6 +16,33 @@ export default class Post extends BaseModel {
 
   @column()
   public likes: number
+
+  @belongsTo(() => Translation, {
+    foreignKey: 'titleId'
+  })
+  public title: BelongsTo<typeof Translation>
+
+  @column()
+  public titleId: number
+
+  @belongsTo(() => Translation, {
+    foreignKey: 'descriptionId'
+  })
+  public description: BelongsTo<typeof Translation>
+
+  @column()
+  public descriptionId: number
+
+  @belongsTo(() => File, {
+    foreignKey: 'coverId'
+  })
+  public cover: BelongsTo<typeof File>
+
+  @column()
+  public coverId: number
+
+  @column()
+  public readingTime: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

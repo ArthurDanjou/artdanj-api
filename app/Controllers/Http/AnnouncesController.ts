@@ -1,7 +1,7 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Announce from "App/Models/Announce";
 import AnnounceUpdateValidator from "App/Validators/announce/AnnounceUpdateValidator";
-import getTranslation from "App/Tasks/getTranslation";
+import getTranslation from "App/Utils/getTranslation";
 import File from "App/Models/File";
 
 export default class AnnouncesController {
