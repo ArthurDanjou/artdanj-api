@@ -7,7 +7,11 @@ export default class Projects extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('name').notNullable()
-      table.string('description').notNullable()
+      table
+        .integer('description_id')
+        .unsigned()
+        .references('translations.id')
+        .onDelete('CASCADE')
       table.string('url').notNullable()
       table.integer('progress').notNullable()
       table

@@ -2,6 +2,7 @@ import {DateTime} from 'luxon'
 import {BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany} from '@ioc:Adonis/Lucid/Orm'
 import File from "App/Models/File";
 import Tag from "App/Models/Tag";
+import Translation from "App/Models/Translation";
 
 export default class Project extends BaseModel {
   @column({ isPrimary: true })
@@ -10,8 +11,13 @@ export default class Project extends BaseModel {
   @column()
   public name: string
 
+  @belongsTo(() => Translation, {
+    foreignKey: 'descriptionId'
+  })
+  public description: BelongsTo<typeof Translation>
+
   @column()
-  public description: string
+  public descriptionId: number
 
   @column()
   public progress: number

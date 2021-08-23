@@ -3,6 +3,7 @@ import Project from "App/Models/Project";
 import ProjectStoreValidator from "App/Validators/project/ProjectStoreValidator";
 import ProjectUpdateValidator from "App/Validators/project/ProjectUpdateValidator";
 import File from "App/Models/File";
+import getTranslation from "App/Tasks/getTranslation";
 
 export default class ProjectsController {
 
@@ -11,6 +12,7 @@ export default class ProjectsController {
       projects: await Project.query()
         .orderBy('id', 'asc')
         .preload('cover')
+        .preload('description')
         .preload('tags')
     })
   }
@@ -21,6 +23,7 @@ export default class ProjectsController {
     const cover = await File.findByOrFail('label', data.cover)
 
     await project.related('cover').associate(cover)
+    await project.related('description').associate(await getTranslation(data.description))
     await project.related('tags').sync(data.tags!)
     return response.status(200).send({
       project
@@ -30,6 +33,7 @@ export default class ProjectsController {
   public async show ({ params, response }: HttpContextContract) {
     const project = await Project.findOrFail(params.id)
     await project.load('cover')
+    await project.load('description')
     await project.load('tags')
     return response.status(200).send({
       project
@@ -43,6 +47,9 @@ export default class ProjectsController {
 
     await project.merge(data).save()
     if (cover) await project.related('cover').associate(cover)
+
+    if (data.description) await project.related('description').associate(await getTranslation(data.description))
+
     await project.related('tags').sync(data.tags!)
     return response.status(200).send({
       project
