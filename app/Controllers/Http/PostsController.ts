@@ -13,6 +13,9 @@ export default class PostsController {
         .preload('tags', (tags) => {
           tags.preload('label')
         })
+        .preload('cover')
+        .preload('title')
+        .preload('description')
     })
   }
 
