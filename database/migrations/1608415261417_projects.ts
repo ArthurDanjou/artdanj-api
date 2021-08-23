@@ -14,7 +14,7 @@ export default class Projects extends BaseSchema {
         .onDelete('CASCADE')
       table.string('url').notNullable()
       table
-        .integer('file_id')
+        .integer('cover_id')
         .unsigned()
         .references('files.id')
         .onDelete('CASCADE')

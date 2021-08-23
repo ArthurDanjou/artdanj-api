@@ -13,7 +13,9 @@ export default class ProjectsController {
         .orderBy('id', 'asc')
         .preload('cover')
         .preload('description')
-        .preload('tags')
+        .preload('tags', (tags) => {
+          tags.preload('label')
+        })
     })
   }
 
