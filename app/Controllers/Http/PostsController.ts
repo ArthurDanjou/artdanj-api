@@ -95,8 +95,10 @@ export default class PostsController {
       slug: params.slug,
       likes: 0
     })
-    post.likes = post.likes++
-    await post.save()
+    const getLikes = post.likes
+    await post.merge({
+      likes: getLikes + 1
+    }).save
     return response.status(200).send({
       post
     })
@@ -104,8 +106,10 @@ export default class PostsController {
 
   public async unlike ({ params, response }: HttpContextContract) {
     const post = await Post.findByOrFail('slug', params.slug)
-    post.likes = post.likes--
-    await post.save()
+    const getLikes = post.likes
+    await post.merge({
+      likes: getLikes - 1
+    }).save
     return response.status(200).send({
       post
     })
