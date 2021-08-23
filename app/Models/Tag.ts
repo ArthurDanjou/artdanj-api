@@ -11,6 +11,7 @@ export default class Tag extends BaseModel {
   })
   public label: BelongsTo<typeof Translation>
 
+  @column()
   public labelId: number
 
   @column.dateTime({ autoCreate: true })
