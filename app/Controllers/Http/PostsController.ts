@@ -3,15 +3,32 @@ import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 
 export default class PostsController {
 
-  public async getLikes ({ params, response }: HttpContextContract) {
-    let post = await Post.findBy('slug', params.slug)
+  public async index ({ response }: HttpContextContract) {
+    return response.status(200).send({
+      posts: await Post.query()
+        .preload('tags', (tags) => {
+          tags.preload('label')
+        })
+    })
+  }
 
-    if (!post) {
-      post = await Post.create({
-        slug: params.slug,
-        likes: 0
-      })
-    }
+  public async show ({ params, response }: HttpContextContract) {
+    const post = await Post.findByOrFail('slug', params.slug)
+    await post.load('tags', (tags) => {
+      tags.preload('label')
+    })
+    return response.status(200).send({
+      post
+    })
+  }
+
+  public async getLikes ({ params, response }: HttpContextContract) {
+    const post = await Post.firstOrCreate({
+      slug: params.slug
+    }, {
+      slug: params.slug,
+      likes: 0
+    })
 
     return response.status(200).send({
       likes: post.likes
@@ -19,33 +36,23 @@ export default class PostsController {
   }
 
   public async like ({ params, response }: HttpContextContract) {
-    let post = await Post.findBy('slug', params.slug)
-
-    if (!post) {
-      post = await Post.create({
-        slug: params.slug,
-        likes: 0
-      })
-    }
-
-    const getLikes = post.likes + 1
-
-    await post.merge({
-      likes: getLikes
-    }).save()
+    const post = await Post.firstOrCreate({
+      slug: params.slug
+    }, {
+      slug: params.slug,
+      likes: 0
+    })
+    post.likes = post.likes++
+    await post.save()
     return response.status(200).send({
       post
     })
   }
 
   public async unlike ({ params, response }: HttpContextContract) {
-    let post = await Post.findByOrFail('slug', params.slug)
-
-    const getLikes = post.likes - 1
-
-    await post.merge({
-      likes: getLikes
-    }).save()
+    const post = await Post.findByOrFail('slug', params.slug)
+    post.likes = post.likes--
+    await post.save()
     return response.status(200).send({
       post
     })

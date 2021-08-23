@@ -36,7 +36,9 @@ export default class ProjectsController {
     const project = await Project.findOrFail(params.id)
     await project.load('cover')
     await project.load('description')
-    await project.load('tags')
+    await project.load('tags', (tags) => {
+      tags.preload('label')
+    })
     return response.status(200).send({
       project
     })
