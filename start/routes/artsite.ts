@@ -21,7 +21,7 @@ Route.group(() => {
 
   Route.resource('/posts', 'PostsController').except(['edit', 'create'])
   Route.group(() => {
-    Route.get('/:slug', 'PostsController.get')
+    Route.get('/:slug/data', 'PostsController.get')
     Route.post('/:slug/like', 'PostsController.like')
     Route.post('/:slug/unlike', 'PostsController.unlike')
   }).prefix('/posts')
