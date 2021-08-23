@@ -20,9 +20,6 @@ export default class Project extends BaseModel {
   public descriptionId: number
 
   @column()
-  public progress: number
-
-  @column()
   public url: string
 
   @belongsTo(() => File, {

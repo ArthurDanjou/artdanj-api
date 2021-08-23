@@ -13,7 +13,6 @@ export default class Projects extends BaseSchema {
         .references('translations.id')
         .onDelete('CASCADE')
       table.string('url').notNullable()
-      table.integer('progress').notNullable()
       table
         .integer('file_id')
         .unsigned()
