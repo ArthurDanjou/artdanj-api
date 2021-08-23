@@ -56,6 +56,9 @@ export default class PostsController {
     await post.load('tags', (tags) => {
       tags.preload('label')
     })
+    await post.load('cover')
+    await post.load('description')
+    await post.load('title')
     return response.status(200).send({
       post
     })
