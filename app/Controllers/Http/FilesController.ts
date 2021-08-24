@@ -24,11 +24,14 @@ export default class FilesController {
     }
 
     await file.move(Application.makePath('storage'), {
-      name: `${label}.${file.extname}`
+      name: `${label}.${file.extname}`,
+      overwrite: true
     })
 
     return response.status(200).send({
-      file: await File.create({
+      file: await File.firstOrCreate({
+        label: label
+      }, {
         fileName: `${label}.${file.extname}`,
         label: label
       })
