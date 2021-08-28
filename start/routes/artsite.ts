@@ -7,7 +7,7 @@ Route.group(() => {
 
   Route.resource('/maintenance', 'MaintenancesController').only(['index', 'update'])
 
-  Route.resource('/colors', 'PostColorsController').only(['index', 'update'])
+  Route.resource('/colors', 'PostColorsController').except(['edit', 'create'])
 
   Route.resource('/experiences', 'ExperiencesController').except(['edit', 'create'])
 
