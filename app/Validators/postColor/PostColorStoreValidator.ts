@@ -7,7 +7,6 @@ export default class PostColorStoreValidator {
 
   public schema = schema.create({
     name: schema.string(),
-    color: schema.string()
   })
 
   public messages = {
