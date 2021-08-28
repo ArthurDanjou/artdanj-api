@@ -16,7 +16,7 @@ export default class PostsController {
           tags.preload('label')
         })
         .preload('cover')
-        .preload('color')
+        .preload('postColor')
         .preload('content')
         .preload('title')
         .preload('description')
@@ -31,7 +31,7 @@ export default class PostsController {
     const color = await PostColor.findByOrFail('name', data.color)
 
     await post.related('cover').associate(cover)
-    await post.related('color').associate(color)
+    await post.related('postColor').associate(color)
 
     await post.related('description').associate(await getTranslation(data.description))
     await post.related('title').associate(await getTranslation(data.title))
@@ -50,7 +50,7 @@ export default class PostsController {
     await post.load('title')
     await post.load('description')
     await post.load('content')
-    await post.load('color')
+    await post.load('postColor')
     await post.load('tags', (tags) => {
       tags.preload('label')
     })
@@ -73,7 +73,7 @@ export default class PostsController {
     await post.load('description')
     await post.load('title')
     await post.load('content')
-    await post.load('color')
+    await post.load('postColor')
     return response.status(200).send({
       post
     })
@@ -94,7 +94,7 @@ export default class PostsController {
     if (cover) await post.related('cover').associate(cover)
 
     const color = await PostColor.findBy('name', data.color)
-    if (color) await post.related('color').associate(color)
+    if (color) await post.related('postColor').associate(color)
 
     return response.status(200).send({
       post
