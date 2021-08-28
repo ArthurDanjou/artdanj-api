@@ -12,6 +12,8 @@ export default class PostStoreValidator {
     cover: schema.string(),
     readingTime: schema.number(),
     date: schema.string(),
+    color: schema.string(),
+    content: schema.string()
   })
   public messages = {
     required: 'The field {{field}} is required'

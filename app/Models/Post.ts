@@ -3,6 +3,7 @@ import {BaseModel, BelongsTo, belongsTo, column, manyToMany, ManyToMany} from '@
 import Tag from "App/Models/Tag";
 import Translation from "App/Models/Translation";
 import File from "App/Models/File";
+import PostColor from "App/Models/PostColor";
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -48,6 +49,14 @@ export default class Post extends BaseModel {
 
   @column()
   public contentId: number
+
+  @belongsTo(() => PostColor, {
+    foreignKey: 'postColorId'
+  })
+  public color: BelongsTo<typeof PostColor>
+
+  @column()
+  public postColorId: number
 
   @column()
   public readingTime: number

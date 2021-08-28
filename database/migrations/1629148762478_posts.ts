@@ -30,6 +30,11 @@ export default class Posts extends BaseSchema {
         .unsigned()
         .references('translations.id')
         .onDelete('CASCADE')
+      table
+        .integer('post_color_id')
+        .unsigned()
+        .references('post_colors.id')
+        .onDelete('CASCADE')
       table.timestamps(true, true)
     })
   }

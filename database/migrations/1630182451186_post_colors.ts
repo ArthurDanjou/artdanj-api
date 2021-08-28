@@ -1,17 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Maintenances extends BaseSchema {
-  protected tableName = 'maintenances'
+export default class PostColors extends BaseSchema {
+  protected tableName = 'post_colors'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.boolean('active').defaultTo(false).notNullable()
-      table
-        .integer('reason_id')
-        .unsigned()
-        .references('translations.id')
-        .onDelete('CASCADE')
+      table.string('name').notNullable()
+      table.string('color').notNullable()
       table.timestamps(true, true)
     })
   }

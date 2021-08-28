@@ -4,6 +4,7 @@ import PostUpdateValidator from "App/Validators/post/PostUpdateValidator";
 import getTranslation from "App/Utils/getTranslation";
 import File from "App/Models/File";
 import PostStoreValidator from "App/Validators/post/PostStoreValidator";
+import PostColor from "App/Models/PostColor";
 
 export default class PostsController {
 
@@ -15,6 +16,8 @@ export default class PostsController {
           tags.preload('label')
         })
         .preload('cover')
+        .preload('color')
+        .preload('content')
         .preload('title')
         .preload('description')
     })
@@ -23,12 +26,19 @@ export default class PostsController {
   public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(PostStoreValidator)
     const post = await Post.create(data)
+
     const cover = await File.findByOrFail('label', data.cover)
+    const color = await PostColor.findByOrFail('name', data.color)
 
     await post.related('cover').associate(cover)
+    await post.related('color').associate(color)
+
     await post.related('description').associate(await getTranslation(data.description))
     await post.related('title').associate(await getTranslation(data.title))
+    await post.related('content').associate(await getTranslation(data.content))
+
     await post.related('tags').sync(data.tags!)
+
     return response.status(200).send({
       post
     })
@@ -39,6 +49,8 @@ export default class PostsController {
     await post.load('cover')
     await post.load('title')
     await post.load('description')
+    await post.load('content')
+    await post.load('color')
     await post.load('tags', (tags) => {
       tags.preload('label')
     })
@@ -60,6 +72,8 @@ export default class PostsController {
     await post.load('cover')
     await post.load('description')
     await post.load('title')
+    await post.load('content')
+    await post.load('color')
     return response.status(200).send({
       post
     })
@@ -70,12 +84,18 @@ export default class PostsController {
     const data = await request.validate(PostUpdateValidator)
 
     await post.merge(data).save()
+
     await post.related('tags').sync(data.tags!)
     await post.related('description').associate(await getTranslation(data.description!))
     await post.related('title').associate(await getTranslation(data.title!))
+    await post.related('content').associate(await getTranslation(data.content!))
 
     const cover = await File.findBy('label', data.cover)
     if (cover) await post.related('cover').associate(cover)
+
+    const color = await PostColor.findBy('name', data.color)
+    if (color) await post.related('color').associate(color)
+
     return response.status(200).send({
       post
     })
