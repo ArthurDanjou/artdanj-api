@@ -7,7 +7,7 @@ export default class PostColorsController {
 
   public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
-      users: await PostColor.all()
+      post_colors: await PostColor.all()
     })
   }
 
@@ -15,14 +15,14 @@ export default class PostColorsController {
     const data = await request.validate(PostColorStoreValidator)
     const postColor = await PostColor.create(data)
     return response.status(200).send({
-      postColor
+      post_color: postColor
     })
   }
 
   public async show ({ params, response }: HttpContextContract) {
     const postColor = await PostColor.findOrFail(params.id)
     return response.status(200).send({
-      postColor
+      post_color: postColor
     })
   }
 
@@ -31,7 +31,7 @@ export default class PostColorsController {
     const postColor = await PostColor.findOrFail(params.id)
     await postColor.merge(data).save()
     return response.status(200).send({
-      postColor
+      post_color: postColor
     })
   }
 
