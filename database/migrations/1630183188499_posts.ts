@@ -11,7 +11,7 @@ export default class Posts extends BaseSchema {
         .references('translations.id')
         .onDelete('CASCADE')
       table
-        .integer('post_color_id')
+        .integer('color_id')
         .unsigned()
         .references('post_colors.id')
         .onDelete('CASCADE')
@@ -20,7 +20,7 @@ export default class Posts extends BaseSchema {
 
   public async down () {
     this.schema.table(this.tableName, (table) => {
-      table.dropColumns('content_id', 'post_color_id')
+      table.dropColumns('content_id', 'color_id')
     })
   }
 }
