@@ -51,7 +51,7 @@ export default class Post extends BaseModel {
   public contentId: number
 
   @belongsTo(() => PostColor, {
-    foreignKey: 'postColorId'
+    foreignKey: 'colorId'
   })
   public color: BelongsTo<typeof PostColor>
 
