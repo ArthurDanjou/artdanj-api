@@ -41,6 +41,14 @@ export default class Post extends BaseModel {
   @column()
   public coverId: number
 
+  @belongsTo(() => Translation, {
+    foreignKey: 'contentId'
+  })
+  public content: BelongsTo<typeof Translation>
+
+  @column()
+  public contentId: number
+
   @column()
   public readingTime: number
 

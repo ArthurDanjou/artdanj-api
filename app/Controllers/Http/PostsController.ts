@@ -10,6 +10,7 @@ export default class PostsController {
   public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
       posts: await Post.query()
+        .orderBy('id', 'desc')
         .preload('tags', (tags) => {
           tags.preload('label')
         })
