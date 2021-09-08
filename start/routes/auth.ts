@@ -4,7 +4,15 @@ Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth')
   Route.post('/token', 'AuthController.createInfiniteToken')
 
-  Route.post('/login', 'AuthController.login')
-  Route.post('/logout', 'AuthController.logout')
+  Route.group(() => {
+    Route.post('/login', 'AuthController.loginApi')
+    Route.post('/logout', 'AuthController.logoutApi')
+  }).prefix('/api')
+
+  Route.group(() => {
+    Route.post('/login', 'AuthController.loginWeb')
+    Route.post('/logout', 'AuthController.logoutWeb')
+  }).prefix('/web')
+
 }).prefix('/auth')
 
