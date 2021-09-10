@@ -105,8 +105,6 @@ export const http: ServerConfig = {
     path: '/',
     httpOnly: true,
     sameSite: false,
-    domain: '.arthurdanjou.fr',
-    secure: true,
   },
 
   /*
