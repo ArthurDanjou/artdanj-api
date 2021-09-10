@@ -102,12 +102,11 @@ export const http: ServerConfig = {
   |--------------------------------------------------------------------------
   */
   cookie: {
-    domain: '',
     path: '/',
-    maxAge: '2h',
     httpOnly: true,
+    sameSite: false,
+    domain: '.arthurdanjou.fr',
     secure: true,
-    sameSite: true,
   },
 
   /*
