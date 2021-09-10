@@ -104,7 +104,7 @@ export const http: ServerConfig = {
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: false,
+    sameSite: 'none',
   },
 
   /*
