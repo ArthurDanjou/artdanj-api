@@ -79,7 +79,7 @@ const sessionConfig: SessionConfig = {
     httpOnly: true,
     sameSite: false,
     domain: '.arthurdanjou.fr',
-    secure: true
+    secure: Env.get('NODE_ENV') === 'production'
   },
 
   /*
