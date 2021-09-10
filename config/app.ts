@@ -105,6 +105,7 @@ export const http: ServerConfig = {
     path: '/',
     httpOnly: true,
     sameSite: 'none',
+    secure: true
   },
 
   /*

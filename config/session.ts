@@ -78,6 +78,7 @@ const sessionConfig: SessionConfig = {
     path: '/',
     httpOnly: true,
     sameSite: 'none',
+    secure: true
   },
 
   /*
