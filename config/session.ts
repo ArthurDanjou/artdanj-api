@@ -77,8 +77,8 @@ const sessionConfig: SessionConfig = {
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: true,
-    domain: 'arthurdanjou.fr',
+    sameSite: 'lax',
+    domain: '.arthurdanjou.fr',
     secure: true
   },
 
