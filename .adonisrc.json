@@ -28,7 +28,8 @@
     "@adonisjs/lucid",
     "@adonisjs/mail",
     "@adonisjs/view",
-    "@adonisjs/bouncer"
+    "@adonisjs/bouncer",
+    "@adonisjs/redis"
   ],
   "aceProviders": [
     "@adonisjs/repl"
