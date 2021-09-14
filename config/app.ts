@@ -105,7 +105,7 @@ export const http: ServerConfig = {
     path: '/',
     httpOnly: true,
     sameSite: 'none',
-    secure: true
+    secure: Env.get('NODE_ENV') === 'production'
   },
 
   /*
