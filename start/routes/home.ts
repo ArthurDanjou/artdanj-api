@@ -26,7 +26,7 @@ Route.get('/source', async ({response}: HttpContextContract) => {
 Route.get('/health', async ({response}: HttpContextContract) => {
   const report = await HealthCheck.getReport()
   const isLive = await HealthCheck.isLive()
-  const isReady = await HealthCheck.isReady()
+  const isReady = HealthCheck.isReady()
   return report.healthy ? response.ok({isLive, isReady, report: report.report}) : response.badRequest({
     isLive,
     isReady,

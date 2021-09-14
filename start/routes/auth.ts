@@ -1,7 +1,7 @@
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.group(() => {
-  Route.get('/me', 'AuthController.user').middleware('auth')
+  Route.get('/me', 'AuthController.user')
   Route.post('/token', 'AuthController.createInfiniteToken')
 
   Route.group(() => {

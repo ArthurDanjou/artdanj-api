@@ -1,15 +1,12 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import User from "App/Models/User";
+import AuthValidator from "App/Validators/AuthValidator";
 
 export default class AuthController {
 
   public async loginApi ({ request, auth, response }: HttpContextContract) {
-    const email = request.input('email')
-    const password = request.input('password')
-    const infinity = request.input('infinity', false)
-
+    const { email, password } = await request.validate(AuthValidator)
     const token = await auth.use('api').attempt(email, password, {
-      expiresIn: infinity ? '' : '2 days'
+      expiresIn: '2 days'
     })
     return response.status(200).send({
       token: token.toJSON()
@@ -17,10 +14,7 @@ export default class AuthController {
   }
 
   public async loginWeb ({ request, auth, response }: HttpContextContract) {
-    const email = request.input('email')
-    const password = request.input('password')
-    const remember = request.input('rembember', false)
-
+    const { email, password, remember } = await request.validate(AuthValidator)
     await auth.use('web').attempt(email, password, remember)
 
     return response.status(200).send({
@@ -29,16 +23,14 @@ export default class AuthController {
   }
 
   public async createInfiniteToken ({ request, auth, response }: HttpContextContract) {
-    const email = request.input('email')
-    const password = request.input('password')
-    const token = await auth.attempt(email, password)
+    const { email, password } = await request.validate(AuthValidator)
+    const token = await auth.use('api').attempt(email, password)
     return response.status(200).send({
       token: token.toJSON()
     })
   }
 
   public async logoutApi ({ auth, response }: HttpContextContract) {
-    await auth.use('api').logout()
     await auth.use('api').revoke()
     return response.status(200).send({
       message: 'You have been disconnected!'
@@ -47,17 +39,14 @@ export default class AuthController {
 
   public async logoutWeb ({ auth, response }: HttpContextContract) {
     await auth.use('web').logout()
-    await auth.use('api').revoke()
     return response.status(200).send({
       message: 'You have been disconnected!'
     })
   }
 
-  public async user ({ auth, response }: HttpContextContract) {
-    await auth.authenticate()
-    const user = await User.query()
-      .where('id', auth.user!.id)
-      .firstOrFail()
+  public async user ({ auth, response, logger }: HttpContextContract) {
+    const user = await auth.use('web').authenticate() || await auth.use('api').authenticate()
+    logger.info('' + user)
     return response.status(200).send({
       user: user
     })

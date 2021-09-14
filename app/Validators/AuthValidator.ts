@@ -14,7 +14,7 @@ export default class AuthValidator {
     password: schema.string({ trim: true }, [
       rules.required()
     ]),
-    remember_me: schema.boolean()
+    remember: schema.boolean.optional()
   })
 
   constructor (protected ctx: HttpContextContract) {
