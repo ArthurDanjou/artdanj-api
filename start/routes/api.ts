@@ -1,9 +1,9 @@
 import Route from "@ioc:Adonis/Core/Route";
 import Application from "@ioc:Adonis/Core/Application";
 
-Route.get('/discord', 'ProfileController.discord')
 Route.get('/me', 'ProfileController.me')
 Route.get('/stats', 'StatsController.index')
+Route.get('/states', 'StatesController.index')
 Route.resource('/locations', 'LocationsController').only(['index', 'store'])
 
 Route.group(() => {
@@ -13,7 +13,17 @@ Route.group(() => {
 
   Route.resource('/files', 'FilesController').only(['index', 'store', 'destroy'])
 
-}).middleware('auth')
+  Route.group(() => {
+    Route.post('/sleeping', 'StatesController.setSleeping')
+    Route.post('/developing', 'StatesController.setDeveloping')
+  }).prefix('states')
+
+  Route.group(() => {
+    Route.post('/commands', 'StatsController.incrementCommandCount')
+    Route.post('/docker', 'StatsController.incrementBuildCount')
+  }).prefix('stats')
+
+}).middleware('auth:web,api')
 
 Route.get('/files/:filename', async ({response, params}) => {
   response.download(Application.makePath('storage', params.filename))

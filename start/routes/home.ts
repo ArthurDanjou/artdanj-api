@@ -10,10 +10,11 @@ Route.get('/', async ({response}: HttpContextContract) => {
     domain: BASE_URL,
     version: Env.get('API_VERSION'),
     source: `${BASE_URL}/source`,
-    healthCheck: `${BASE_URL}/health`,
+    health: `${BASE_URL}/health`,
     routes: {
       profile: `${BASE_URL}/me`,
       stats: `${BASE_URL}/stats`,
+      states: `${BASE_URL}/states`,
       locations: `${BASE_URL}/locations`
     }
   })
