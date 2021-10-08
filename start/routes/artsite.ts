@@ -29,4 +29,4 @@ Route.group(() => {
   }).prefix('/posts')
 
   Route.resource('/subscribers', 'SubscribersController').only(['index', 'store', 'destroy'])
-}).middleware('auth')
+}).middleware('auth:web,api')
