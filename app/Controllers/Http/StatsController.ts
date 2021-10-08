@@ -1,13 +1,13 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import CommandsRun from "App/Models/CommandsRun";
+import {DateTime} from "luxon";
+import BuildsRun from "App/Models/BuildsRun";
 import {
   fetchDailyStatistics,
   fetchMonthlyStatistics,
   fetchStatistics,
   fetchWeeklyStatistics
-} from "App/Tasks/DevelopmentHoursTask";
-import CommandsRun from "App/Models/CommandsRun";
-import {DateTime} from "luxon";
-import BuildsRun from "App/Models/BuildsRun";
+} from "App/Utils/StatsUtils";
 
 export default class StatsController {
 
