@@ -77,7 +77,7 @@ const sessionConfig: SessionConfig = {
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: Env.get('NODE_ENV') === 'production' ? 'none' : false,
     secure: Env.get('NODE_ENV') === 'production'
   },
 
