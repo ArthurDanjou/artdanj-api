@@ -17,19 +17,13 @@ export async function getDevelopmentHours(start: Date, end: Date): Promise<numbe
     .where('date', '>=', start)
     .where('date', '<=', end)
     .orderBy('date', 'desc')
+    .first()
 
-  if (!development_seconds || development_seconds.length <= 0) {
+  if (!development_seconds) {
     return 0
   }
 
-  const reduced = development_seconds.reduce((a: DevelopmentHour, b: DevelopmentHour) => {
-    return {
-      ...a,
-      seconds: a.seconds + b.seconds
-    }
-  })
-
-  return Number(reduced.seconds)
+  return development_seconds.seconds
 }
 
 export async function getCommandsRan(start: Date, end: Date): Promise<number> {
@@ -38,19 +32,13 @@ export async function getCommandsRan(start: Date, end: Date): Promise<number> {
     .where('date', '>=', start)
     .where('date', '<=', end)
     .orderBy('date', 'desc')
+    .first()
 
-  if (!commands_run || commands_run.length <= 0) {
+  if (!commands_run) {
     return 0
   }
 
-  const reduced = commands_run.reduce((a: CommandsRun, b: CommandsRun) => {
-    return {
-      ...a,
-      commands: a.commands + b.commands
-    }
-  })
-
-  return Number(reduced.commands)
+  return commands_run.commands
 }
 
 export async function getBuildsRan(start: Date, end: Date): Promise<number> {
@@ -59,19 +47,13 @@ export async function getBuildsRan(start: Date, end: Date): Promise<number> {
     .where('date', '>=', start)
     .where('date', '<=', end)
     .orderBy('date', 'desc')
+    .first()
 
-  if (!builds_run || builds_run.length <= 0) {
+  if (!builds_run) {
     return 0
   }
 
-  const reduced = builds_run.reduce((a: BuildsRun, b: BuildsRun) => {
-    return {
-      ...a,
-      builds: a.builds + b.builds
-    }
-  })
-
-  return Number(reduced.builds)
+  return builds_run.builds
 }
 
 export async function fetchStatistics(): Promise<Stats> {
