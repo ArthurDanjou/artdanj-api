@@ -7,7 +7,7 @@ export default class TranslationsController {
 
   public async index ({ response }: HttpContextContract) {
     return response.status(200).send({
-      translations: await Translation.all()
+      translations: await Translation.query().orderBy('id', 'asc')
     })
   }
 
