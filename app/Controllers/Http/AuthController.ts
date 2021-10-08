@@ -44,11 +44,10 @@ export default class AuthController {
     })
   }
 
-  public async user ({ auth, response, logger }: HttpContextContract) {
+  public async user ({ auth, response }: HttpContextContract) {
     const user = await auth.use('web').authenticate() || await auth.use('api').authenticate()
-    logger.info('' + user)
     return response.status(200).send({
-      user: user
+      user
     })
   }
 }
