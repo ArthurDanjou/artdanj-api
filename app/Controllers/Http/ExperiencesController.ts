@@ -1,8 +1,8 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Experience from "App/Models/Experience";
 import ExperienceStoreValidator from "App/Validators/experience/ExperienceStoreValidator";
-import getTranslation from "App/Utils/getTranslation";
 import ExperienceUpdateValidator from "App/Validators/experience/ExperienceUpdateValidator";
+import {getTranslation} from "App/Utils/TranslationsUtils";
 
 export default class ExperiencesController {
 

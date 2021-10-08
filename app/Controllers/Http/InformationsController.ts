@@ -1,7 +1,7 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Information from "App/Models/Information";
 import InformationUpdateValidator from "App/Validators/information/InformationUpdateValidator";
-import getTranslation from "App/Utils/getTranslation";
+import {getTranslation} from "App/Utils/TranslationsUtils";
 
 export default class InformationsController {
 

@@ -3,7 +3,7 @@ import Project from "App/Models/Project";
 import ProjectStoreValidator from "App/Validators/project/ProjectStoreValidator";
 import ProjectUpdateValidator from "App/Validators/project/ProjectUpdateValidator";
 import File from "App/Models/File";
-import getTranslation from "App/Utils/getTranslation";
+import {getTranslation} from "App/Utils/TranslationsUtils";
 
 export default class ProjectsController {
 

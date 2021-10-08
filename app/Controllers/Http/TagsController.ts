@@ -1,8 +1,8 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import getTranslation from "App/Utils/getTranslation";
 import TagStoreValidator from "App/Validators/tag/TagStoreValidator";
 import TagUpdateValidator from "App/Validators/tag/TagUpdateValidator";
 import Tag from "App/Models/Tag";
+import {getTranslation} from "App/Utils/TranslationsUtils";
 
 export default class TagsController {
 

@@ -1,10 +1,10 @@
 import Post from "App/Models/Post";
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import PostUpdateValidator from "App/Validators/post/PostUpdateValidator";
-import getTranslation from "App/Utils/getTranslation";
 import File from "App/Models/File";
 import PostStoreValidator from "App/Validators/post/PostStoreValidator";
 import PostColor from "App/Models/PostColor";
+import {getTranslation} from "App/Utils/TranslationsUtils";
 
 export default class PostsController {
 
