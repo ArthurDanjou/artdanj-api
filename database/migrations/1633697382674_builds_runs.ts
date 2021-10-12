@@ -7,7 +7,7 @@ export default class BuildsRuns extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.bigInteger('builds')
-      table.timestamp('date')
+      table.string('date')
     })
   }
 

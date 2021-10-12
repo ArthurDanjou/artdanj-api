@@ -7,7 +7,7 @@ export default class DevelopmentHours extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.double('seconds')
-      table.date('date')
+      table.string('date')
     })
   }
 

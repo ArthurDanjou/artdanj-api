@@ -7,7 +7,7 @@ export default class CommandsRuns extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.bigInteger('commands')
-      table.date('date')
+      table.string('date')
     })
   }
 
