@@ -18,11 +18,15 @@ export default class AppProvider {
 
   public async ready () {
     // App is ready
+    const StatsTask = await import('App/Tasks/StatsTask')
+    await StatsTask.Activate()
     Logger.info('Application is ready!')
   }
 
   public async shutdown () {
     // Cleanup, since app is going down
+    const StatsTask = (await import('App/Tasks/StatsTask'))
+    await StatsTask.ShutDown()
     Logger.info('Application is closing. Bye...')
   }
 }
