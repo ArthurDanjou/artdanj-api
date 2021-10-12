@@ -20,7 +20,7 @@ Route.group(() => {
 
   Route.group(() => {
     Route.post('/commands', 'StatsController.incrementCommandCount')
-    Route.post('/docker', 'StatsController.incrementBuildCount')
+    Route.post('/builds', 'StatsController.incrementBuildCount')
   }).prefix('stats')
 
 }).middleware('auth:web,api')
