@@ -1,5 +1,4 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, column} from '@ioc:Adonis/Lucid/Orm'
 
 export default class DevelopmentHour extends BaseModel {
   @column({ isPrimary: true })
@@ -8,6 +7,6 @@ export default class DevelopmentHour extends BaseModel {
   @column()
   public seconds: number
 
-  @column.date({ autoCreate: true })
-  public date: DateTime
+  @column()
+  public date: string
 }

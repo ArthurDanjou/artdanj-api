@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class CommandsRun extends BaseModel {
@@ -8,6 +7,6 @@ export default class CommandsRun extends BaseModel {
   @column()
   public commands: number
 
-  @column.date({ autoCreate: true })
-  public date: DateTime
+  @column()
+  public date: string
 }
