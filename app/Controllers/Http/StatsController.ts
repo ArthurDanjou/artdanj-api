@@ -1,12 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CommandsRun from "App/Models/CommandsRun";
-import {DateTime} from "luxon";
 import BuildsRun from "App/Models/BuildsRun";
 import {
   fetchDailyStatistics,
   fetchMonthlyStatistics,
   fetchStatistics,
-  fetchWeeklyStatistics
+  fetchWeeklyStatistics,
+  NOW
 } from "App/Utils/StatsUtils";
 
 export default class StatsController {
@@ -21,18 +21,21 @@ export default class StatsController {
       daily,
       weekly,
       monthly,
-      total
+      total: {
+        development_time: total.development_time,
+        commands_run: total.commands_ran,
+        builds_run: total.builds_ran,
+      }
     })
   }
 
   public async incrementCommandCount({ response }: HttpContextContract) {
-    const current_date = DateTime.fromJSDate(new Date(new Date().setUTCMinutes(0, 0, 0)))
     const current_commands = await CommandsRun.firstOrCreate(
       {
-        date: current_date
+        date: NOW
       },
       {
-        date: current_date,
+        date: NOW,
         commands: 0
       }
     )
@@ -41,18 +44,17 @@ export default class StatsController {
     await current_commands.save()
 
     return response.status(200).send({
-      message: 'Commands Count successfully incremented !'
+      message: 'Commands Count successfully incremented!'
     })
   }
 
   public async incrementBuildCount({ response }: HttpContextContract) {
-    const current_date = DateTime.fromJSDate(new Date(new Date().setUTCMinutes(0, 0, 0)))
     const current_builds = await BuildsRun.firstOrCreate(
       {
-        date: current_date
+        date: NOW
       },
       {
-        date: current_date,
+        date: NOW,
         builds: 0
       }
     )
@@ -61,7 +63,7 @@ export default class StatsController {
     await current_builds.save()
 
     return response.status(200).send({
-      message: 'Builds Count successfully incremented !'
+      message: 'Builds Count successfully incremented!'
     })
   }
 
