@@ -55,4 +55,8 @@ export default Env.rules({
   SMTP_PORT: Env.schema.number(),
   SMTP_USERNAME: Env.schema.string(),
   SMTP_PASSWORD: Env.schema.string(),
+
+  //Wakatime
+  WAKATIME_USER: Env.schema.string(),
+  WAKATIME_ID: Env.schema.string()
 })
