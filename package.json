@@ -28,7 +28,7 @@
     "@adonisjs/repl": "^3.1.4",
     "@adonisjs/session": "^6.1.1",
     "@adonisjs/view": "^6.0.3",
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "luxon": "^1.27.0",
     "mjml": "^4.10.1",
     "mysql": "^2.18.1",
