@@ -85,7 +85,7 @@ export async function getBuildsRan(start: string, end: string): Promise<number> 
 }
 
 export async function fetchStatistics(): Promise<Stats> {
-  const start = formatDate(new Date("01-01-2000"))
+  const start = formatDate(new Date("2020-10-13"))
 
   const development_time = await getDevelopmentHours(start, NOW)
   const commands_ran = await getCommandsRan(start, NOW)
