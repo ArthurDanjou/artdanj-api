@@ -58,5 +58,6 @@ export default Env.rules({
 
   //Wakatime
   WAKATIME_USER: Env.schema.string(),
+  WAKATIME_KEY: Env.schema.string(),
   WAKATIME_ID: Env.schema.string()
 })
