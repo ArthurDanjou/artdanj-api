@@ -30,6 +30,7 @@ async function getCurrentTime(): Promise<void> {
 
     if (redis_state !== active) {
       await Redis.set('states:developing', String(active))
+      await Redis.set('states:sleeping', String(!active))
     }
   }
 }

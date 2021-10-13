@@ -19,6 +19,7 @@ export default class StatesController {
   public async setSleeping ({ request, response }: HttpContextContract) {
     const { value } = await request.validate(StateSleepingValidator)
     await Redis.set('states:sleeping', String(value))
+    await Redis.set('states:developing', String(!value))
     return response.status(200).send({
       message: 'State was successfully set!',
       value: this.formatValue(String(value))
