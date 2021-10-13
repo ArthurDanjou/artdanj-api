@@ -19,14 +19,21 @@ export default class AppProvider {
   public async ready () {
     // App is ready
     const StatsTask = await import('App/Tasks/StatsTask')
+    const StatesTask = await import('App/Tasks/StatesTask')
+
     await StatsTask.Activate()
+    await StatesTask.Activate()
+
     Logger.info('Application is ready!')
   }
 
   public async shutdown () {
     // Cleanup, since app is going down
     const StatsTask = (await import('App/Tasks/StatsTask'))
+    const StatesTask = await import('App/Tasks/StatesTask')
+
     await StatsTask.ShutDown()
+    await StatesTask.ShutDown()
     Logger.info('Application is closing. Bye...')
   }
 }
