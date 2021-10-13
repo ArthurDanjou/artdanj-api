@@ -15,7 +15,6 @@ Route.group(() => {
 
   Route.group(() => {
     Route.post('/sleeping', 'StatesController.setSleeping')
-    Route.post('/developing', 'StatesController.setDeveloping')
   }).prefix('states')
 
   Route.group(() => {
