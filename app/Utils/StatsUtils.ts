@@ -44,9 +44,9 @@ export async function getDevelopmentHours(start: string, end: string): Promise<T
   development_time.forEach(item => total += item.seconds)
 
   return {
-    total_hours: Math.round(total / 3600),
-    total_minutes: Math.round(total / 60),
-    total_seconds: Math.round(total)
+    total_hours: Math.floor(total / 3600),
+    total_minutes: Math.floor(total / 60),
+    total_seconds: Math.floor(total)
   }
 }
 
