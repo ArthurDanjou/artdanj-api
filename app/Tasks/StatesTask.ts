@@ -25,12 +25,14 @@ async function getCurrentTime(): Promise<void> {
     const heartbeat = response.data.data[response.data.data.length -1]
     const current_time = new Date(Date.now()).getTime()/1000
 
-    const active = current_time - heartbeat.time <= 60 * 10
-    const redis_state = await Redis.get('states:developing') === 'true'
+    if (heartbeat.time) {
+      const active = current_time - heartbeat.time <= 60 * 5 // Less than 5 min.
+      const redis_state = await Redis.get('states:developing') === 'true'
 
-    if (redis_state !== active) {
-      await Redis.set('states:developing', String(active))
-      await Redis.set('states:sleeping', String(!active))
+      if (redis_state !== active) {
+        await Redis.set('states:developing', String(active))
+        await Redis.set('states:sleeping', String(!active))
+      }
     }
   }
 }
