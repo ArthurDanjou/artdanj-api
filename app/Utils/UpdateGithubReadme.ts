@@ -28,7 +28,7 @@ export async function UpdateGithubReadme(): Promise<void> {
 | :------------------------------------------ | ----------: | ----------: | -----------: | -----------: |
 | :hourglass_flowing_sand: Hours Spent Coding |  **${daily_stats.development_time.total_hours}hrs**  | **${weekly_stats.development_time.total_hours}hrs**   | **${monthly_stats.development_time.total_hours}hrs**    | **${total_stats.development_time.total_hours}hrs**   |
 | :computer: Terminal Commands                |  **${daily_stats.commands_ran}**  | **${weekly_stats.commands_ran}**   | **${monthly_stats.commands_ran}**    | **${total_stats.commands_ran}**    |
-| :hammer: Docker Builds                      |  **${daily_stats.builds_ran}**  | **${weekly_stats.builds_ran}**   | **${monthly_stats.builds_ran}**    | **${total_stats.builds_ran}**    |`
+| :hammer: Docker Builds                      |  **${daily_stats.builds_ran}**  | **${weekly_stats.builds_ran}**   | **${monthly_stats.builds_ran}**    | **${total_stats.builds_ran}**    |\n`
     const new_content = content.replace(old_table, new_table)
 
     const update = await axios.put(`https://api.github.com/repos/${Env.get('GITHUB_USERNAME')}/${Env.get('GITHUB_USERNAME')}/contents/README.md`,
