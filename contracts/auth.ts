@@ -13,7 +13,7 @@ declare module '@ioc:Adonis/Addons/Auth' {
   | Providers
   |--------------------------------------------------------------------------
   |
-  | The providers are used to fetch users. The Auth module comes pre-bundled
+  | The providers are used to fetch user. The Auth module comes pre-bundled
   | with two providers that are `Lucid` and `Database`. Both uses database
   | to fetch user details.
   |
@@ -34,9 +34,9 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     user: {
-      implementation: LucidProviderContract<typeof User>,
-      config: LucidProviderConfig<typeof User>,
-    },
+      implementation: LucidProviderContract<typeof User>
+      config: LucidProviderConfig<typeof User>
+    }
   }
 
   /*
@@ -44,14 +44,14 @@ declare module '@ioc:Adonis/Addons/Auth' {
   | Guards
   |--------------------------------------------------------------------------
   |
-  | The guards are used for authenticating users using different drivers.
+  | The guards are used for authenticating user using different drivers.
   | The auth module comes with 3 different guards.
   |
   | - SessionGuardContract
   | - BasicAuthGuardContract
   | - OATGuardContract ( Opaque access token )
   |
-  | Every guard needs a provider for looking up users from the database.
+  | Every guard needs a provider for looking up user from the database.
   |
   */
   interface GuardsList {
@@ -65,9 +65,9 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     web: {
-      implementation: SessionGuardContract<'user', 'web'>,
-      config: SessionGuardConfig<'user'>,
-    },
+      implementation: SessionGuardContract<'user', 'web'>
+      config: SessionGuardConfig<'user'>
+    }
     /*
     |--------------------------------------------------------------------------
     | OAT Guard
@@ -78,8 +78,8 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     api: {
-      implementation: OATGuardContract<'user', 'api'>,
-      config: OATGuardConfig<'user'>,
-    },
+      implementation: OATGuardContract<'user', 'api'>
+      config: OATGuardConfig<'user'>
+    }
   }
 }

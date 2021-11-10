@@ -2,7 +2,7 @@
   "commands": {
     "dump:rcfile": {
       "settings": {},
-      "commandPath": "@adonisjs/core/build/commands/DumpRc",
+      "commandPath": "@adonisjs/core/commands/DumpRc",
       "commandName": "dump:rcfile",
       "description": "Dump contents of .adonisrc.json file along with defaults",
       "args": [],
@@ -13,7 +13,7 @@
       "settings": {
         "loadApp": true
       },
-      "commandPath": "@adonisjs/core/build/commands/ListRoutes",
+      "commandPath": "@adonisjs/core/commands/ListRoutes",
       "commandName": "list:routes",
       "description": "List application routes",
       "args": [],
@@ -29,7 +29,7 @@
     },
     "generate:key": {
       "settings": {},
-      "commandPath": "@adonisjs/core/build/commands/GenerateKey",
+      "commandPath": "@adonisjs/core/commands/GenerateKey",
       "commandName": "generate:key",
       "description": "Generate a new APP_KEY secret",
       "args": [],
@@ -136,7 +136,7 @@
           "name": "connection",
           "propertyName": "connection",
           "type": "string",
-          "description": "Define a custom database connection for the migration"
+          "description": "The connection flag is used to lookup the directory for the migration file"
         },
         {
           "name": "folder",
@@ -278,6 +278,42 @@
       ],
       "aliases": [],
       "flags": []
+    },
+    "make:policy": {
+      "settings": {},
+      "commandPath": "@adonisjs/bouncer/build/commands/MakePolicy",
+      "commandName": "make:policy",
+      "description": "Make a new bouncer policy",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "name",
+          "name": "name",
+          "required": true,
+          "description": "Name of the policy to create"
+        }
+      ],
+      "aliases": [],
+      "flags": [
+        {
+          "name": "resource-model",
+          "propertyName": "resourceModel",
+          "type": "string",
+          "description": "Name of the resource model to authorize"
+        },
+        {
+          "name": "user-model",
+          "propertyName": "userModel",
+          "type": "string",
+          "description": "Name of the user model to be authorized"
+        },
+        {
+          "name": "actions",
+          "propertyName": "actions",
+          "type": "array",
+          "description": "Actions to implement"
+        }
+      ]
     }
   },
   "aliases": {}

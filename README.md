@@ -1,6 +1,6 @@
-# ArtApi 🧠
+# Athena 🧠
 
-ArtAPi is my personnal api connected to my instances
+Athena is my personal api connected to my instances
 
 ## Features ✨
 
@@ -26,4 +26,4 @@ ArtAPi is my personnal api connected to my instances
 
 ## License 📑
 Copyright © 2020 - [@ArthurDanj](https://arthurdanjou.fr) \
-This project is [MIT](https://github.com/ArthurDanjou/artapi/blob/master/LICENSE) Licensed.
+This project is [MIT](https://github.com/ArthurDanjou/athena/blob/master/LICENSE) Licensed.

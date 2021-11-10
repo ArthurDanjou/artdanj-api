@@ -102,12 +102,10 @@ export const http: ServerConfig = {
   |--------------------------------------------------------------------------
   */
   cookie: {
-    domain: '',
     path: '/',
-    maxAge: '2h',
     httpOnly: true,
-    secure: false,
-    sameSite: false,
+    sameSite: 'none',
+    secure: Env.get('NODE_ENV') === 'production',
   },
 
   /*

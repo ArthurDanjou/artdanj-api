@@ -45,13 +45,10 @@ const corsConfig: CorsConfig = {
   |
   */
   origin: (origin) => {
-    // Allow all connection on dev mode
-    if (process.env.NODE_ENV === 'development') {
-      return true;
-    }
+    if (process.env.NODE_ENV === 'development')
+      return true
 
-    // Production : allow only from your domain
-    return origin.includes('arthurdanjou.fr');
+    return origin.includes('arthurdanjou.fr')
   },
 
   /*

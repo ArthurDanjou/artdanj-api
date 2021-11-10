@@ -36,7 +36,7 @@ const sessionConfig: SessionConfig = {
   | The name of the cookie that will hold the session id.
   |
   */
-  cookieName: 'adonis-session',
+  cookieName: 'athena-session',
 
   /*
   |--------------------------------------------------------------------------
@@ -77,7 +77,8 @@ const sessionConfig: SessionConfig = {
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: true,
+    sameSite: Env.get('NODE_ENV') === 'production' ? 'none' : false,
+    secure: Env.get('NODE_ENV') === 'production',
   },
 
   /*

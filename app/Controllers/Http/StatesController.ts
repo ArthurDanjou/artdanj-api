@@ -1,63 +1,31 @@
-import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import Redis from "@ioc:Adonis/Addons/Redis";
-import {UpdateGitHubReadme} from "App/tasks/UpdateGithubReadme";
-import Logger from "@ioc:Adonis/Core/Logger";
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Redis from '@ioc:Adonis/Addons/Redis'
+import StateSleepingValidator from 'App/Validators/states/StateSleepingValidator'
 
 export default class StatesController {
+  // Listening Music
 
-  public async get ({response}: HttpContextContract) {
-    const is_sleeping = await Redis.get('states:sleeping')
-    const is_listening_music = await Redis.get('states:listening')
-    const is_developing = await Redis.get('states:developing')
-    const is_learning = await Redis.get('states:learning')
-
+  public async index({ response }: HttpContextContract) {
+    const sleeping = this.formatValue(await Redis.get('states:sleeping'))
+    const developing = this.formatValue(await Redis.get('states:developing'))
     return response.status(200).send({
-      is_learning: this.getStatus(is_learning),
-      is_sleeping: this.getStatus(is_sleeping),
-      is_developing: this.getStatus(is_developing),
-      is_listening_music: this.getStatus(is_listening_music)
+      sleeping,
+      developing,
+      listening_music: 'Soon',
     })
   }
 
-  public async set ({request, response, params}: HttpContextContract) {
-    const state = params.state
-    const value = await request.input('value')
-
-    if (state && value) {
-      await Redis.set(`states:${state}`, value)
-
-      if (value === 'true') {
-        switch (state) {
-          case 'learning':
-            await Redis.set(`states:developing`, 'false')
-            await Redis.set(`states:sleeping`, 'false')
-            break
-          case 'developing':
-            await Redis.set(`states:learning`, 'false')
-            await Redis.set(`states:sleeping`, 'false')
-            break
-          case 'listening':
-            await Redis.set(`states:sleeping`, 'false')
-            break
-          case 'sleeping':
-            await Redis.set(`states:developing`, 'false')
-            await Redis.set(`states:listening`, 'false')
-            await Redis.set(`states:learning`, 'false')
-            break
-        }
-      }
-
-      await UpdateGitHubReadme()
-      return response.status(200).send({
-        message: 'State successfully updated !'
-      })
-    }
-    Logger.info("Finish")
+  public async setSleeping({ request, response }: HttpContextContract) {
+    const { value } = await request.validate(StateSleepingValidator)
+    await Redis.set('states:sleeping', String(value))
+    await Redis.set('states:developing', String(!value))
+    return response.status(200).send({
+      message: 'State was successfully set!',
+      value: this.formatValue(String(value)),
+    })
   }
 
-  public getStatus(state: string | null): string {
-    if (state === null) return "No"
-    return state === 'true' ? "Yes" : "No"
+  public formatValue(value: string | null): string {
+    return value === 'true' ? 'Yes' : 'No'
   }
-
 }

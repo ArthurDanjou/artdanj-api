@@ -17,14 +17,14 @@ import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 |
 */
 const authConfig: AuthConfig = {
-  guard: 'web',
+  guard: 'api',
   guards: {
     /*
     |--------------------------------------------------------------------------
     | Web Guard
     |--------------------------------------------------------------------------
     |
-    | Web guard uses classic old school sessions for authenticating users.
+    | Web guard uses classic old school sessions for authenticating user.
     | If you are building a standard web application, it is recommended to
     | use web guard with session driver
     |
@@ -71,7 +71,7 @@ const authConfig: AuthConfig = {
         | Model
         |--------------------------------------------------------------------------
         |
-        | The model to use for fetching or finding users. The model is imported
+        | The model to use for fetching or finding user. The model is imported
         | lazily since the config files are read way earlier in the lifecycle
         | of booting the app and the models may not be in a usable state at
         | that time.
@@ -116,7 +116,6 @@ const authConfig: AuthConfig = {
         type: 'api',
         driver: 'redis',
         redisConnection: 'local',
-        foreignKey: 'user_id',
       },
 
       provider: {
@@ -158,7 +157,7 @@ const authConfig: AuthConfig = {
         | Model
         |--------------------------------------------------------------------------
         |
-        | The model to use for fetching or finding users. The model is imported
+        | The model to use for fetching or finding user. The model is imported
         | lazily since the config files are read way earlier in the lifecycle
         | of booting the app and the models may not be in a usable state at
         | that time.

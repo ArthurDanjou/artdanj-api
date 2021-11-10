@@ -42,8 +42,13 @@ const databaseConfig: DatabaseConfig = {
         password: Env.get('MYSQL_PASSWORD', ''),
         database: Env.get('MYSQL_DB_NAME'),
       },
+      pool: {
+        max: 10,
+        min: 1,
+        idleTimeoutMillis: 30000,
+      },
       healthCheck: true,
-			debug: false,
+      debug: false,
     },
 
   },
