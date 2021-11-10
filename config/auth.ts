@@ -5,7 +5,7 @@
  * file.
  */
 
-import {AuthConfig} from '@ioc:Adonis/Addons/Auth'
+import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 
 /*
 |--------------------------------------------------------------------------
@@ -115,7 +115,7 @@ const authConfig: AuthConfig = {
       tokenProvider: {
         type: 'api',
         driver: 'redis',
-        redisConnection: 'local'
+        redisConnection: 'local',
       },
 
       provider: {

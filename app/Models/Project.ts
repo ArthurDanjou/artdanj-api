@@ -1,8 +1,8 @@
-import {DateTime} from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany} from '@ioc:Adonis/Lucid/Orm'
-import File from "App/Models/File";
-import Tag from "App/Models/Tag";
-import Translation from "App/Models/Translation";
+import { DateTime } from 'luxon'
+import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import File from 'App/Models/File'
+import Tag from 'App/Models/Tag'
+import Translation from 'App/Models/Translation'
 
 export default class Project extends BaseModel {
   @column({ isPrimary: true })
@@ -12,7 +12,7 @@ export default class Project extends BaseModel {
   public name: string
 
   @belongsTo(() => Translation, {
-    foreignKey: 'descriptionId'
+    foreignKey: 'descriptionId',
   })
   public description: BelongsTo<typeof Translation>
 
@@ -23,7 +23,7 @@ export default class Project extends BaseModel {
   public url: string
 
   @belongsTo(() => File, {
-    foreignKey: 'coverId'
+    foreignKey: 'coverId',
   })
   public cover: BelongsTo<typeof File>
 

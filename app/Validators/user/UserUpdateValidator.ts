@@ -1,5 +1,5 @@
-import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import {rules, schema} from '@ioc:Adonis/Core/Validator'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UserUpdateValidator {
   public schema = schema.create({
@@ -9,14 +9,14 @@ export default class UserUpdateValidator {
         rules.unique(
           {
             table: 'users',
-            column: 'email'
-          })
-      ]
+            column: 'email',
+          }),
+      ],
     ),
     password: schema.string.optional({ trim: true, escape: true },
       [
-        rules.confirmed()
-      ]
+        rules.confirmed(),
+      ],
     ),
     is_confirmed: schema.boolean.optional(),
     confirmation_token: schema.string.optional({ trim: true, escape: true }),
@@ -24,11 +24,11 @@ export default class UserUpdateValidator {
   })
 
   public messages = {
-    required: 'The field {{field}} is required',
+    'required': 'The field {{field}} is required',
     'email.email': 'The email must be valid',
-    'password.confirmation': 'Passwords are not the same'
+    'password.confirmation': 'Passwords are not the same',
   }
 
-  constructor (protected ctx: HttpContextContract) {
+  constructor(protected ctx: HttpContextContract) {
   }
 }

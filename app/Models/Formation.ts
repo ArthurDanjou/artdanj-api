@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import Translation from "App/Models/Translation";
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Translation from 'App/Models/Translation'
 
 export default class Formation extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @belongsTo(() => Translation, {
-    foreignKey: 'titleId'
+    foreignKey: 'titleId',
   })
   public title: BelongsTo<typeof Translation>
 
@@ -15,7 +15,7 @@ export default class Formation extends BaseModel {
   public titleId: number
 
   @belongsTo(() => Translation, {
-    foreignKey: 'descriptionId'
+    foreignKey: 'descriptionId',
   })
   public description: BelongsTo<typeof Translation>
 

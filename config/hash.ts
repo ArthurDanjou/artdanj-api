@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import {HashConfig} from '@ioc:Adonis/Core/Hash'
+import { HashConfig } from '@ioc:Adonis/Core/Hash'
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ const hashConfig: HashConfig = {
       memory: 4096,
       parallelism: 1,
       saltSize: 16,
-    }
+    },
   },
 }
 

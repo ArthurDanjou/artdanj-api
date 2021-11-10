@@ -1,4 +1,4 @@
-import Route from "@ioc:Adonis/Core/Route";
+import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.resource('/form', 'FormsController').except(['edit', 'create', 'update'])

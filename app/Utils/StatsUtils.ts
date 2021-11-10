@@ -1,6 +1,12 @@
-import DevelopmentHour from "App/Models/DevelopmentHour";
-import CommandsRun from "App/Models/CommandsRun";
-import BuildsRun from "App/Models/BuildsRun";
+import DevelopmentHour from 'App/Models/DevelopmentHour'
+import CommandsRun from 'App/Models/CommandsRun'
+import BuildsRun from 'App/Models/BuildsRun'
+
+interface Time {
+  total_hours: number
+  total_minutes: number
+  total_seconds: number
+}
 
 interface Stats {
   range: {
@@ -11,12 +17,6 @@ interface Stats {
   development_time: Time
   commands_ran: number
   builds_ran: number
-}
-
-interface Time {
-  total_hours: number
-  total_minutes: number
-  total_seconds: number
 }
 
 function formatDate(date: Date): string {
@@ -36,7 +36,7 @@ export async function getDevelopmentHours(start: string, end: string): Promise<T
     return {
       total_hours: 0,
       total_minutes: 0,
-      total_seconds: 0
+      total_seconds: 0,
     }
   }
 
@@ -46,7 +46,7 @@ export async function getDevelopmentHours(start: string, end: string): Promise<T
   return {
     total_hours: Math.floor(total / 3600),
     total_minutes: Math.floor(total / 60),
-    total_seconds: Math.floor(total)
+    total_seconds: Math.floor(total),
   }
 }
 
@@ -57,9 +57,8 @@ export async function getCommandsRan(start: string, end: string): Promise<number
     .where('date', '<=', end)
     .orderBy('date', 'desc')
 
-  if (!commands_run) {
+  if (!commands_run)
     return 0
-  }
 
   let commands = 0
   commands_run.forEach(item => commands += item.commands)
@@ -74,9 +73,8 @@ export async function getBuildsRan(start: string, end: string): Promise<number> 
     .where('date', '<=', end)
     .orderBy('date', 'desc')
 
-  if (!builds_run) {
+  if (!builds_run)
     return 0
-  }
 
   let builds = 0
   builds_run.forEach(item => builds += item.builds)
@@ -85,7 +83,7 @@ export async function getBuildsRan(start: string, end: string): Promise<number> 
 }
 
 export async function fetchStatistics(): Promise<Stats> {
-  const start = formatDate(new Date("2020-10-13"))
+  const start = formatDate(new Date('2020-10-13'))
 
   const development_time = await getDevelopmentHours(start, NOW)
   const commands_ran = await getCommandsRan(start, NOW)
@@ -98,7 +96,7 @@ export async function fetchStatistics(): Promise<Stats> {
     },
     development_time,
     commands_ran,
-    builds_ran
+    builds_ran,
   }
 }
 
@@ -116,7 +114,7 @@ export async function fetchMonthlyStatistics(): Promise<Stats> {
     },
     development_time,
     commands_ran,
-    builds_ran
+    builds_ran,
   }
 }
 
@@ -134,7 +132,7 @@ export async function fetchWeeklyStatistics(): Promise<Stats> {
     },
     development_time,
     commands_ran,
-    builds_ran
+    builds_ran,
   }
 }
 
@@ -150,6 +148,6 @@ export async function fetchDailyStatistics(): Promise<Stats> {
     },
     development_time,
     commands_ran,
-    builds_ran
+    builds_ran,
   }
 }

@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import Translation from "App/Models/Translation";
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Translation from 'App/Models/Translation'
 
 export default class Maintenance extends BaseModel {
   @column({ isPrimary: true })
@@ -10,7 +10,7 @@ export default class Maintenance extends BaseModel {
   public active: boolean
 
   @belongsTo(() => Translation, {
-    foreignKey: 'reasonId'
+    foreignKey: 'reasonId',
   })
   public reason: BelongsTo<typeof Translation>
 

@@ -1,7 +1,7 @@
-import Logger from "@ioc:Adonis/Core/Logger";
-import Env from "@ioc:Adonis/Core/Env";
-import axios from "axios";
-import DevelopmentHour from "App/Models/DevelopmentHour";
+import Logger from '@ioc:Adonis/Core/Logger'
+import Env from '@ioc:Adonis/Core/Env'
+import axios from 'axios'
+import DevelopmentHour from 'App/Models/DevelopmentHour'
 
 const MS = 1000 * 5 * 60 // 5 min
 let taskId
@@ -20,16 +20,16 @@ async function getDevelopmentHours(): Promise<void> {
   if (response.status === 200) {
     const mapped_stats = response.data.data.map((item: StatsResponse) => {
       return {
-        seconds: item.grand_total.total_seconds, date: item.range.date
+        seconds: item.grand_total.total_seconds, date: item.range.date,
       }
     })
 
     for (const data of mapped_stats) {
       await DevelopmentHour.updateOrCreate({
-        date: data.date.split('T')[0]
+        date: data.date.split('T')[0],
       }, {
         date: data.date.split('T')[0],
-        seconds: data.seconds
+        seconds: data.seconds,
       })
     }
   }
@@ -39,10 +39,9 @@ export async function Activate(): Promise<void> {
   Logger.info(`Starting task runner for getting development hours [every ${MS} ms]`)
   await getDevelopmentHours()
   taskId = setInterval(getDevelopmentHours, MS)
-  return
 }
 
 export function ShutDown(): void {
   clearInterval(taskId)
-  Logger.info(`Shutdown task runner for getting development hours`)
+  Logger.info('Shutdown task runner for getting development hours')
 }

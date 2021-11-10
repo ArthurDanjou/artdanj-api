@@ -5,7 +5,7 @@
  * file.
  */
 
-import {CorsConfig} from '@ioc:Adonis/Core/Cors'
+import { CorsConfig } from '@ioc:Adonis/Core/Cors'
 
 const corsConfig: CorsConfig = {
   /*
@@ -44,12 +44,12 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: (origin => {
-    if (process.env.NODE_ENV === 'development') {
+  origin: (origin) => {
+    if (process.env.NODE_ENV === 'development')
       return true
-    }
+
     return origin.includes('arthurdanjou.fr')
-  }),
+  },
 
   /*
   |--------------------------------------------------------------------------

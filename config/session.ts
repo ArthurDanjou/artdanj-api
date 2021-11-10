@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import {SessionConfig} from '@ioc:Adonis/Addons/Session'
+import { SessionConfig } from '@ioc:Adonis/Addons/Session'
 
 const sessionConfig: SessionConfig = {
 
@@ -78,7 +78,7 @@ const sessionConfig: SessionConfig = {
     path: '/',
     httpOnly: true,
     sameSite: Env.get('NODE_ENV') === 'production' ? 'none' : false,
-    secure: Env.get('NODE_ENV') === 'production'
+    secure: Env.get('NODE_ENV') === 'production',
   },
 
   /*

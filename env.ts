@@ -15,7 +15,7 @@
 import Env from '@ioc:Adonis/Core/Env'
 
 export default Env.rules({
-  //App
+  // App
   HOST: Env.schema.string(),
   PORT: Env.schema.number(),
   APP_KEY: Env.schema.string(),
@@ -24,19 +24,19 @@ export default Env.rules({
   BASE_URL: Env.schema.string(),
   API_VERSION: Env.schema.string(),
 
-  //Utils
+  // Utils
   DISCORD_ID: Env.schema.string(),
   GITHUB_TOKEN: Env.schema.string(),
-  GITHUB_SOURCE: Env.schema.string({format: 'url'}),
+  GITHUB_SOURCE: Env.schema.string({ format: 'url' }),
 
-  //Redis
+  // Redis
   REDIS_CONNECTION: Env.schema.enum(['local'] as const),
   REDIS_HOST: Env.schema.string(),
   REDIS_PORT: Env.schema.number(),
   REDIS_DB: Env.schema.number(),
   REDIS_PASSWORD: Env.schema.string.optional(),
 
-  //Mysql
+  // Mysql
   DB_CONNECTION: Env.schema.string(),
   MYSQL_HOST: Env.schema.string(),
   MYSQL_PORT: Env.schema.number(),
@@ -44,20 +44,20 @@ export default Env.rules({
   MYSQL_PASSWORD: Env.schema.string.optional(),
   MYSQL_DB_NAME: Env.schema.string(),
 
-  //Session
+  // Session
   SESSION_DRIVER: Env.schema.string(),
 
-  //Views
+  // Views
   CACHE_VIEWS: Env.schema.boolean(),
 
-  //Mails
+  // Mails
   SMTP_HOST: Env.schema.string({ format: 'host' }),
   SMTP_PORT: Env.schema.number(),
   SMTP_USERNAME: Env.schema.string(),
   SMTP_PASSWORD: Env.schema.string(),
 
-  //Wakatime
+  // Wakatime
   WAKATIME_USER: Env.schema.string(),
   WAKATIME_KEY: Env.schema.string(),
-  WAKATIME_ID: Env.schema.string()
+  WAKATIME_ID: Env.schema.string(),
 })

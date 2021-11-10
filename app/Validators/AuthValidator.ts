@@ -1,22 +1,22 @@
-import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import {rules, schema} from '@ioc:Adonis/Core/Validator'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 
 export default class AuthValidator {
   public messages = {
-    required: 'The field {{field}} is required'
+    required: 'The field {{field}} is required',
   }
 
   public schema = schema.create({
     email: schema.string({ trim: true }, [
       rules.email(),
-      rules.required()
+      rules.required(),
     ]),
     password: schema.string({ trim: true }, [
-      rules.required()
+      rules.required(),
     ]),
-    remember: schema.boolean.optional()
+    remember: schema.boolean.optional(),
   })
 
-  constructor (protected ctx: HttpContextContract) {
+  constructor(protected ctx: HttpContextContract) {
   }
 }

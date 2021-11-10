@@ -1,4 +1,4 @@
-import Route from "@ioc:Adonis/Core/Route";
+import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.get('/me', 'AuthController.user').middleware('auth:web,api')
@@ -13,6 +13,4 @@ Route.group(() => {
     Route.post('/login', 'AuthController.loginWeb')
     Route.post('/logout', 'AuthController.logoutWeb')
   }).prefix('/web')
-
 }).prefix('/auth')
-

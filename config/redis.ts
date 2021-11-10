@@ -41,7 +41,7 @@ const redisConfig: RedisConfig = {
       password: Env.get('REDIS_PASSWORD', ''),
       db: Env.get('REDIS_DB', 0),
       keyPrefix: 'athena:',
-      healthCheck: true
+      healthCheck: true,
     },
   },
 }

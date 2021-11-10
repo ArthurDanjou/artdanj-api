@@ -1,6 +1,6 @@
-import {DateTime} from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import Translation from "App/Models/Translation";
+import { DateTime } from 'luxon'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Translation from 'App/Models/Translation'
 
 export default class Information extends BaseModel {
   @column({ isPrimary: true })

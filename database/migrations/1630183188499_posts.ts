@@ -3,7 +3,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class Posts extends BaseSchema {
   protected tableName = 'posts'
 
-  public async up () {
+  public async up() {
     this.schema.table(this.tableName, (table) => {
       table
         .integer('content_id')
@@ -18,7 +18,7 @@ export default class Posts extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.table(this.tableName, (table) => {
       table.dropColumns('content_id', 'color_id')
     })

@@ -2,7 +2,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class FormationStoreValidator {
-  constructor (protected ctx: HttpContextContract) {
+  constructor(protected ctx: HttpContextContract) {
   }
 
   public schema = schema.create({
@@ -10,10 +10,10 @@ export default class FormationStoreValidator {
     description: schema.string(),
     location: schema.string(),
     beginDate: schema.string(),
-    endDate: schema.string()
+    endDate: schema.string(),
   })
 
   public messages = {
-    required: 'The field {{field}} is required'
+    required: 'The field {{field}} is required',
   }
 }

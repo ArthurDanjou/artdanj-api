@@ -3,7 +3,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class CommandsRuns extends BaseSchema {
   protected tableName = 'commands_runs'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.bigInteger('commands')
@@ -11,7 +11,7 @@ export default class CommandsRuns extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

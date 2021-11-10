@@ -1,10 +1,3 @@
-/**
- * Contract source: https://git.io/Jte3T
- *
- * Feel free to let us know via PR, if you find something broken in this config
- * file.
- */
-
 import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 
 /*
@@ -20,16 +13,16 @@ import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 | as shown in the following example
 |
 | ```
-| 	Bouncer.define('deletePost', (user: User, post: Post) => {
-|			return post.user_id === user.id
-| 	})
+| Bouncer.define('deletePost', (user: User, post: Post) => {
+|  return post.user_id === user.id
+| })
 | ```
 |
 |****************************************************************
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-export const {actions} = Bouncer
+export const { actions } = Bouncer
 
 /*
 |--------------------------------------------------------------------------
@@ -44,14 +37,14 @@ export const {actions} = Bouncer
 | import the policy
 |
 | ```
-| 	Bouncer.registerPolicies({
-|			UserPolicy: () => import('App/Policies/User'),
-| 		PostPolicy: () => import('App/Policies/Post')
-| 	})
+| Bouncer.registerPolicies({
+|  UserPolicy: () => import('App/Policies/User'),
+|  PostPolicy: () => import('App/Policies/Post')
+| })
 | ```
 |
 |****************************************************************
 | NOTE: Always export the "policies" const from this file
 |****************************************************************
 */
-export const {policies} = Bouncer.registerPolicies({})
+export const { policies } = Bouncer.registerPolicies({})

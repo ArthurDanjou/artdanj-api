@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import Translation from "App/Models/Translation";
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Translation from 'App/Models/Translation'
 
 export default class Tag extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @belongsTo(() => Translation, {
-    foreignKey: 'labelId'
+    foreignKey: 'labelId',
   })
   public label: BelongsTo<typeof Translation>
 

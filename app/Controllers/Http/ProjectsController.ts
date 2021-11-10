@@ -1,13 +1,12 @@
-import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import Project from "App/Models/Project";
-import ProjectStoreValidator from "App/Validators/project/ProjectStoreValidator";
-import ProjectUpdateValidator from "App/Validators/project/ProjectUpdateValidator";
-import File from "App/Models/File";
-import {getTranslation} from "App/Utils/TranslationsUtils";
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Project from 'App/Models/Project'
+import ProjectStoreValidator from 'App/Validators/project/ProjectStoreValidator'
+import ProjectUpdateValidator from 'App/Validators/project/ProjectUpdateValidator'
+import File from 'App/Models/File'
+import { getTranslation } from 'App/Utils/TranslationsUtils'
 
 export default class ProjectsController {
-
-  public async index ({ response }: HttpContextContract) {
+  public async index({ response }: HttpContextContract) {
     return response.status(200).send({
       projects: await Project.query()
         .orderBy('id', 'asc')
@@ -15,11 +14,11 @@ export default class ProjectsController {
         .preload('description')
         .preload('tags', (tags) => {
           tags.preload('label')
-        })
+        }),
     })
   }
 
-  public async store ({ request, response }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(ProjectStoreValidator)
     const project = await Project.create(data)
     const cover = await File.findByOrFail('label', data.cover)
@@ -28,11 +27,11 @@ export default class ProjectsController {
     await project.related('description').associate(await getTranslation(data.description))
     await project.related('tags').sync(data.tags!)
     return response.status(200).send({
-      project
+      project,
     })
   }
 
-  public async show ({ params, response }: HttpContextContract) {
+  public async show({ params, response }: HttpContextContract) {
     const project = await Project.findOrFail(params.id)
     await project.load('cover')
     await project.load('description')
@@ -40,11 +39,11 @@ export default class ProjectsController {
       tags.preload('label')
     })
     return response.status(200).send({
-      project
+      project,
     })
   }
 
-  public async update ({ request, params, response }: HttpContextContract) {
+  public async update({ request, params, response }: HttpContextContract) {
     const project = await Project.findOrFail(params.id)
     const data = await request.validate(ProjectUpdateValidator)
     const cover = await File.findBy('label', data.cover)
@@ -56,16 +55,15 @@ export default class ProjectsController {
 
     await project.related('tags').sync(data.tags!)
     return response.status(200).send({
-      project
+      project,
     })
   }
 
-  public async destroy ({ response, params }: HttpContextContract) {
+  public async destroy({ response, params }: HttpContextContract) {
     const project = await Project.findOrFail(params.id)
     await project.delete()
     return response.status(200).send({
-      message: 'Project successfully deleted!'
+      message: 'Project successfully deleted!',
     })
   }
-
 }

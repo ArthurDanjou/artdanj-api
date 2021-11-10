@@ -1,8 +1,7 @@
-import {schema} from '@ioc:Adonis/Core/Validator'
-import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
+import { schema } from '@ioc:Adonis/Core/Validator'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class PostStoreValidator {
-
   public schema = schema.create({
     slug: schema.string(),
     likes: schema.number(),
@@ -13,12 +12,13 @@ export default class PostStoreValidator {
     readingTime: schema.number(),
     date: schema.string(),
     color: schema.string(),
-    content: schema.string()
+    content: schema.string(),
   })
+
   public messages = {
-    required: 'The field {{field}} is required'
+    required: 'The field {{field}} is required',
   }
 
-  constructor (protected ctx: HttpContextContract) {
+  constructor(protected ctx: HttpContextContract) {
   }
 }

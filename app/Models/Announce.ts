@@ -1,7 +1,7 @@
-import {DateTime} from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import File from "App/Models/File";
-import Translation from "App/Models/Translation";
+import { DateTime } from 'luxon'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import File from 'App/Models/File'
+import Translation from 'App/Models/Translation'
 
 export default class Announce extends BaseModel {
   @column({ isPrimary: true })
@@ -14,7 +14,7 @@ export default class Announce extends BaseModel {
   public hoverColor: string
 
   @belongsTo(() => Translation, {
-    foreignKey: 'messageId'
+    foreignKey: 'messageId',
   })
   public message: BelongsTo<typeof Translation>
 
@@ -22,7 +22,7 @@ export default class Announce extends BaseModel {
   public messageId: number
 
   @belongsTo(() => File, {
-    foreignKey: 'coverId'
+    foreignKey: 'coverId',
   })
   public cover: BelongsTo<typeof File>
 

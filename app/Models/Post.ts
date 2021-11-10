@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
-import Tag from "App/Models/Tag";
-import Translation from "App/Models/Translation";
-import File from "App/Models/File";
-import PostColor from "App/Models/PostColor";
+import { BaseModel, BelongsTo, belongsTo, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Tag from 'App/Models/Tag'
+import Translation from 'App/Models/Translation'
+import File from 'App/Models/File'
+import PostColor from 'App/Models/PostColor'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -19,7 +19,7 @@ export default class Post extends BaseModel {
   public likes: number
 
   @belongsTo(() => Translation, {
-    foreignKey: 'titleId'
+    foreignKey: 'titleId',
   })
   public title: BelongsTo<typeof Translation>
 
@@ -27,7 +27,7 @@ export default class Post extends BaseModel {
   public titleId: number
 
   @belongsTo(() => Translation, {
-    foreignKey: 'descriptionId'
+    foreignKey: 'descriptionId',
   })
   public description: BelongsTo<typeof Translation>
 
@@ -35,7 +35,7 @@ export default class Post extends BaseModel {
   public descriptionId: number
 
   @belongsTo(() => File, {
-    foreignKey: 'coverId'
+    foreignKey: 'coverId',
   })
   public cover: BelongsTo<typeof File>
 
@@ -43,7 +43,7 @@ export default class Post extends BaseModel {
   public coverId: number
 
   @belongsTo(() => Translation, {
-    foreignKey: 'contentId'
+    foreignKey: 'contentId',
   })
   public content: BelongsTo<typeof Translation>
 
@@ -51,7 +51,7 @@ export default class Post extends BaseModel {
   public contentId: number
 
   @belongsTo(() => PostColor, {
-    foreignKey: 'colorId'
+    foreignKey: 'colorId',
   })
   public color: BelongsTo<typeof PostColor>
 

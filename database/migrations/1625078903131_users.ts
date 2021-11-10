@@ -1,10 +1,10 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import Hash from "@ioc:Adonis/Core/Hash";
+import Hash from '@ioc:Adonis/Core/Hash'
 
 export default class Users extends BaseSchema {
   protected tableName = 'users'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('username', 255).notNullable()
@@ -20,7 +20,7 @@ export default class Users extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 
@@ -28,12 +28,12 @@ export default class Users extends BaseSchema {
     let password = ''
     const char = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!.:=+-_$*^&@#%ù/àçè()é"'
     const size = 64
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < size; i++)
       password += char.charAt(Math.random() * char.length)
-    }
-    Hash.make(password).then((value => {
+
+    Hash.make(password).then((value) => {
       password = value
-    }))
+    })
     return password
   }
 }

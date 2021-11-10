@@ -1,5 +1,5 @@
-import {schema} from '@ioc:Adonis/Core/Validator'
-import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
+import { schema } from '@ioc:Adonis/Core/Validator'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ProjectUpdateValidator {
   public schema = schema.create({
@@ -7,12 +7,13 @@ export default class ProjectUpdateValidator {
     description: schema.string.optional(),
     url: schema.string.optional(),
     cover: schema.string.optional(),
-    tags: schema.array.optional().members(schema.string())
+    tags: schema.array.optional().members(schema.string()),
   })
+
   public messages = {
-    required: 'The field {{field}} is required'
+    required: 'The field {{field}} is required',
   }
 
-  constructor (protected ctx: HttpContextContract) {
+  constructor(protected ctx: HttpContextContract) {
   }
 }

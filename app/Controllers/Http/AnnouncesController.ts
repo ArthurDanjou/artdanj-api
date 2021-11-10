@@ -1,12 +1,11 @@
-import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import Announce from "App/Models/Announce";
-import AnnounceUpdateValidator from "App/Validators/announce/AnnounceUpdateValidator";
-import File from "App/Models/File";
-import {getTranslation} from "App/Utils/TranslationsUtils";
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Announce from 'App/Models/Announce'
+import AnnounceUpdateValidator from 'App/Validators/announce/AnnounceUpdateValidator'
+import File from 'App/Models/File'
+import { getTranslation } from 'App/Utils/TranslationsUtils'
 
 export default class AnnouncesController {
-
-  public async index ({ response }: HttpContextContract) {
+  public async index({ response }: HttpContextContract) {
     const announce = await Announce
       .query()
       .orderBy('created_at', 'desc')
@@ -14,17 +13,16 @@ export default class AnnouncesController {
       .preload('cover')
       .first()
     return response.status(200).send({
-      announce: announce
+      announce,
     })
   }
 
-  public async update ({ request, params, response }: HttpContextContract) {
+  public async update({ request, params, response }: HttpContextContract) {
     const data = await request.validate(AnnounceUpdateValidator)
     const announce = await Announce.findOrFail(params.id)
 
-    if (data.code) {
+    if (data.code)
       await announce.related('message').associate(await getTranslation(data.code))
-    }
 
     const cover = await File.findBy('label', data.cover)
     if (cover) await announce.related('cover').associate(cover)
@@ -32,8 +30,7 @@ export default class AnnouncesController {
     await announce.merge(data).save()
 
     return response.status(200).send({
-      announce
+      announce,
     })
   }
-
 }

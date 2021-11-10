@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import File from "App/Models/File";
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import File from 'App/Models/File'
 
 export default class Skill extends BaseModel {
   @column({ isPrimary: true })
