@@ -28,6 +28,7 @@ export default Env.rules({
   DISCORD_ID: Env.schema.string(),
   GITHUB_TOKEN: Env.schema.string(),
   GITHUB_SOURCE: Env.schema.string({ format: 'url' }),
+  GITHUB_USERNAME: Env.schema.string(),
 
   // Redis
   REDIS_CONNECTION: Env.schema.enum(['local'] as const),

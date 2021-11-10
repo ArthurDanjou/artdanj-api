@@ -2,6 +2,7 @@ import Logger from '@ioc:Adonis/Core/Logger'
 import Env from '@ioc:Adonis/Core/Env'
 import axios from 'axios'
 import DevelopmentHour from 'App/Models/DevelopmentHour'
+import { UpdateGithubReadme } from 'App/Utils/UpdateGithubReadme'
 
 const MS = 1000 * 5 * 60 // 5 min
 let taskId
@@ -32,6 +33,8 @@ async function getDevelopmentHours(): Promise<void> {
         seconds: data.seconds,
       })
     }
+
+    await UpdateGithubReadme()
   }
 }
 
