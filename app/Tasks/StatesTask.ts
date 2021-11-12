@@ -25,7 +25,7 @@ async function getCurrentTime(): Promise<void> {
     const heartbeat = response.data.data[response.data.data.length - 1]
     const current_time = new Date(Date.now()).getTime() / 1000
 
-    if (heartbeat.time) {
+    if (heartbeat && heartbeat.time!) {
       const active = current_time - heartbeat.time <= 60 * 5 // Less than 5 min.
       const redis_state = await Redis.get('states:developing') === 'true'
 
