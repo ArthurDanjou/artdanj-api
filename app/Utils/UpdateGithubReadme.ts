@@ -26,7 +26,7 @@ export async function UpdateGithubReadme(): Promise<void> {
     const new_table = `
 | Title                                       |       Daily |      Weekly |      Monthly |        Total |
 | :------------------------------------------ | ----------: | ----------: | -----------: | -----------: |
-| :hourglass_flowing_sand: Hours Spent Coding |  **${getTotalHours(daily_stats)}hrs**  | **${getTotalHours(weekly_stats)}hrs**   | **${getTotalHours(monthly_stats)}hrs**    | **${getTotalHours(total_stats)}hrs**   |
+| :hourglass_flowing_sand: Hours Spent Coding |  **${getTotalHours(daily_stats)}**  | **${getTotalHours(weekly_stats)}**   | **${getTotalHours(monthly_stats)}**    | **${getTotalHours(total_stats)}**   |
 | :computer: Terminal Commands                |  **${daily_stats.commands_ran}**  | **${weekly_stats.commands_ran}**   | **${monthly_stats.commands_ran}**    | **${total_stats.commands_ran}**    |
 | :hammer: Docker Builds                      |  **${daily_stats.builds_ran}**  | **${weekly_stats.builds_ran}**   | **${monthly_stats.builds_ran}**    | **${total_stats.builds_ran}**    |\n`
     const new_content = content.replace(old_table, new_table)
@@ -52,5 +52,5 @@ export async function UpdateGithubReadme(): Promise<void> {
 }
 
 function getTotalHours(stats: Stats): string {
-  return `${(stats.development_time.hours + stats.development_time.minutes * 60 + stats.development_time.seconds).toFixed(2)}hrs`
+  return `${(stats.development_time.hours + stats.development_time.minutes / 60 + stats.development_time.seconds / 3600).toFixed(2)}hrs`
 }
