@@ -3,12 +3,12 @@ import CommandsRun from 'App/Models/CommandsRun'
 import BuildsRun from 'App/Models/BuildsRun'
 
 interface Time {
-  total_hours: number
-  total_minutes: number
-  total_seconds: number
+  hours: number
+  minutes: number
+  seconds: number
 }
 
-interface Stats {
+export interface Stats {
   range: {
     start: string
     end: string
@@ -34,19 +34,23 @@ export async function getDevelopmentHours(start: string, end: string): Promise<T
 
   if (!development_time) {
     return {
-      total_hours: 0,
-      total_minutes: 0,
-      total_seconds: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
     }
   }
 
   let total = 0
   development_time.forEach(item => total += item.seconds)
 
+  const hours = Math.floor(total / 3600)
+  const minutes = Math.floor(total / 60) - hours * 60
+  const seconds = Math.floor(total) - minutes * 60
+
   return {
-    total_hours: Number((total / 3600).toFixed(2)),
-    total_minutes: Number((total / 60).toFixed(2)),
-    total_seconds: Number(total.toFixed(2)),
+    hours,
+    minutes,
+    seconds,
   }
 }
 

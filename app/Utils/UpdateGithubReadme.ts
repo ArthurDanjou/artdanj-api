@@ -5,7 +5,7 @@ import {
   fetchDailyStatistics,
   fetchMonthlyStatistics,
   fetchStatistics,
-  fetchWeeklyStatistics,
+  fetchWeeklyStatistics, Stats,
 } from 'App/Utils/StatsUtils'
 
 export async function UpdateGithubReadme(): Promise<void> {
@@ -26,7 +26,7 @@ export async function UpdateGithubReadme(): Promise<void> {
     const new_table = `
 | Title                                       |       Daily |      Weekly |      Monthly |        Total |
 | :------------------------------------------ | ----------: | ----------: | -----------: | -----------: |
-| :hourglass_flowing_sand: Hours Spent Coding |  **${daily_stats.development_time.total_hours}hrs**  | **${weekly_stats.development_time.total_hours}hrs**   | **${monthly_stats.development_time.total_hours}hrs**    | **${total_stats.development_time.total_hours}hrs**   |
+| :hourglass_flowing_sand: Hours Spent Coding |  **${getTotalHours(daily_stats)}hrs**  | **${getTotalHours(weekly_stats)}hrs**   | **${getTotalHours(monthly_stats)}hrs**    | **${getTotalHours(total_stats)}hrs**   |
 | :computer: Terminal Commands                |  **${daily_stats.commands_ran}**  | **${weekly_stats.commands_ran}**   | **${monthly_stats.commands_ran}**    | **${total_stats.commands_ran}**    |
 | :hammer: Docker Builds                      |  **${daily_stats.builds_ran}**  | **${weekly_stats.builds_ran}**   | **${monthly_stats.builds_ran}**    | **${total_stats.builds_ran}**    |\n`
     const new_content = content.replace(old_table, new_table)
@@ -49,4 +49,8 @@ export async function UpdateGithubReadme(): Promise<void> {
     if (update.status !== 200)
       Logger.error('Error with updating statistics')
   }
+}
+
+function getTotalHours(stats: Stats): string {
+  return `${(stats.development_time.hours + stats.development_time.minutes * 60 + stats.development_time.seconds).toFixed(2)}hrs`
 }
