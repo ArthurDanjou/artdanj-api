@@ -45,7 +45,7 @@ export async function getDevelopmentHours(start: string, end: string): Promise<T
 
   const hours = Math.floor(total / 3600)
   const minutes = Math.floor(total / 60) - hours * 60
-  const seconds = Math.floor(total) - minutes * 60 - hours * 360
+  const seconds = Math.floor(total) - minutes * 60 - hours * 3600
 
   return {
     hours,
