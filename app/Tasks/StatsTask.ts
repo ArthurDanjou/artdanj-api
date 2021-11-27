@@ -17,24 +17,28 @@ interface StatsResponse {
 }
 
 async function getDevelopmentHours(): Promise<void> {
-  const response = await axios.get<{ data: StatsResponse[]}>(`https://wakatime.com/share/@${Env.get('WAKATIME_USER')}/${Env.get('WAKATIME_ID')}.json`)
-  if (response.status === 200) {
-    const mapped_stats = response.data.data.map((item: StatsResponse) => {
-      return {
-        seconds: item.grand_total.total_seconds, date: item.range.date,
-      }
-    })
-
-    for (const data of mapped_stats) {
-      await DevelopmentHour.updateOrCreate({
-        date: data.date.split('T')[0],
-      }, {
-        date: data.date.split('T')[0],
-        seconds: data.seconds,
+  try {
+    const response = await axios.get<{ data: StatsResponse[]}>(`https://wakatime.com/share/@${Env.get('WAKATIME_USER')}/${Env.get('WAKATIME_ID')}.json`)
+    if (response.status === 200) {
+      const mapped_stats = response.data.data.map((item: StatsResponse) => {
+        return {
+          seconds: item.grand_total.total_seconds, date: item.range.date,
+        }
       })
-    }
 
-    await UpdateGithubReadme()
+      for (const data of mapped_stats) {
+        await DevelopmentHour.updateOrCreate({
+          date: data.date.split('T')[0],
+        }, {
+          date: data.date.split('T')[0],
+          seconds: data.seconds,
+        })
+      }
+
+      await UpdateGithubReadme()
+    }
+  } catch (error) {
+    Logger.error('Error while getting the stats')
   }
 }
 
