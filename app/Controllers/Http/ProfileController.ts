@@ -17,7 +17,7 @@ export default class ProfileController {
         'Typescript',
         'HTML',
         'CSS',
-        'GoLang',
+        'Rust',
         'Java',
       ],
       ask_me_about: [
@@ -30,16 +30,14 @@ export default class ProfileController {
       ],
       technologies: {
         web_app: ['VueJs', 'NuxtJs', 'Sass', 'TailwindCss', 'WindiCss'],
-        desktop_app: ['ElectronJs'],
-        mobile_app: ['React Native', 'Vue Native'],
+        desktop_app: ['TauriStudio'],
+        mobile_app: ['Vue Native'],
         back_end: {
           typescript: ['AdonisJs'],
-          java: ['Spring'],
         },
         databases: ['MongoDB', 'MariaDB', 'Redis'],
         messaging: ['RabbitMQ'],
         other: ['Docker', 'Git'],
-        architecture: ['microservices', 'event-driven', 'design system pattern'],
         operating_systems: ['MacOS', 'Linux'],
       },
     })
