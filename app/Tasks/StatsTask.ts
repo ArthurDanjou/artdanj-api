@@ -37,7 +37,8 @@ async function getDevelopmentHours(): Promise<void> {
 
       await UpdateGithubReadme()
     }
-  } catch (error) {
+  }
+  catch (error) {
     Logger.error('Error while getting the stats')
   }
 }

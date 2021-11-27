@@ -36,7 +36,8 @@ async function getCurrentTime(): Promise<void> {
         }
       }
     }
-  } catch (error) {
+  }
+  catch (error) {
     Logger.error('Error while getting the states')
   }
 }
