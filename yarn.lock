@@ -354,10 +354,10 @@
   resolved "https://registry.yarnpkg.com/@arr/every/-/every-1.0.1.tgz#22fe1f8e6355beca6c7c7bde965eb15cf994387b"
   integrity sha512-UQFQ6SgyJ6LX42W8rHCs8KVc0JS0tzVL9ct4XYedJukskYVWTo49tNiMEK9C2HTyarbNiT/RVIRSY82vH+6sTg==
 
-"@arthurdanjou/eslint-config-basic@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-basic/-/eslint-config-basic-1.1.1.tgz#cdfc89aa4a1e3fc5b2823325dd951fef6790a04d"
-  integrity sha512-1f0QHbc3/Tm3wEP9PZFvI3pk07lZnlQGdwQ14ewJKiE57eKr64WOO/TcwEGPCnhKoqm4Oh5BlNb1Omqnt5UDPw==
+"@arthurdanjou/eslint-config-basic@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-basic/-/eslint-config-basic-1.1.5.tgz#129c0cf8467aec323f33344c22fd3726de1e6a6b"
+  integrity sha512-T8blJrnOQgkX6bU85SjE7E3+vNm0KSTz0XukakeB8y0zNX60gBX4ZHmiPfLSbcHHIITD8WYpC5m60ibRVxF4Hg==
   dependencies:
     eslint-config-standard "^16.0.3"
     eslint-plugin-eslint-comments "^3.2.0"
@@ -371,38 +371,38 @@
     jsonc-eslint-parser "^1.1.0"
     yaml-eslint-parser "^0.3.2"
 
-"@arthurdanjou/eslint-config-react@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-react/-/eslint-config-react-1.1.1.tgz#39b1fdf6af8e02f019184231386a299498020a36"
-  integrity sha512-U9oBomWIdieQhXm7B2Ol1K1iiyeVADhJBYfSztB0wxjD+iMBKfmSuJVpENttzEECrhPAmh6enPDYMCtV/oGGDw==
+"@arthurdanjou/eslint-config-react@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-react/-/eslint-config-react-1.1.5.tgz#7934520b8295bb6d5d66fa4de56c76db3a801bfd"
+  integrity sha512-6aAJupW+RREbsFYnkU+2z+lsWa4jAQ4tJ6JMYZWGJRghxE2hYs12baAiKRW3P9iRIVXWhrwnGS4qHsfVAZkeaA==
   dependencies:
-    "@arthurdanjou/eslint-config-ts" "^1.1.1"
+    "@arthurdanjou/eslint-config-ts" "^1.1.5"
     eslint-plugin-react "^7.24.0"
 
-"@arthurdanjou/eslint-config-ts@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-ts/-/eslint-config-ts-1.1.1.tgz#7bd49fe785adee2bf16d211c7c6db977864b3295"
-  integrity sha512-93zVfCQbqJhsGWnxi9qM/HYD+V7YtmIYArrRyEHc4k+da6ZKRoh3TIKFKcr42FvwBdmBe9V/0bmoqV4mPy3O9g==
+"@arthurdanjou/eslint-config-ts@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-ts/-/eslint-config-ts-1.1.5.tgz#3903a5f3fb5906c10f47abdb7ece6c2eb413a367"
+  integrity sha512-glONZgktlkj+4gruVzAsipf2/o3gSzkOpmjv5Kjf0A21yB/4i7/QX40yeDxfym+WwMORAFvcpe+R9hqWY6tKmQ==
   dependencies:
-    "@arthurdanjou/eslint-config-basic" "^1.1.1"
+    "@arthurdanjou/eslint-config-basic" "^1.1.5"
     "@typescript-eslint/eslint-plugin" "^4.28.1"
     "@typescript-eslint/parser" "^4.28.1"
 
-"@arthurdanjou/eslint-config-vue@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-vue/-/eslint-config-vue-1.1.1.tgz#b31c46a5e3e720a770e4059eb3adff7226b67042"
-  integrity sha512-F5RXrfmQRFNaIo/CmthhyxRuw8Y/kByxtHrJFXERYbmjHjtD0k2dGeYanO5XgoWdF5dG3DD1ZG4AjryoSg/+qA==
+"@arthurdanjou/eslint-config-vue@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config-vue/-/eslint-config-vue-1.1.5.tgz#247198acc3e63272afdcc6fead493e5ec86be086"
+  integrity sha512-YCcbA3U2CPjtun9Q876LVaNF5lMCt0qSH7iyNB4JqEHEb97OwXDqoT2aQh4e3lsWpo5d1/RdIxk/ElQLFuL0XA==
   dependencies:
-    "@arthurdanjou/eslint-config-ts" "^1.1.1"
+    "@arthurdanjou/eslint-config-ts" "^1.1.5"
     eslint-plugin-vue "7.12.1"
 
-"@arthurdanjou/eslint-config@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config/-/eslint-config-1.1.1.tgz#c47507b0d38a3e9c5d59c945391e99c9212bc25a"
-  integrity sha512-FnyFjsVglhYVubxaSk59Xrm5wdaXnfmFqLxkf/zC9zIGhhsQgHPUuns4eHyzkN7yESnmDRsOPyArlQBnVRsr6g==
+"@arthurdanjou/eslint-config@latest":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@arthurdanjou/eslint-config/-/eslint-config-1.1.6.tgz#6b5d65dd65773dbd2f2b0e8ec3ca777ba09a261a"
+  integrity sha512-WrMiiSMMozFnz5ubM7bmNukTanXkK1BBxAbktzzxIQSr5/c0Aq495TagQKSdvoGLexb8+OzI9DyLmrT8XQXTWw==
   dependencies:
-    "@arthurdanjou/eslint-config-react" "^1.1.1"
-    "@arthurdanjou/eslint-config-vue" "^1.1.1"
+    "@arthurdanjou/eslint-config-react" "^1.1.5"
+    "@arthurdanjou/eslint-config-vue" "^1.1.5"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.16.0":
   version "7.16.0"
