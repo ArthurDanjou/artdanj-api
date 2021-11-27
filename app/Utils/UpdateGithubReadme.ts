@@ -47,7 +47,7 @@ export async function UpdateGithubReadme(): Promise<void> {
         },
       })
     if (update.status !== 200)
-      Logger.error('Error with updating statistics')
+      Logger.error('Error while updating statistics')
   }
 }
 
