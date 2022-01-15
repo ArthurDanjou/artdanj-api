@@ -10,6 +10,8 @@ RUN yarn install
 
 RUN yarn build
 
+RUN mv spotify.json build
+
 WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
