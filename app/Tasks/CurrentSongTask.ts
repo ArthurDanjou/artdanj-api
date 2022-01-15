@@ -5,7 +5,7 @@ const MS = 1000
 let taskId
 
 async function SpotifyCurrentListeningWatcher(): Promise<void> {
-  console.log(getSpotifyAccount().access)
+  console.log('access: ' + getSpotifyAccount().access)
   if (getSpotifyAccount().access === '') return
   await getCurrentPlayingFromSpotify()
 }
