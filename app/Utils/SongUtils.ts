@@ -7,7 +7,7 @@ import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'Ap
 import Song from 'App/Models/Song'
 
 export function getSpotifyAccount(): { access: string; refresh: string } {
-  return JSON.parse(readFileSync('.config/.spotify').toString())
+  return JSON.parse(readFileSync('.spotify').toString())
 }
 
 export function getAuthorizationURI(): string {
