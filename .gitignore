@@ -110,4 +110,4 @@ dist
 database/seeders
 build
 
-.spotify
+spotify.json

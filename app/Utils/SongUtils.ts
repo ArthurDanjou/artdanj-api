@@ -7,7 +7,7 @@ import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'Ap
 import Song from 'App/Models/Song'
 
 export function getSpotifyAccount(): { access: string; refresh: string } {
-  return JSON.parse(readFileSync('.spotify').toString())
+  return JSON.parse(readFileSync('spotify.json').toString())
 }
 
 export function getAuthorizationURI(): string {
@@ -39,7 +39,7 @@ export async function setupSpotify(code: string): Promise<void> {
 
   if (authorization_tokens.status === 200) {
     writeFileSync(
-      '.spotify',
+      'spotify.json',
       JSON.stringify({
         access: authorization_tokens.data.access_token,
         refresh: authorization_tokens.data.refresh_token,
@@ -67,7 +67,7 @@ export async function regenerateTokens(): Promise<void> {
 
   if (authorization_tokens.status === 200) {
     writeFileSync(
-      '.spotify',
+      'spotify.json',
       JSON.stringify({
         access: authorization_tokens.data.access_token,
         refresh: authorization_tokens.data.refresh_token,
