@@ -15,6 +15,7 @@ Route.get('/', async({ response }: HttpContextContract) => {
       profile: `${BASE_URL}/me`,
       stats: `${BASE_URL}/stats`,
       states: `${BASE_URL}/states`,
+      songs: `${BASE_URL}/spotify`,
       locations: `${BASE_URL}/locations`,
     },
   })

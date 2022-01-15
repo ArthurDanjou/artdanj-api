@@ -1,23 +1,7 @@
 import DevelopmentHour from 'App/Models/DevelopmentHour'
 import CommandsRun from 'App/Models/CommandsRun'
 import BuildsRun from 'App/Models/BuildsRun'
-
-interface Time {
-  hours: number
-  minutes: number
-  seconds: number
-}
-
-export interface Stats {
-  range: {
-    start: string
-    end: string
-  }
-
-  development_time: Time
-  commands_ran: number
-  builds_ran: number
-}
+import { Stats, Time } from 'App/Types/IStats'
 
 function formatDate(date: Date): string {
   return date.toISOString().split('T')[0]

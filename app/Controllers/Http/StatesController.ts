@@ -1,17 +1,16 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import StateSleepingValidator from 'App/Validators/states/StateSleepingValidator'
+import { getCurrentPlayingFromCache } from 'App/Utils/SongUtils'
 
 export default class StatesController {
-  // Listening Music
-
   public async index({ response }: HttpContextContract) {
     const sleeping = this.formatValue(await Redis.get('states:sleeping'))
     const developing = this.formatValue(await Redis.get('states:developing'))
     return response.status(200).send({
       sleeping,
       developing,
-      listening_music: 'Soon',
+      listening_music: await getCurrentPlayingFromCache(),
     })
   }
 

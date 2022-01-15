@@ -21,6 +21,17 @@ Route.group(() => {
     Route.post('/commands', 'StatsController.incrementCommandCount')
     Route.post('/builds', 'StatsController.incrementBuildCount')
   }).prefix('stats')
+
+  Route.group(() => {
+    Route.get('/', 'SongsController.getCurrentSong')
+    Route.get('/history', 'SongsController.getHistory')
+
+    Route.get('/top/track', 'SongsController.getTopTrack')
+    Route.get('/top/artist', 'SongsController.getTopArtist')
+
+    Route.get('/authorize', 'SongsController.authorize')
+    Route.get('/callback', 'SongsController.callback')
+  }).prefix('spotify')
 }).middleware('auth:web,api')
 
 Route.get('/files/:filename', async({ response, params }) => {

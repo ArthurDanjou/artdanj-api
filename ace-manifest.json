@@ -2,7 +2,7 @@
   "commands": {
     "dump:rcfile": {
       "settings": {},
-      "commandPath": "@adonisjs/core/commands/DumpRc",
+      "commandPath": "@adonisjs/core/build/commands/DumpRc",
       "commandName": "dump:rcfile",
       "description": "Dump contents of .adonisrc.json file along with defaults",
       "args": [],
@@ -13,7 +13,7 @@
       "settings": {
         "loadApp": true
       },
-      "commandPath": "@adonisjs/core/commands/ListRoutes",
+      "commandPath": "@adonisjs/core/build/commands/ListRoutes",
       "commandName": "list:routes",
       "description": "List application routes",
       "args": [],
@@ -29,7 +29,7 @@
     },
     "generate:key": {
       "settings": {},
-      "commandPath": "@adonisjs/core/commands/GenerateKey",
+      "commandPath": "@adonisjs/core/build/commands/GenerateKey",
       "commandName": "generate:key",
       "description": "Generate a new APP_KEY secret",
       "args": [],
@@ -83,7 +83,9 @@
       ]
     },
     "make:model": {
-      "settings": {},
+      "settings": {
+        "loadApp": true
+      },
       "commandPath": "@adonisjs/lucid/build/commands/MakeModel",
       "commandName": "make:model",
       "description": "Make a new Lucid model",
@@ -312,6 +314,61 @@
           "propertyName": "actions",
           "type": "array",
           "description": "Actions to implement"
+        }
+      ]
+    },
+    "routes:pretty-list": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "pretty-list-routes/build/commands/PrettyRoute",
+      "commandName": "routes:pretty-list",
+      "description": "",
+      "args": [],
+      "aliases": [],
+      "flags": [
+        {
+          "name": "verbose",
+          "propertyName": "verbose",
+          "type": "boolean",
+          "alias": "f",
+          "description": "Display more information"
+        },
+        {
+          "name": "reverse",
+          "propertyName": "reverse",
+          "type": "boolean",
+          "alias": "r",
+          "description": "Reverse routes display"
+        },
+        {
+          "name": "json",
+          "propertyName": "json",
+          "type": "boolean",
+          "alias": "j",
+          "description": "Output to JSNO"
+        },
+        {
+          "name": "method",
+          "propertyName": "methodFilter",
+          "type": "string",
+          "alias": "m",
+          "description": "Filter routes by method"
+        },
+        {
+          "name": "path",
+          "propertyName": "pathFilter",
+          "type": "string",
+          "alias": "p",
+          "description": "Filter routes by path"
+        },
+        {
+          "name": "name",
+          "propertyName": "nameFilter",
+          "type": "string",
+          "alias": "n",
+          "description": "Filter routes by name"
         }
       ]
     }
