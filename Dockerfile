@@ -14,7 +14,9 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
-RUN mkdir .config && cd .config
+RUN mkdir .config
+
+RUN cd /.config
 
 RUN touch .spotify
 
