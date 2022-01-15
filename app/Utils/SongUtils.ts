@@ -7,6 +7,7 @@ import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'Ap
 import Song from 'App/Models/Song'
 
 export function getSpotifyAccount(): { access: string; refresh: string } {
+  console.log(`spot account : ${JSON.parse(readFileSync('spotify.json').toString())}`)
   return JSON.parse(readFileSync('spotify.json').toString())
 }
 
@@ -18,6 +19,7 @@ export function getAuthorizationURI(): string {
     redirect_uri: `${Env.get('BASE_URL')}/spotify/callback`,
   })
 
+  console.log('auth url : ' + `https://accounts.spotify.com/authorize?${query}`)
   return `https://accounts.spotify.com/authorize?${query}`
 }
 
