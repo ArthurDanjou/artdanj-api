@@ -14,8 +14,6 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
-RUN touch spotify.json
-
 EXPOSE 5555
 
 CMD ["yarn", "start"]
