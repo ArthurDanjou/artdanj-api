@@ -5,8 +5,9 @@ import {
   fetchDailyStatistics,
   fetchMonthlyStatistics,
   fetchStatistics,
-  fetchWeeklyStatistics, Stats,
+  fetchWeeklyStatistics,
 } from 'App/Utils/StatsUtils'
+import { Stats } from 'App/Types/IStats'
 
 export async function UpdateGithubReadme(): Promise<void> {
   const daily_stats = await fetchDailyStatistics()
