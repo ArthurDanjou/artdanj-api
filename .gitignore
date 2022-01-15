@@ -109,3 +109,5 @@ dist
 # AdonisJS
 database/seeders
 build
+
+.spotify
