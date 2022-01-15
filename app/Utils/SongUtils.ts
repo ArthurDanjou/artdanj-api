@@ -5,10 +5,8 @@ import Redis from '@ioc:Adonis/Addons/Redis'
 import { SpotifyArtist, SpotifyTrack } from 'App/Types/ILocalSpotify'
 import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
 import Song from 'App/Models/Song'
-import Logger from '@ioc:Adonis/Core/Logger'
 
 export function getSpotifyAccount(): { access: string; refresh: string } {
-  Logger.info(JSON.parse(readFileSync('spotify.json').toString()))
   return JSON.parse(readFileSync('spotify.json').toString())
 }
 
@@ -20,7 +18,6 @@ export function getAuthorizationURI(): string {
     redirect_uri: `${Env.get('BASE_URL')}/spotify/callback`,
   })
 
-  Logger.info(`https://accounts.spotify.com/authorize?${query}`)
   return `https://accounts.spotify.com/authorize?${query}`
 }
 
@@ -40,8 +37,6 @@ export async function setupSpotify(code: string): Promise<void> {
     },
   )
 
-  Logger.info(String(authorization_tokens))
-
   if (authorization_tokens.status === 200) {
     writeFileSync(
       'spotify.json',
@@ -55,7 +50,6 @@ export async function setupSpotify(code: string): Promise<void> {
 
 export async function regenerateTokens(): Promise<void> {
   const refresh_token = getSpotifyAccount().refresh
-  Logger.info(refresh_token)
 
   const authorization_tokens: AxiosResponse<SpotifyToken> = await axios.post(
     'https://accounts.spotify.com/api/token',
@@ -71,7 +65,6 @@ export async function regenerateTokens(): Promise<void> {
     },
   )
 
-  Logger.info(String(authorization_tokens))
   if (authorization_tokens.status === 200) {
     writeFileSync(
       'spotify.json',
