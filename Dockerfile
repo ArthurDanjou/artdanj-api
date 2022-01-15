@@ -14,10 +14,6 @@ WORKDIR /usr/src/athena/build
 
 RUN yarn install --production
 
-RUN mkdir .config
-
-RUN cd /.config
-
 RUN touch .spotify
 
 EXPOSE 5555
