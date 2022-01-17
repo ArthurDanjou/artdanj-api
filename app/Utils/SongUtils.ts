@@ -86,7 +86,7 @@ async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T>>
   }
   request = await axios.get<T>(url, options)
 
-  if (request.status === 401) {
+  if (request.status !== 200) {
     await regenerateTokens()
     request = await axios.get<T>(url, options)
   }
