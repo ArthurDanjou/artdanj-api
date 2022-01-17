@@ -1,11 +1,12 @@
 import Logger from '@ioc:Adonis/Core/Logger'
-import { getCurrentPlayingFromSpotify, getSpotifyAccount } from 'App/Utils/SongUtils'
+import { getCurrentPlayingFromSpotify, getSpotifyAccount, resetCurrentSongCache } from 'App/Utils/SongUtils'
 
 const MS = 1000
 let taskId
 
 async function SpotifyCurrentListeningWatcher(): Promise<void> {
-  if ((await getSpotifyAccount()).access_token === '') return
+  if ((await getSpotifyAccount()).access_token === '')
+    await resetCurrentSongCache()
   await getCurrentPlayingFromSpotify()
 }
 
