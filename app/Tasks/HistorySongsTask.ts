@@ -16,8 +16,6 @@ async function LogSpotifyHistory(): Promise<void> {
 
   if (last_entry && new Date().getTime() - last_entry.duration <= new Date(last_entry.date).getTime()) return
 
-  if (last_entry && last_entry.item_name === current.name) return
-
   await Song.create({
     date: new Date(current.started_at!),
     duration: current.duration,
