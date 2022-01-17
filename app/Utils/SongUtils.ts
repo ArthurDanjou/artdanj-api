@@ -1,35 +1,47 @@
-import { readFileSync, writeFileSync } from 'fs'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import { SpotifyArtist, SpotifyTrack } from 'App/Types/ILocalSpotify'
 import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
 import Song from 'App/Models/Song'
+import queryString from 'query-string'
 
-export function getSpotifyAccount(): { access: string; refresh: string } {
-  console.log(JSON.parse(readFileSync('spotify.json').toString()))
-  return JSON.parse(readFileSync('spotify.json').toString())
+export async function getSpotifyAccount(): Promise<SpotifyToken> {
+  return await Redis.exists('spotify:account')
+    ? JSON.parse(await Redis.get('spotify:account') || '{}')
+    : {
+      access_token: '',
+      refresh_token: '',
+      expires_in: -1,
+    }
+}
+
+export async function setSpotifyAccount(token: SpotifyToken): Promise<void> {
+  await Redis.set('spotify:account', JSON.stringify({
+    access_token: token.access_token,
+    refresh_token: token.refresh_token,
+  }), 'ex', token.expires_in)
 }
 
 export function getAuthorizationURI(): string {
-  const query = JSON.stringify({
+  const query = queryString.stringify({
     response_type: 'code',
     client_id: Env.get('SPOTIFY_ID'),
-    scope: encodeURIComponent('user-read-playback-state user-read-currently-playing'),
+    scope: encodeURIComponent('user-read-playback-state user-read-currently-playing user-top-read'),
     redirect_uri: `${Env.get('BASE_URL')}/spotify/callback`,
   })
 
   return `https://accounts.spotify.com/authorize?${query}`
 }
 
-export async function setupSpotify(code: string): Promise<void> {
+export async function setupSpotify(code: string): Promise<boolean> {
   const authorization_tokens: AxiosResponse<SpotifyToken> = await axios.post(
     'https://accounts.spotify.com/api/token',
-    {
+    queryString.stringify({
       code,
       grant_type: 'authorization_code',
       redirect_uri: `${Env.get('BASE_URL')}/spotify/callback`,
-    },
+    }),
     {
       headers: {
         'Authorization': `Basic ${Buffer.from(`${Env.get('SPOTIFY_ID')}:${Env.get('SPOTIFY_SECRET')}`).toString('base64')}`,
@@ -38,26 +50,21 @@ export async function setupSpotify(code: string): Promise<void> {
     },
   )
 
-  if (authorization_tokens.status === 200) {
-    writeFileSync(
-      'spotify.json',
-      JSON.stringify({
-        access: authorization_tokens.data.access_token,
-        refresh: authorization_tokens.data.refresh_token,
-      }),
-    )
-  }
+  if (authorization_tokens.status === 200)
+    await setSpotifyAccount(authorization_tokens.data)
+
+  return true
 }
 
 export async function regenerateTokens(): Promise<void> {
-  const refresh_token = getSpotifyAccount().refresh
+  const refresh_token = (await getSpotifyAccount()).refresh_token
 
   const authorization_tokens: AxiosResponse<SpotifyToken> = await axios.post(
     'https://accounts.spotify.com/api/token',
-    {
+    queryString.stringify({
       grant_type: 'refresh_token',
       refresh_token,
-    },
+    }),
     {
       headers: {
         'Authorization': `Basic ${Buffer.from(`${Env.get('SPOTIFY_ID')}:${Env.get('SPOTIFY_SECRET')}`).toString('base64')}`,
@@ -66,22 +73,15 @@ export async function regenerateTokens(): Promise<void> {
     },
   )
 
-  if (authorization_tokens.status === 200) {
-    writeFileSync(
-      'spotify.json',
-      JSON.stringify({
-        access: authorization_tokens.data.access_token,
-        refresh: authorization_tokens.data.refresh_token,
-      }),
-    )
-  }
+  if (authorization_tokens.status === 200)
+    await setSpotifyAccount(authorization_tokens.data)
 }
 
 async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T>> {
   let request
   const options: AxiosRequestConfig = {
     headers: {
-      Authorization: `Bearer ${getSpotifyAccount().access}`,
+      Authorization: `Bearer ${(await getSpotifyAccount()).access_token}`,
     },
   }
   request = await axios.get<T>(url, options)
@@ -94,16 +94,14 @@ async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T>>
 }
 
 export async function getCurrentPlayingFromCache(): Promise<InternalPlayerResponse> {
-  return JSON.parse(await Redis.get('spotify:current') || '') || { is_playing: false }
+  return JSON.parse(await Redis.get('spotify:current') || '{}') || { is_playing: false }
 }
 
 export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResponse> {
+  if ((await getSpotifyAccount()).access_token === '') return { is_playing: false }
   const current_track = await RequestWrapper<PlayerResponse>('https://api.spotify.com/v1/me/player?additional_types=track,episode')
 
   let current: InternalPlayerResponse
-
-  if (current_track.data && !['track', 'episode'].includes(current_track.data.currently_playing_type))
-    current = { is_playing: false }
 
   if (current_track.data && current_track.data.is_playing) {
     current = {
@@ -140,7 +138,7 @@ export async function updateCurrentSong(song: InternalPlayerResponse): Promise<v
 
 export async function getHistory(range: 'day' | 'week' | 'month' | 'total') {
   if (await Redis.exists(`spotify:history:range:${range || 'day'}`))
-    return JSON.parse(await Redis.get(`spotify:history:range:${range || 'day'}`) || '')
+    return JSON.parse(await Redis.get(`spotify:history:range:${range || 'day'}`) || '{}')
 
   let startDate = new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
   if (range === 'week') startDate = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)
@@ -159,6 +157,7 @@ export async function getHistory(range: 'day' | 'week' | 'month' | 'total') {
 
   await Redis.set(`spotify:history:range:${range || 'day'}`, JSON.stringify({
     cached: new Date().toUTCString(),
+    expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     history: songs,
   }), 'ex', 300)
 
@@ -167,9 +166,9 @@ export async function getHistory(range: 'day' | 'week' | 'month' | 'total') {
 
 export async function fetchTopArtist(): Promise<SpotifyArtist[]> {
   if (await Redis.exists('spotify:top:artists'))
-    return JSON.parse(await Redis.get('spotify:top:artists') || '')
+    return JSON.parse(await Redis.get('spotify:top:artists') || '{}')
 
-  const fetched_artists = await RequestWrapper<{ items: Artist[] }>('https://api.spotify.com/v1/me/top/type/artists?limit=5')
+  const fetched_artists = await RequestWrapper<{ items: Artist[] }>('https://api.spotify.com/v1/me/top/artists?limit=10')
 
   const artists: SpotifyArtist[] = []
 
@@ -191,29 +190,30 @@ export async function fetchTopArtist(): Promise<SpotifyArtist[]> {
 
   await Redis.set('spotify:top:artists', JSON.stringify({
     cached: new Date().toUTCString(),
+    expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     top: artists,
   }), 'ex', 600)
 
   return artists
 }
 
-export async function fetchTopTrack(): Promise<SpotifyTrack[]> {
+export async function fetchTopTrack(): Promise<Array<SpotifyTrack & { times: number }>> {
   if (await Redis.exists('spotify:top:tracks'))
-    return JSON.parse(await Redis.get('spotify:top:tracks') || '')
+    return JSON.parse(await Redis.get('spotify:top:tracks') || '{}')
 
-  const fetched_tracks = await Song
-    .query()
-    .orderBy('date', 'desc')
-    .limit(5)
+  // Fetch all songs
+  const fetched_tracks = await Song.query()
 
-  const tracks: SpotifyTrack[] = []
+  if (fetched_tracks.length <= 0)
+    return []
 
-  if (fetched_tracks.length >= 0) {
-    for (const track of fetched_tracks) {
-      tracks.push({
+  const filtered = fetched_tracks.map((track) => {
+    return {
+      ...{
         item: {
           name: track.item_name,
           type: track.item_type,
+          id: track.item_id,
         },
         device: {
           name: track.device_name,
@@ -222,17 +222,20 @@ export async function fetchTopTrack(): Promise<SpotifyTrack[]> {
         duration: track.duration,
         author: track.author,
         image: track.image,
-      })
+      },
+      times: fetched_tracks.filter(i => i.item_id === track.item_id).length,
     }
-  }
-  else {
-    return []
-  }
+  })
+
+  const sorted = filtered.sort((itemA, itemB) => itemB.times - itemA.times)
+
+  const remove_dupes = sorted.filter((thing, index, self) => index === self.findIndex(t => t.item.id === thing.item.id)).slice(0, 10)
 
   await Redis.set('spotify:top:tracks', JSON.stringify({
     cached: new Date().toUTCString(),
-    top: tracks,
+    expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
+    top: remove_dupes,
   }), 'ex', 300)
 
-  return tracks
+  return remove_dupes
 }

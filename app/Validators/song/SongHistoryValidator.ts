@@ -6,7 +6,7 @@ export default class SongHistoryValidator {
   }
 
   public schema = schema.create({
-    range: schema.enum(['day', 'week', 'month', 'total'] as const),
+    range: schema.enum.optional(['day', 'week', 'month', 'total'] as const),
   })
 
   public messages = {

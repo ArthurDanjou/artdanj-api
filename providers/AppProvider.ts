@@ -20,13 +20,13 @@ export default class AppProvider {
     // App is ready
     const StatsTask = await import('App/Tasks/StatsTask')
     const StatesTask = await import('App/Tasks/StatesTask')
-    // const CurrentSongTask = await import('App/Tasks/CurrentSongTask')
-    // const HistorySongsTask = await import('App/Tasks/HistorySongsTask')
+    const CurrentSongTask = await import('App/Tasks/CurrentSongTask')
+    const HistorySongsTask = await import('App/Tasks/HistorySongsTask')
 
     await StatsTask.Activate()
     await StatesTask.Activate()
-    // await CurrentSongTask.Activate()
-    // await HistorySongsTask.Activate()
+    await CurrentSongTask.Activate()
+    await HistorySongsTask.Activate()
 
     Logger.info('Application is ready!')
   }
@@ -35,13 +35,13 @@ export default class AppProvider {
     // Cleanup, since app is going down
     const StatsTask = await import('App/Tasks/StatsTask')
     const StatesTask = await import('App/Tasks/StatesTask')
-    // const CurrentSongTask = await import('App/Tasks/CurrentSongTask')
-    // const HistorySongsTask = await import('App/Tasks/HistorySongsTask')
+    const CurrentSongTask = await import('App/Tasks/CurrentSongTask')
+    const HistorySongsTask = await import('App/Tasks/HistorySongsTask')
 
     await StatsTask.ShutDown()
     await StatesTask.ShutDown()
-    // await CurrentSongTask.ShutDown()
-    // await HistorySongsTask.ShutDown()
+    await CurrentSongTask.ShutDown()
+    await HistorySongsTask.ShutDown()
 
     Logger.info('Application is closing. Bye...')
   }

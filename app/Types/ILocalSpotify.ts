@@ -11,6 +11,7 @@ export interface SpotifyTrack {
   item: {
     name: string
     type: string
+    id: string
   }
   device: {
     name: string

@@ -11,12 +11,12 @@ import SongHistoryValidator from 'App/Validators/song/SongHistoryValidator'
 
 export default class SongsController {
   public async getCurrentSong({ response }: HttpContextContract) {
-    return response.status(200).send(getCurrentPlayingFromCache())
+    return response.status(200).send(await getCurrentPlayingFromCache())
   }
 
   public async getHistory({ request, response }: HttpContextContract) {
     const { range } = await request.validate(SongHistoryValidator)
-    const history = await getHistory(range)
+    const history = await getHistory(range || 'day')
     return response.status(200).send({
       history,
     })
@@ -35,10 +35,14 @@ export default class SongsController {
   }
 
   public async authorize({ response }: HttpContextContract) {
-    return response.status(200).redirect(getAuthorizationURI())
+    return response.redirect(getAuthorizationURI())
   }
 
-  public async callback({ request }: HttpContextContract) {
-    await setupSpotify(request.param('code'))
+  public async callback({ request, response }: HttpContextContract) {
+    if (await setupSpotify(request.qs().code)) {
+      return response.status(200).send({
+        message: 'Athena successfully connected to Spotify',
+      })
+    }
   }
 }

@@ -1,8 +1,10 @@
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Song extends BaseModel {
+  public static table = 'spotify_songs_history'
+
   @column({ isPrimary: true })
-  public date: number
+  public date: Date
 
   @column()
   public device_name: string
@@ -12,6 +14,9 @@ export default class Song extends BaseModel {
 
   @column()
   public item_name: string
+
+  @column()
+  public item_id: string
 
   @column()
   public item_type: string
