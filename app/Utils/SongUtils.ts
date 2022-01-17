@@ -5,6 +5,7 @@ import { SpotifyArtist, SpotifyTrack } from 'App/Types/ILocalSpotify'
 import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
 import Song from 'App/Models/Song'
 import queryString from 'query-string'
+import { updateGithubReadmeSpotify } from 'App/Utils/UpdateGithubReadme'
 
 export async function getSpotifyAccount(): Promise<SpotifyToken> {
   return await Redis.exists('spotify:account')
@@ -20,7 +21,7 @@ export async function setSpotifyAccount(token: SpotifyToken): Promise<void> {
   await Redis.set('spotify:account', JSON.stringify({
     access_token: token.access_token,
     refresh_token: token.refresh_token,
-  }), 'ex', token.expires_in)
+  }))
 }
 
 export function getAuthorizationURI(): string {
@@ -77,20 +78,23 @@ export async function regenerateTokens(): Promise<void> {
     await setSpotifyAccount(authorization_tokens.data)
 }
 
-async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T>> {
+async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T> | undefined> {
   let request
   const options: AxiosRequestConfig = {
     headers: {
       Authorization: `Bearer ${(await getSpotifyAccount()).access_token}`,
     },
   }
-  request = await axios.get<T>(url, options)
-
-  if (request.status !== 200) {
+  try {
+    request = await axios.get<T>(url, options)
+  }
+  catch (error) {
     await regenerateTokens()
     request = await axios.get<T>(url, options)
   }
-  return request
+
+  if (request.status === 200)
+    return request
 }
 
 export async function getCurrentPlayingFromCache(): Promise<InternalPlayerResponse> {
@@ -103,7 +107,7 @@ export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResp
 
   let current: InternalPlayerResponse
 
-  if (current_track.data && current_track.data.is_playing) {
+  if (current_track && current_track.data && current_track.data.is_playing) {
     current = {
       is_playing: true,
       device_name: current_track.data.device.name,
@@ -128,9 +132,14 @@ export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResp
   return current
 }
 
+export async function resetCurrentSongCache(): Promise<void> {
+  await updateCurrentSong({ is_playing: false })
+}
+
 export async function updateCurrentSong(song: InternalPlayerResponse): Promise<void> {
   // const current = JSON.parse(await Redis.get('spotify/current') as string)
   await Redis.set('spotify:current', JSON.stringify(song))
+  await updateGithubReadmeSpotify()
 
   // const changed = diff(current, song)
   // todo send message to Rabbit
@@ -164,7 +173,7 @@ export async function getHistory(range: 'day' | 'week' | 'month' | 'total') {
   return { history: songs }
 }
 
-export async function fetchTopArtist(): Promise<SpotifyArtist[]> {
+export async function fetchTopArtist(): Promise<SpotifyArtist[] | { artists: string }> {
   if (await Redis.exists('spotify:top:artists'))
     return JSON.parse(await Redis.get('spotify:top:artists') || '{}')
 
@@ -172,7 +181,7 @@ export async function fetchTopArtist(): Promise<SpotifyArtist[]> {
 
   const artists: SpotifyArtist[] = []
 
-  if (fetched_artists.data) {
+  if (fetched_artists) {
     for (const artist of fetched_artists.data.items) {
       artists.push({
         id: artist.id,
@@ -185,7 +194,9 @@ export async function fetchTopArtist(): Promise<SpotifyArtist[]> {
     }
   }
   else {
-    return []
+    return {
+      artists: 'cannot_fetch_artists',
+    }
   }
 
   await Redis.set('spotify:top:artists', JSON.stringify({
