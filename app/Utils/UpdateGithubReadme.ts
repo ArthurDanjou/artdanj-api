@@ -55,8 +55,7 @@ export async function updateGithubReadmeSpotify(): Promise<void> {
   if (current_song.is_playing) {
     old_song = readme.content.split('<!-- Start Song -->')[1].split('<!-- End Song -->')[0]
     new_song = `
-<img alt="Spotify Cover Image" width="100em" height="100em" src="${current_song.image!.url}" />\n
-
+<img alt="Spotify Cover Image" width="75em" height="75em" src="${current_song.image!.url}" />\n
 ${current_song.name} _by_ ${current_song.author}  <br/>
 Listening from *${current_song.device_name}*\n`
   }
