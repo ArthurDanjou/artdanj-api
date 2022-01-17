@@ -15,7 +15,12 @@ Route.get('/', async({ response }: HttpContextContract) => {
       profile: `${BASE_URL}/me`,
       stats: `${BASE_URL}/stats`,
       states: `${BASE_URL}/states`,
-      songs: `${BASE_URL}/spotify`,
+      songs: {
+        current_song: `${BASE_URL}/spotify`,
+        history: `${BASE_URL}/spotify/history`,
+        top_artists: `${BASE_URL}/spotify/top/artists`,
+        top_tracks: `${BASE_URL}/spotify/top/tracks`,
+      },
       locations: `${BASE_URL}/locations`,
     },
   })
