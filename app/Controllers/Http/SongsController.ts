@@ -18,7 +18,7 @@ export default class SongsController {
     const { range } = await request.validate(SongHistoryValidator)
     const history = await getHistory(range || 'day')
     return response.status(200).send({
-      range,
+      range: range || 'day',
       history,
     })
   }
