@@ -192,7 +192,7 @@ export async function fetchTopArtist(): Promise<SpotifyArtist[]> {
     cached: new Date().toUTCString(),
     expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     top: artists,
-  }), 'ex', 600)
+  }), 'ex', 300)
 
   return artists
 }
