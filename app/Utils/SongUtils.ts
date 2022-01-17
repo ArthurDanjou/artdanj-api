@@ -13,7 +13,6 @@ export async function getSpotifyAccount(): Promise<SpotifyToken> {
     : {
       access_token: '',
       refresh_token: '',
-      expires_in: -1,
     }
 }
 
@@ -74,8 +73,12 @@ export async function regenerateTokens(): Promise<void> {
     },
   )
 
-  if (authorization_tokens.status === 200)
-    await setSpotifyAccount(authorization_tokens.data)
+  if (authorization_tokens.status === 200) {
+    await setSpotifyAccount({
+      access_token: (await getSpotifyAccount()).access_token,
+      refresh_token: authorization_tokens.data.access_token,
+    })
+  }
 }
 
 async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T> | undefined> {
