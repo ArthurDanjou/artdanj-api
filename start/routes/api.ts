@@ -10,8 +10,8 @@ Route.group(() => {
   Route.get('/', 'SongsController.getCurrentSong')
   Route.get('/history', 'SongsController.getHistory')
 
-  Route.get('/top/track', 'SongsController.getTopTrack')
-  Route.get('/top/artist', 'SongsController.getTopArtist')
+  Route.get('/top/tracks', 'SongsController.getTopTrack')
+  Route.get('/top/artists', 'SongsController.getTopArtist')
 
   Route.get('/authorize', 'SongsController.authorize')
   Route.get('/callback', 'SongsController.callback')
