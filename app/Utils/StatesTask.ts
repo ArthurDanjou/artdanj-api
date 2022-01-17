@@ -3,10 +3,7 @@ import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import Logger from '@ioc:Adonis/Core/Logger'
-
-interface StatesResponse {
-  time: number
-}
+import { StatesResponse } from 'App/Types/IStates'
 
 export async function fetchDevelopingState(): Promise<void> {
   try {
