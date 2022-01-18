@@ -90,9 +90,14 @@ async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T> 
   }
   try {
     request = await axios.get<T>(url, options)
+    console.log('New Request : ')
+    console.log(request.status)
+    console.log(request.data)
   }
   catch (error) {
+    console.log('Error in new Request !')
     await regenerateTokens()
+    console.log('token regenerated')
     request = await axios.get<T>(url, options)
   }
 
