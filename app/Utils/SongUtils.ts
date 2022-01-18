@@ -6,6 +6,7 @@ import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'Ap
 import Song from 'App/Models/Song'
 import queryString from 'query-string'
 import { updateGithubReadmeSpotify } from 'App/Utils/UpdateGithubReadme'
+import { diff } from 'deep-object-diff'
 
 export async function getSpotifyAccount(): Promise<SpotifyToken> {
   return await Redis.exists('spotify:account')
@@ -126,7 +127,8 @@ export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResp
     current = { is_playing: false }
   }
 
-  if ((await Redis.get('spotify:current') as string) !== JSON.stringify(current))
+  const old_track: InternalPlayerResponse = JSON.parse(await Redis.get('spotify:current') || '{}')
+  if (old_track.is_playing !== current.is_playing || old_track.name !== current.name)
     await updateCurrentSong(current)
 
   return current
@@ -137,11 +139,12 @@ export async function resetCurrentSongCache(): Promise<void> {
 }
 
 export async function updateCurrentSong(song: InternalPlayerResponse): Promise<void> {
-  // const current = JSON.parse(await Redis.get('spotify/current') as string)
+  const current = JSON.parse(await Redis.get('spotify/current') as string)
   await Redis.set('spotify:current', JSON.stringify(song))
   await updateGithubReadmeSpotify()
 
-  // const changed = diff(current, song)
+  const changed = diff(current, song)
+  console.log(changed)
   // todo send message to Rabbit
 }
 
