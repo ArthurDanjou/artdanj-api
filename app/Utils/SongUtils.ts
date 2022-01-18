@@ -73,16 +73,11 @@ export async function regenerateTokens(): Promise<void> {
     },
   )
 
-  console.log(authorization_tokens.status)
-
   if (authorization_tokens.status === 200) {
-    console.log(authorization_tokens.data)
-    console.log(authorization_tokens.data.access_token)
     await setSpotifyAccount({
       access_token: authorization_tokens.data.access_token,
       refresh_token,
     })
-    console.log(await getSpotifyAccount())
   }
 }
 
@@ -97,9 +92,7 @@ async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T> 
     request = await axios.get<T>(url, options)
   }
   catch (error) {
-    console.log('Error in new Request !')
     await regenerateTokens()
-    console.log('token regenerated')
     request = await axios.get<T>(url, options)
   }
 
