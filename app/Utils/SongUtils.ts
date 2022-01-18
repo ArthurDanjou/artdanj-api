@@ -73,11 +73,16 @@ export async function regenerateTokens(): Promise<void> {
     },
   )
 
+  console.log(authorization_tokens.status)
+
   if (authorization_tokens.status === 200) {
+    console.log(authorization_tokens.data)
+    console.log(authorization_tokens.data.access_token)
     await setSpotifyAccount({
       access_token: authorization_tokens.data.access_token,
       refresh_token,
     })
+    console.log(await getSpotifyAccount())
   }
 }
 
