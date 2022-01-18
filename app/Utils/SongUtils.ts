@@ -82,22 +82,19 @@ export async function regenerateTokens(): Promise<void> {
 }
 
 async function RequestWrapper<T = never>(url: string): Promise<AxiosResponse<T> | undefined> {
-  let request
   const options: AxiosRequestConfig = {
     headers: {
       Authorization: `Bearer ${(await getSpotifyAccount()).access_token}`,
     },
   }
+
   try {
-    request = await axios.get<T>(url, options)
+    return await axios.get<T>(url, options)
   }
   catch (error) {
     await regenerateTokens()
-    request = await axios.get<T>(url, options)
+    return RequestWrapper<T>(url)
   }
-
-  if (request.status === 200)
-    return request
 }
 
 export async function getCurrentPlayingFromCache(): Promise<InternalPlayerResponse> {
