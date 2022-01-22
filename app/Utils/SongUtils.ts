@@ -114,7 +114,7 @@ export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResp
       device_type: current_track.data.device.type,
       name: current_track.data.item.name,
       type: current_track.data.item.type,
-      author: current_track.data.item.artists.map(artist => artist.name).join(', '),
+      author: current_track.data.item.artists.map(artist => artist.name).join(', ') || '',
       id: current_track.data.item.id,
       image: current_track.data.item.album.images[0],
       progress: current_track.data.progress_ms,
