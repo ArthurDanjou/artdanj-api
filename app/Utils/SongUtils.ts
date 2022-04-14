@@ -167,7 +167,11 @@ export async function fetchTopTracks(range: Range) {
           name: track.device.name,
           type: track.device.type,
         },
-        image: track.album.images[0].url,
+        image: {
+          url: track.album.images[0].url,
+          height: track.album.images[0].height,
+          width: track.album.images[0].width,
+        },
         item: {
           name: track.name,
           type: track.type,

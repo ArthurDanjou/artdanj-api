@@ -19,5 +19,9 @@ export interface SpotifyTrack {
   }
   author: string
   duration: number
-  image: string
+  image: {
+    url: string
+    width: number
+    height: number
+  }
 }
