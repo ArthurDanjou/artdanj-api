@@ -62,7 +62,7 @@ interface Album {
   uri: string
 }
 
-interface Item {
+export interface Item {
   album: Album & { album_group: 'album' | 'single' | 'compilation' | 'appears_on' ; artists: Artist[] }
   artists: Artist[]
   available_markets: string[]
@@ -82,6 +82,7 @@ interface Item {
   type: string
   uri: string
   is_local: boolean
+  device: Device
 }
 
 export interface PlayerResponse {

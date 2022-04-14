@@ -1,37 +1,28 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import {
-  fetchTopArtist,
-  fetchTopTrack,
+  fetchTopArtist, fetchTopTracks,
   getAuthorizationURI,
   getCurrentPlayingFromCache,
-  getHistory,
   setupSpotify,
 } from 'App/Utils/SongUtils'
-import SongHistoryValidator from 'App/Validators/song/SongHistoryValidator'
+import SongRangeValidator from 'App/Validators/song/SongRangeValidator'
 
 export default class SongsController {
   public async getCurrentSong({ response }: HttpContextContract) {
     return response.status(200).send(await getCurrentPlayingFromCache())
   }
 
-  public async getHistory({ request, response }: HttpContextContract) {
-    const { range } = await request.validate(SongHistoryValidator)
-    const history = await getHistory(range || 'day')
+  public async getTopTrack({ request, response }: HttpContextContract) {
+    const { range } = await request.validate(SongRangeValidator)
     return response.status(200).send({
-      range: range || 'day',
-      history,
+      tracks: await fetchTopTracks(range || 'short'),
     })
   }
 
-  public async getTopTrack({ response }: HttpContextContract) {
+  public async getTopArtist({ request, response }: HttpContextContract) {
+    const { range } = await request.validate(SongRangeValidator)
     return response.status(200).send({
-      tracks: await fetchTopTrack(),
-    })
-  }
-
-  public async getTopArtist({ response }: HttpContextContract) {
-    return response.status(200).send({
-      tracks: await fetchTopArtist(),
+      tracks: await fetchTopArtist(range || 'short'),
     })
   }
 

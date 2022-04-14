@@ -8,7 +8,6 @@ Route.resource('/locations', 'LocationsController').only(['index', 'store'])
 
 Route.group(() => {
   Route.get('/', 'SongsController.getCurrentSong')
-  Route.get('/history', 'SongsController.getHistory')
 
   Route.get('/top/tracks', 'SongsController.getTopTrack')
   Route.get('/top/artists', 'SongsController.getTopArtist')

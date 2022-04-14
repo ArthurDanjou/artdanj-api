@@ -2,10 +2,11 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import { SpotifyArtist, SpotifyTrack } from 'App/Types/ILocalSpotify'
-import { Artist, InternalPlayerResponse, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
-import Song from 'App/Models/Song'
+import { Artist, InternalPlayerResponse, Item, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
 import queryString from 'query-string'
 import { updateGithubReadmeSpotify } from 'App/Utils/UpdateGithubReadme'
+
+type Range = 'short' | 'medium' | 'long'
 
 export async function getSpotifyAccount(): Promise<SpotifyToken> {
   return await Redis.exists('spotify:account')
@@ -117,7 +118,6 @@ export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResp
       author: current_track.data.item.artists.map(artist => artist.name).join(', ') || '',
       id: current_track.data.item.id,
       image: current_track.data.item.album.images[0],
-      progress: current_track.data.progress_ms,
       duration: current_track.data.item.duration_ms,
       started_at: current_track.data.timestamp,
     }
@@ -147,39 +147,56 @@ export async function updateCurrentSong(song: InternalPlayerResponse): Promise<v
   // todo send message to Rabbit
 }
 
-export async function getHistory(range: 'day' | 'week' | 'month' | 'total') {
-  if (await Redis.exists(`spotify:history:range:${range || 'day'}`))
-    return JSON.parse(await Redis.get(`spotify:history:range:${range || 'day'}`) || '{}')
-
-  let startDate = new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
-  if (range === 'week') startDate = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)
-  else if (range === 'month') startDate = new Date(new Date().setMonth(new Date().getMonth() - 1))
-
-  const endDate = new Date()
-
-  const songs = await Song
-    .query()
-    .where('date', '<=', endDate)
-    .where('date', '>=', startDate)
-    .orderBy('date', 'desc')
-
-  if (songs.length <= 0)
-    return { history: 'no_tracks_in_that_range' }
-
-  await Redis.set(`spotify:history:range:${range || 'day'}`, JSON.stringify({
-    cached: new Date().toUTCString(),
-    expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
-    history: songs,
-  }), 'ex', 300)
-
-  return { history: songs }
+function getTermForRange(range: Range): String {
+  return `${range}_term`
 }
 
-export async function fetchTopArtist(): Promise<SpotifyArtist[] | { artists: string }> {
+export async function fetchTopTracks(range: Range) {
+  if (await Redis.exists(`spotify:top:tracks:${range || 'short'}`))
+    return JSON.parse(await Redis.get(`spotify:top:tracks:${range || 'short'}`) || '{}')
+
+  const fetched_tracks = await RequestWrapper<{ items: Item[] }>(`https://api.spotify.com/v1/me/top/tracks?limit=10?range=${getTermForRange(range)}`)
+
+  const tracks: SpotifyTrack[] = []
+
+  if (fetched_tracks) {
+    for (const track of fetched_tracks.data.items) {
+      tracks.push({
+        author: track.artists.map(artist => artist.name).join(', ') || '',
+        device: {
+          name: track.device.name,
+          type: track.device.type,
+        },
+        image: track.album.images[0].url,
+        item: {
+          name: track.name,
+          type: track.type,
+          id: track.id,
+        },
+        duration: track.duration_ms,
+      })
+    }
+  }
+  else {
+    return {
+      tracks: 'cannot_fetch_tracks',
+    }
+  }
+
+  await Redis.set(`spotify:top:tracks:${range || 'short'}`, JSON.stringify({
+    cached: new Date().toUTCString(),
+    expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
+    top: tracks,
+  }), 'ex', 300)
+
+  return tracks
+}
+
+export async function fetchTopArtist(range: Range): Promise<SpotifyArtist[] | { artists: string }> {
   if (await Redis.exists('spotify:top:artists'))
     return JSON.parse(await Redis.get('spotify:top:artists') || '{}')
 
-  const fetched_artists = await RequestWrapper<{ items: Artist[] }>('https://api.spotify.com/v1/me/top/artists?limit=10')
+  const fetched_artists = await RequestWrapper<{ items: Artist[] }>(`https://api.spotify.com/v1/me/top/artists?limit=10?range=${getTermForRange(range)}`)
 
   const artists: SpotifyArtist[] = []
 
@@ -208,47 +225,4 @@ export async function fetchTopArtist(): Promise<SpotifyArtist[] | { artists: str
   }), 'ex', 300)
 
   return artists
-}
-
-export async function fetchTopTrack(): Promise<Array<SpotifyTrack & { times: number }>> {
-  if (await Redis.exists('spotify:top:tracks'))
-    return JSON.parse(await Redis.get('spotify:top:tracks') || '{}')
-
-  // Fetch all songs
-  const fetched_tracks = await Song.query()
-
-  if (fetched_tracks.length <= 0)
-    return []
-
-  const filtered = fetched_tracks.map((track) => {
-    return {
-      ...{
-        item: {
-          name: track.item_name,
-          type: track.item_type,
-          id: track.item_id,
-        },
-        device: {
-          name: track.device_name,
-          type: track.device_type,
-        },
-        duration: track.duration,
-        author: track.author,
-        image: track.image,
-      },
-      times: fetched_tracks.filter(i => i.item_id === track.item_id).length,
-    }
-  })
-
-  const sorted = filtered.sort((itemA, itemB) => itemB.times - itemA.times)
-
-  const remove_dupes = sorted.filter((thing, index, self) => index === self.findIndex(t => t.item.id === thing.item.id)).slice(0, 10)
-
-  await Redis.set('spotify:top:tracks', JSON.stringify({
-    cached: new Date().toUTCString(),
-    expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
-    top: remove_dupes,
-  }), 'ex', 300)
-
-  return remove_dupes
 }

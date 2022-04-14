@@ -1,12 +1,12 @@
 import { schema } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class SongHistoryValidator {
+export default class SongRangeValidator {
   constructor(protected ctx: HttpContextContract) {
   }
 
   public schema = schema.create({
-    range: schema.enum.optional(['day', 'week', 'month', 'total'] as const),
+    range: schema.enum.optional(['short', 'medium', 'long'] as const),
   })
 
   public messages = {
