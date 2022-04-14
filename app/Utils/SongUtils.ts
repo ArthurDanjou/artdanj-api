@@ -152,8 +152,8 @@ function getTermForRange(range: Range): String {
 }
 
 export async function fetchTopTracks(range: Range) {
-  if (await Redis.exists(`spotify:top:tracks:${range || 'short'}`))
-    return JSON.parse(await Redis.get(`spotify:top:tracks:${range || 'short'}`) || '{}')
+  if (await Redis.exists(`spotify:top:tracks:${range}`))
+    return JSON.parse(await Redis.get(`spotify:top:tracks:${range}`) || '{}')
 
   const fetched_tracks = await RequestWrapper<{ items: Item[] }>(`https://api.spotify.com/v1/me/top/tracks?limit=10?range=${getTermForRange(range)}`)
 
@@ -187,7 +187,7 @@ export async function fetchTopTracks(range: Range) {
     }
   }
 
-  await Redis.set(`spotify:top:tracks:${range || 'short'}`, JSON.stringify({
+  await Redis.set(`spotify:top:tracks:${range}`, JSON.stringify({
     cached: new Date().toUTCString(),
     expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     top: tracks,
@@ -197,8 +197,8 @@ export async function fetchTopTracks(range: Range) {
 }
 
 export async function fetchTopArtist(range: Range): Promise<SpotifyArtist[] | { artists: string }> {
-  if (await Redis.exists('spotify:top:artists'))
-    return JSON.parse(await Redis.get('spotify:top:artists') || '{}')
+  if (await Redis.exists(`spotify:top:artists:${range}`))
+    return JSON.parse(await Redis.get(`spotify:top:artists:${range}`) || '{}')
 
   const fetched_artists = await RequestWrapper<{ items: Artist[] }>(`https://api.spotify.com/v1/me/top/artists?limit=10?range=${getTermForRange(range)}`)
 
@@ -222,7 +222,7 @@ export async function fetchTopArtist(range: Range): Promise<SpotifyArtist[] | { 
     }
   }
 
-  await Redis.set('spotify:top:artists', JSON.stringify({
+  await Redis.set(`spotify:top:artists:${range}`, JSON.stringify({
     cached: new Date().toUTCString(),
     expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     top: artists,
