@@ -160,6 +160,7 @@ export async function fetchTopTracks(range: Range) {
   const tracks: SpotifyTrack[] = []
 
   if (fetched_tracks) {
+    console.log(fetched_tracks.data.items)
     for (const track of fetched_tracks.data.items) {
       tracks.push({
         author: track.artists.map(artist => artist.name).join(', ') || '',
@@ -200,7 +201,7 @@ export async function fetchTopArtist(range: Range): Promise<SpotifyArtist[] | { 
   if (await Redis.exists(`spotify:top:artists:${range}`))
     return JSON.parse(await Redis.get(`spotify:top:artists:${range}`) || '{}')
 
-  const fetched_artists = await RequestWrapper<{ items: Artist[] }>(`https://api.spotify.com/v1/me/top/artists&time_range=10?range=${getTermForRange(range)}`)
+  const fetched_artists = await RequestWrapper<{ items: Artist[] }>(`https://api.spotify.com/v1/me/top/artists?limit=10&time_range=${getTermForRange(range)}`)
 
   const artists: SpotifyArtist[] = []
 
