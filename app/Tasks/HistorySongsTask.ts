@@ -12,10 +12,6 @@ async function LogSpotifyHistory(): Promise<void> {
 
   if (current.progress && current.progress < 5000) return
 
-  const last_entry = await Song.query().where('item_id', current.id!).orderBy('date', 'desc').first()
-
-  if (last_entry && new Date().getTime() - last_entry.duration <= new Date(last_entry.date).getTime()) return
-
   await Song.create({
     date: new Date(current.started_at!),
     duration: current.duration,
