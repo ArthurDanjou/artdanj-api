@@ -13,10 +13,6 @@ export interface SpotifyTrack {
     type: string
     id: string
   }
-  device: {
-    name: string
-    type: string
-  }
   author: string
   duration: number
   image: {

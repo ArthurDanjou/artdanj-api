@@ -155,19 +155,14 @@ export async function fetchTopTracks(range: Range) {
   if (await Redis.exists(`spotify:top:tracks:${range}`))
     return JSON.parse(await Redis.get(`spotify:top:tracks:${range}`) || '{}')
 
-  const fetched_tracks = await RequestWrapper<{ items: Item[] }>(`https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=${getTermForRange(range)}`)
+  const fetched_tracks = await RequestWrapper<{ items: Item[] }>(`https://api.spotify.com/v1/me/top/tracks?limit=30&time_range=${getTermForRange(range)}`)
 
   const tracks: SpotifyTrack[] = []
 
   if (fetched_tracks) {
-    console.log(fetched_tracks.data.items)
     for (const track of fetched_tracks.data.items) {
       tracks.push({
         author: track.artists.map(artist => artist.name).join(', ') || '',
-        device: {
-          name: track.device.name,
-          type: track.device.type,
-        },
         image: {
           url: track.album.images[0].url,
           height: track.album.images[0].height,
@@ -201,7 +196,7 @@ export async function fetchTopArtist(range: Range): Promise<SpotifyArtist[] | { 
   if (await Redis.exists(`spotify:top:artists:${range}`))
     return JSON.parse(await Redis.get(`spotify:top:artists:${range}`) || '{}')
 
-  const fetched_artists = await RequestWrapper<{ items: Artist[] }>(`https://api.spotify.com/v1/me/top/artists?limit=10&time_range=${getTermForRange(range)}`)
+  const fetched_artists = await RequestWrapper<{ items: Artist[] }>(`https://api.spotify.com/v1/me/top/artists?limit=30&time_range=${getTermForRange(range)}`)
 
   const artists: SpotifyArtist[] = []
 
