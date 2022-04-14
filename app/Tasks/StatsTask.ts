@@ -4,7 +4,7 @@ import axios from 'axios'
 import DevelopmentHour from 'App/Models/DevelopmentHour'
 import { updateGithubReadmeStats } from 'App/Utils/UpdateGithubReadme'
 
-const MS = 1000 * 5 * 60 // 5 min
+const MS = 1000 * 5 * 60 // 5 minutes
 let taskId
 
 interface StatsResponse {

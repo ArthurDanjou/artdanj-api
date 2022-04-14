@@ -1,7 +1,7 @@
 import Logger from '@ioc:Adonis/Core/Logger'
 import { getCurrentPlayingFromSpotify, getSpotifyAccount, resetCurrentSongCache } from 'App/Utils/SongUtils'
 
-const MS = 1000
+const MS = 1000 // 1 second
 let taskId
 
 async function SpotifyCurrentListeningWatcher(): Promise<void> {

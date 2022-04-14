@@ -2,7 +2,7 @@ import Logger from '@ioc:Adonis/Core/Logger'
 import { getCurrentPlayingFromCache } from 'App/Utils/SongUtils'
 import Song from 'App/Models/Song'
 
-const MS = 10000
+const MS = 3000 // 3 seconds
 let taskId
 
 async function LogSpotifyHistory(): Promise<void> {
