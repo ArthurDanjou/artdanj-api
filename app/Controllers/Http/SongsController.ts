@@ -33,7 +33,7 @@ export default class SongsController {
   public async callback({ request, response }: HttpContextContract) {
     if (await setupSpotify(request.qs().code)) {
       return response.status(200).send({
-        message: 'Athena successfully connected to Spotify',
+        message: 'API successfully connected to Spotify',
       })
     }
   }

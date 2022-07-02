@@ -1,6 +1,6 @@
-# Athena 🧠
+# API 🧠
 
-Athena is my personal api connected to my instances
+Artdanj-api is my personal api connected to my instances
 
 ## Features ✨
 
@@ -26,4 +26,4 @@ Athena is my personal api connected to my instances
 
 ## License 📑
 Copyright © 2020 - [@ArthurDanj](https://arthurdanjou.fr) \
-This project is [MIT](https://github.com/ArthurDanjou/athena/blob/master/LICENSE) Licensed.
+This project is [MIT](https://github.com/ArthurDanjou/artdanj-api/blob/master/LICENSE) Licensed.

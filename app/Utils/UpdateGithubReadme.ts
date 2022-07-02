@@ -36,7 +36,7 @@ export async function updateGithubReadmeStats(): Promise<void> {
       sha: readme.sha,
     },
     {
-      reason: '📊 Updated Statistics - Athena',
+      reason: '📊 Updated Statistics - API',
       error: 'Error while updating statistics',
     })
 }
@@ -70,7 +70,7 @@ Listening from **${current_song.device_name}**\n`
         sha: readme.sha,
       },
       {
-        reason: '🎵 Updated Song - Athena',
+        reason: '🎵 Updated Song - API',
         error: 'Error while updating song',
       })
   }
@@ -98,7 +98,7 @@ async function updateReadmeContent(new_readme: GithubRequest, reason: GithubReas
         content: Buffer.from(new_readme.content, 'utf8').toString('base64'),
         sha: new_readme.sha,
         author: {
-          name: 'Athena - API Automation',
+          name: 'API - API Automation',
           email: 'api@arthurdanjou.fr',
         },
       },
