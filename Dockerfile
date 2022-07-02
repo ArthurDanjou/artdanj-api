@@ -1,16 +1,16 @@
 FROM node:16-alpine3.11
 
-RUN mkdir -p /usr/src/athena
+RUN mkdir -p /usr/src/api
 
-WORKDIR /usr/src/athena
+WORKDIR /usr/src/api
 
-COPY . /usr/src/athena
+COPY . /usr/src/api
 
 RUN yarn install
 
 RUN yarn build
 
-WORKDIR /usr/src/athena/build
+WORKDIR /usr/src/api/build
 
 RUN yarn install --production
 
