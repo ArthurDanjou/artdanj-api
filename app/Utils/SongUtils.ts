@@ -187,7 +187,7 @@ export async function fetchTopTracks(range: Range) {
     cached: new Date().toUTCString(),
     expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     top: tracks,
-  }), 'ex', 300)
+  }), 'EX', 300)
 
   return tracks
 }
@@ -222,7 +222,7 @@ export async function fetchTopArtist(range: Range): Promise<SpotifyArtist[] | { 
     cached: new Date().toUTCString(),
     expiration: new Date(new Date().setMinutes(new Date().getMinutes() + 5)).toUTCString(),
     top: artists,
-  }), 'ex', 300)
+  }), 'EX', 300)
 
   return artists
 }
