@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PostColor from 'App/Models/PostColor'
 import PostColorStoreValidator from 'App/Validators/postColor/PostColorStoreValidator'
 import PostColorUpdateValidator from 'App/Validators/postColor/PostColorUpdateValidator'

@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Maintenance from 'App/Models/Maintenance'
 import MaintenanceUpdateValidator from 'App/Validators/maintenance/MaintenanceUpdateValidator'
 import { getTranslation } from 'App/Utils/TranslationsUtils'

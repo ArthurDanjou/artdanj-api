@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Subscriber from 'App/Models/Subscriber'
 import SubscriberStoreValidator from 'App/Validators/subscriber/SubscriberStoreValidator'
 

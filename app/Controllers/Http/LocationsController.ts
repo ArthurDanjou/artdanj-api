@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Location from 'App/Models/Location'
 import LocationValidator from 'App/Validators/location/LocationValidator'
 

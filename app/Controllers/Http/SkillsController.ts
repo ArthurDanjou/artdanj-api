@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import File from 'App/Models/File'
 import Skill from 'App/Models/Skill'
 import SkillStoreValidator from 'App/Validators/skill/SkillStoreValidator'
@@ -19,7 +19,8 @@ export default class SkillsController {
     const skill = await Skill.create(data)
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await skill.related('file').associate(cover)
+    if (cover)
+      await skill.related('file').associate(cover)
 
     return response.status(200).send({
       skill,
@@ -39,7 +40,8 @@ export default class SkillsController {
     const skill = await Skill.findOrFail(params.id)
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await skill.related('file').associate(cover)
+    if (cover)
+      await skill.related('file').associate(cover)
     await skill.merge(data).save()
 
     return response.status(200).send({

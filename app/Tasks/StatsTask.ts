@@ -18,7 +18,7 @@ interface StatsResponse {
 
 async function getDevelopmentHours(): Promise<void> {
   try {
-    const response = await axios.get<{ data: StatsResponse[]}>(`https://wakatime.com/share/@${Env.get('WAKATIME_USER')}/${Env.get('WAKATIME_ID')}.json`)
+    const response = await axios.get<{ data: StatsResponse[] }>(`https://wakatime.com/share/@${Env.get('WAKATIME_USER')}/${Env.get('WAKATIME_ID')}.json`)
     if (response.status === 200) {
       const mapped_stats = response.data.data.map((item: StatsResponse) => {
         return {

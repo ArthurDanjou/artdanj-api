@@ -1,12 +1,12 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CommandsRun from 'App/Models/CommandsRun'
 import BuildsRun from 'App/Models/BuildsRun'
 import {
+  NOW,
   fetchDailyStatistics,
   fetchMonthlyStatistics,
   fetchStatistics,
   fetchWeeklyStatistics,
-  NOW,
 } from 'App/Utils/StatsUtils'
 
 export default class StatsController {

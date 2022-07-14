@@ -1,4 +1,5 @@
-import { BaseMailer, MessageContract } from '@ioc:Adonis/Addons/Mail'
+import type { MessageContract } from '@ioc:Adonis/Addons/Mail'
+import { BaseMailer } from '@ioc:Adonis/Addons/Mail'
 
 export default class FormConfirmation extends BaseMailer {
   constructor(private name: string, private email: string) {

@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { RedisConfig } from '@ioc:Adonis/Addons/Redis'
+import type { RedisConfig } from '@ioc:Adonis/Addons/Redis'
 
 /*
 |--------------------------------------------------------------------------

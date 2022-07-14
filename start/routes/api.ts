@@ -33,6 +33,6 @@ Route.group(() => {
   }).prefix('stats')
 }).middleware('auth:web,api')
 
-Route.get('/files/:filename', async({ response, params }) => {
+Route.get('/files/:filename', async ({ response, params }) => {
   response.download(Application.makePath('storage', params.filename))
 })

@@ -1,5 +1,5 @@
 import Post from 'App/Models/Post'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PostUpdateValidator from 'App/Validators/post/PostUpdateValidator'
 import File from 'App/Models/File'
 import PostStoreValidator from 'App/Validators/post/PostStoreValidator'
@@ -90,10 +90,12 @@ export default class PostsController {
     await post.related('content').associate(await getTranslation(data.content!))
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await post.related('cover').associate(cover)
+    if (cover)
+      await post.related('cover').associate(cover)
 
     const color = await PostColor.findBy('name', data.color)
-    if (color) await post.related('color').associate(color)
+    if (color)
+      await post.related('color').associate(color)
 
     return response.status(200).send({
       post,

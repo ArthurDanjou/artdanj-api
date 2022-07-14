@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import StateSleepingValidator from 'App/Validators/states/StateSleepingValidator'
 import { getCurrentPlayingFromCache } from 'App/Utils/SongUtils'

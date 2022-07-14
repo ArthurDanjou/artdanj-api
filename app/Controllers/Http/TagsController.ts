@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import TagStoreValidator from 'App/Validators/tag/TagStoreValidator'
 import TagUpdateValidator from 'App/Validators/tag/TagUpdateValidator'
 import Tag from 'App/Models/Tag'

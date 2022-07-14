@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import type { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
 

@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Announce from 'App/Models/Announce'
 import AnnounceUpdateValidator from 'App/Validators/announce/AnnounceUpdateValidator'
 import File from 'App/Models/File'
@@ -25,7 +25,8 @@ export default class AnnouncesController {
       await announce.related('message').associate(await getTranslation(data.code))
 
     const cover = await File.findBy('label', data.cover)
-    if (cover) await announce.related('cover').associate(cover)
+    if (cover)
+      await announce.related('cover').associate(cover)
 
     await announce.merge(data).save()
 

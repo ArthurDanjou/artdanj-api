@@ -1,4 +1,4 @@
-import { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import Logger from '@ioc:Adonis/Core/Logger'
 export default class AppProvider {
   public static needsApplication = true

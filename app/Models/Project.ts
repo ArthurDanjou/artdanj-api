@@ -1,5 +1,6 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import type { DateTime } from 'luxon'
+import type { BelongsTo, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, column, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import File from 'App/Models/File'
 import Tag from 'App/Models/Tag'
 import Translation from 'App/Models/Translation'

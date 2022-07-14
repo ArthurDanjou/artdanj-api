@@ -3,11 +3,11 @@ import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
 import Redis from '@ioc:Adonis/Addons/Redis'
 import Logger from '@ioc:Adonis/Core/Logger'
-import { StatesResponse } from 'App/Types/IStates'
+import type { StatesResponse } from 'App/Types/IStates'
 
 export async function fetchDevelopingState(): Promise<void> {
   try {
-    const response = await axios.get<{ data: StatesResponse[]}>(`https://wakatime.com/api/v1/users/${Env.get('WAKATIME_USER')}/heartbeats`, {
+    const response = await axios.get<{ data: StatesResponse[] }>(`https://wakatime.com/api/v1/users/${Env.get('WAKATIME_USER')}/heartbeats`, {
       headers: {
         Authorization: `Basic ${btoa(Env.get('WAKATIME_KEY'))}`,
       },
@@ -26,7 +26,8 @@ export async function fetchDevelopingState(): Promise<void> {
 
         if (redis_state !== active) {
           await Redis.set('states:developing', String(active))
-          if (redis_state) await Redis.set('states:sleeping', 'false')
+          if (redis_state)
+            await Redis.set('states:sleeping', 'false')
         }
       }
     }

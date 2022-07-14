@@ -7,9 +7,9 @@ import {
   fetchStatistics,
   fetchWeeklyStatistics,
 } from 'App/Utils/StatsUtils'
-import { Stats } from 'App/Types/IStats'
+import type { Stats } from 'App/Types/IStats'
 import { getCurrentPlayingFromCache } from 'App/Utils/SongUtils'
-import { GithubReason, GithubRequest } from 'App/Types/IGithub'
+import type { GithubReason, GithubRequest } from 'App/Types/IGithub'
 
 export async function updateGithubReadmeStats(): Promise<void> {
   const daily_stats = await fetchDailyStatistics()
@@ -84,9 +84,9 @@ async function getReadmeContent(): Promise<GithubRequest | null> {
   })
   return response.status === 200
     ? {
-      content: Buffer.from(response.data.content, 'base64').toString(),
-      sha: response.data.sha,
-    }
+        content: Buffer.from(response.data.content, 'base64').toString(),
+        sha: response.data.sha,
+      }
     : null
 }
 

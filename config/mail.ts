@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { MailConfig } from '@ioc:Adonis/Addons/Mail'
+import type { MailConfig } from '@ioc:Adonis/Addons/Mail'
 
 const mailConfig: MailConfig = {
   /*

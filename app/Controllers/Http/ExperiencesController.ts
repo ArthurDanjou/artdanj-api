@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Experience from 'App/Models/Experience'
 import ExperienceStoreValidator from 'App/Validators/experience/ExperienceStoreValidator'
 import ExperienceUpdateValidator from 'App/Validators/experience/ExperienceUpdateValidator'

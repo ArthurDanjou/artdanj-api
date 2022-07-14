@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Project from 'App/Models/Project'
 import ProjectStoreValidator from 'App/Validators/project/ProjectStoreValidator'
 import ProjectUpdateValidator from 'App/Validators/project/ProjectUpdateValidator'
@@ -49,9 +49,11 @@ export default class ProjectsController {
     const cover = await File.findBy('label', data.cover)
 
     await project.merge(data).save()
-    if (cover) await project.related('cover').associate(cover)
+    if (cover)
+      await project.related('cover').associate(cover)
 
-    if (data.description) await project.related('description').associate(await getTranslation(data.description))
+    if (data.description)
+      await project.related('description').associate(await getTranslation(data.description))
 
     await project.related('tags').sync(data.tags!)
     return response.status(200).send({

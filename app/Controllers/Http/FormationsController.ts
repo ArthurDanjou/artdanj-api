@@ -1,4 +1,4 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import FormationStoreValidator from 'App/Validators/formation/FormationStoreValidator'
 import FormationUpdateValidator from 'App/Validators/formation/FormationUpdateValidator'
 import Formation from 'App/Models/Formation'

@@ -1,7 +1,7 @@
 import DevelopmentHour from 'App/Models/DevelopmentHour'
 import CommandsRun from 'App/Models/CommandsRun'
 import BuildsRun from 'App/Models/BuildsRun'
-import { Stats, Time } from 'App/Types/IStats'
+import type { Stats, Time } from 'App/Types/IStats'
 
 function formatDate(date: Date): string {
   return date.toISOString().split('T')[0]

@@ -1,8 +1,9 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
 import Redis from '@ioc:Adonis/Addons/Redis'
-import { SpotifyArtist, SpotifyTrack } from 'App/Types/ILocalSpotify'
-import { Artist, InternalPlayerResponse, Item, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
+import type { SpotifyArtist, SpotifyTrack } from 'App/Types/ILocalSpotify'
+import type { Artist, InternalPlayerResponse, Item, PlayerResponse, SpotifyToken } from 'App/Types/ISpotify'
 import queryString from 'query-string'
 import { updateGithubReadmeSpotify } from 'App/Utils/UpdateGithubReadme'
 
@@ -12,9 +13,9 @@ export async function getSpotifyAccount(): Promise<SpotifyToken> {
   return await Redis.exists('spotify:account')
     ? JSON.parse(await Redis.get('spotify:account') || '{}')
     : {
-      access_token: '',
-      refresh_token: '',
-    }
+        access_token: '',
+        refresh_token: '',
+      }
 }
 
 export async function setSpotifyAccount(token: SpotifyToken): Promise<void> {
@@ -103,7 +104,8 @@ export async function getCurrentPlayingFromCache(): Promise<InternalPlayerRespon
 }
 
 export async function getCurrentPlayingFromSpotify(): Promise<InternalPlayerResponse> {
-  if ((await getSpotifyAccount()).access_token === '') return { is_playing: false }
+  if ((await getSpotifyAccount()).access_token === '')
+    return { is_playing: false }
   const current_track = await RequestWrapper<PlayerResponse>('https://api.spotify.com/v1/me/player?additional_types=track,episode')
 
   let current: InternalPlayerResponse
