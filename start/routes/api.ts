@@ -19,12 +19,11 @@ Route.group(() => {
 Route.group(() => {
   Route.resource('/users', 'UsersController').except(['edit', 'create'])
 
-  Route.resource('/translations', 'TranslationsController').except(['edit', 'create'])
-
   Route.resource('/files', 'FilesController').only(['index', 'store', 'destroy'])
 
   Route.group(() => {
-    Route.post('/sleeping', 'StatesController.setSleeping')
+    Route.post('/sleep', 'StatesController.setSleep')
+    Route.post('/sport', 'StatesController.setSport')
   }).prefix('states')
 
   Route.group(() => {

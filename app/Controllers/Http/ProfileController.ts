@@ -37,7 +37,7 @@ export default class ProfileController {
         },
         databases: ['MongoDB', 'MariaDB', 'Redis'],
         messaging: ['RabbitMQ'],
-        other: ['Docker', 'Git'],
+        other: ['Docker', 'Git', 'Kubernetes'],
         operating_systems: ['MacOS', 'Linux'],
       },
     })
